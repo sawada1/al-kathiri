@@ -1,0 +1,28 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "@nuxtjs/i18n": "^8.0.0-beta.12",
+    "@types/node": "^18",
+    "gh-pages": "^5.0.0",
+    "nuxt": "^3.4.3",
+    "push-dir": "^0.4.1"
+  },
+  "dependencies": {
+    "@bevacqua/rome": "^3.0.4",
+    "@nuxtjs/axios": "^5.13.6",
+    "axios": "^1.4.0",
+    "moment": "^2.29.4",
+    "nuxt-sweetalert2": "^1.0.0",
+    "nuxt-swiper": "^1.1.0",
+    "sass": "^1.62.1"
+  }
+}

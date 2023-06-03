@@ -1,0 +1,18 @@
+
+
+
+  // html[class*="ltr"] body {
+  //       scroll-behavior: smooth;
+  // width: 100%;
+  // overflow-x: hidden;
+  //        @import './style.scss';
+  //       //  @import 'style.css';
+  //     }
+
+  html[dir="ltr"] body {
+    scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
+  direction: ltr;
+         @import 'style.scss';
+      }
