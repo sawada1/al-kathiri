@@ -16,7 +16,7 @@
                 
                   </div>
                      <div class="method">
-                        <h4></h4>
+                        <h4>{{ $t('payment method') }}</h4>
                          <div class="choose">
                              <span @click="methodActive = 1" :class="{'active':methodActive == 1}">{{ $t('finance') }}</span>
                              <span @click="methodActive = 2" :class="{'active':methodActive == 2}">{{ $t('cash') }}</span>
@@ -26,7 +26,7 @@
                     
                      <div class="inp">
                         <label for="">{{ $t('full name') }} *</label>
-                        <input type="text" v-model="objPurchase.name" placeholder="write your name..">
+                        <input type="text" v-model="objPurchase.name" :placeholder="$t('write your name..')">
                   <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="nameError">{{ nameError }}</span>
                      </div>
                      <div class="inp">
@@ -36,12 +36,12 @@
                      </div>
                      <div class="inp">
                         <label for="">{{$t('Total salary in ATM')}}*</label>
-                        <input type="number" v-model="objPurchase.salary" placeholder="Salary and allowances...">
+                        <input type="number" v-model="objPurchase.salary" :placeholder="$t('Salary and allowances...')">
                        <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="salaryError">{{ salaryError }}</span>  
                      </div>
                      <div class="inp">
                         <label for="">{{$t('Total commitments')}}*</label>
-                        <input type="number" v-model="objPurchase.commitments" placeholder="Commitment amount...">
+                        <input type="number" v-model="objPurchase.commitments" :placeholder="$t('Commitment amount...')">
                      <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="commitmentsError">{{ commitmentsError }}</span>
                      </div>
                      <div class="inpWithRadio d-flex   gap-4">
@@ -67,7 +67,8 @@
                      <div class="inp">
                         <label for="">{{ $t('The last installment') }} *</label>
                         <select v-model="objPurchase.last_installment">
-                            <option value="35">35</option>
+                            <option :value="null" disabled>{{ $t('%35') }}</option>
+                            <option value="35" selected>35</option>
                             <option value="25">25</option>
                             <option value="30">30</option>
                             <option value="40">40</option>
@@ -79,6 +80,7 @@
                      <div class="inp">
                         <label for="">{{ $t('The first installment') }}</label>
                       <select v-model="objPurchase.first_installment">
+                            <option :value="null" disabled>{{ $t('%15') }}</option>
                             <option value="0">10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>
@@ -90,6 +92,7 @@
                      <div class="inp">
                         <label for="">{{$t('city')}}*</label>
                           <select v-model="objPurchase.city_id">
+                          <option :value="null" disabled>{{ $t('city') }}</option>
                             <option v-for="bank in purchaseForm.cities" :value="bank.id"  >{{ bank.name }}</option>
                         </select>
                                     <div v-if="pending" class="spinner-border spinner-border-sm" role="status">
@@ -98,12 +101,13 @@
                      </div>
                      <div class="inp">
                         <label for="">{{$t('employer')}}*</label>
-                         <input type="text" v-model="objPurchase.work" placeholder="Employer..">
+                         <input type="text" v-model="objPurchase.work" :placeholder="$t('employer')">
                       <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="workError">{{ workError }}</span>
                      </div>
                       <div class="inp">
                         <label for="">{{$t('Bank account')}}*</label>
                         <select  v-model="objPurchase.bank_id">
+                        <option :value="null" disabled>{{ $t('Select bank...') }}</option>
                             <option v-for="bank in purchaseForm.banks" :value="bank.id"  >{{ bank.name }}</option>
                         </select>
                          <div v-if="pending" class="spinner-border spinner-border-sm" role="status">
@@ -137,7 +141,7 @@
                   
                      <div class="inp">
                         <label for="">{{ $t('full name') }} *</label>
-                        <input type="text" v-model="objCash.name" placeholder="write your name..">
+                        <input type="text" v-model="objCash.name" :placeholder="$t('write your name..')">
                       <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="nameCashError">{{ nameCashError}}</span>
                      </div>
                      <div class="inp">
@@ -205,7 +209,7 @@
                   
                   </div>
                      <div class="method">
-                        <h4>payment method</h4>
+                        <h4>{{ $t('payment method') }}</h4>
                          <div class="choose">
                              <span @click="methodActiveCorparate = 1" :class="{'active':methodActiveCorparate == 1}">{{ $t('finance') }}</span>
                              <span @click="methodActiveCorparate = 2" :class="{'active':methodActiveCorparate == 2}">{{ $t('cash') }}</span>
@@ -213,8 +217,8 @@
                      </div>
                      <div class="finance" :class="{'active':methodActiveCorparate == 1}">
                         <div class="inp special" v-for="item,index in form" :key="item">
-                        <label for="">The selected vehicle *</label>
-                        <input class="bigOne" type="text" placeholder="Vehicle name" v-model="item.car_name">
+                        <label for="">{{ $t('The selected vehicle *') }}</label>
+                        <input class="bigOne" type="text" :placeholder="$t('Vehicle name')" v-model="item.car_name">
                         <input type="number" placeholder="the number" v-model="item.count">
                         <div class="d-flex align-items-center gap-2">
                         <i @click="addRow()" class="fa-solid fa-plus"></i>
@@ -224,7 +228,7 @@
                      </div>
                      <div class="inp">
                         <label for="">{{ $t('Company Name') }} *</label>
-                        <input type="text" v-model="objCorporateFinance.organization_name" placeholder="Company Name..">
+                        <input type="text" v-model="objCorporateFinance.organization_name" :placeholder="$t('Company Name')">
                      <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="organization_nameError">{{ organization_nameError }}</span>
                      </div>
                      <div class="inp">
@@ -234,7 +238,7 @@
                      </div>
                      <div class="inp">
                         <label for="">{{ $t('The Chief Executive Officer (CEO)') }} *</label>
-                        <input type="text"  v-model="objCorporateFinance.organization_ceo" placeholder="The Chief Executive Officer (CEO) ...">
+                        <input type="text"  v-model="objCorporateFinance.organization_ceo" :placeholder=" $t('The Chief Executive Officer (CEO)')">
                        <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="organization_ceoError">{{ organization_ceoError }}</span>    
                      </div>
                      <div class="inp">
@@ -245,19 +249,19 @@
                      </div>
                      <div class="inp">
                         <label for=""> {{ $t("The company's headquarter") }} * </label>
-                        <input type="text"  v-model="objCorporateFinance.organization_location" placeholder="city...">
+                        <input type="text"  v-model="objCorporateFinance.organization_location" :placeholder="$t('city')">
                        <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="organization_locationError">{{ organization_locationError }}</span>    
 
                      </div>
                         <div class="inp">
                         <label for="">{{ $t('Company activity (According to the record)') }} *</label>
-                         <input type="text" v-model="objCorporateFinance.organization_activity" placeholder="Company activity (According to the record)">
+                         <input type="text" v-model="objCorporateFinance.organization_activity" :placeholder="$t('Company activity (According to the record)')">
                    <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="organization_activityError">{{ organization_activityError }}</span>    
 
                      </div>
                      <div class="inp">
                         <label for="">{{$t('Company age ')}}*</label>
-                         <input type="number" v-model="objCorporateFinance.organization_age" name="" >
+                         <input type="number" :placeholder="$t('Company age...')" v-model="objCorporateFinance.organization_age" name="" >
                         <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="organization_ageError">{{ organization_ageError }}</span>    
 
                      </div>
@@ -265,6 +269,7 @@
                       <div class="inp">
                         <label for="">{{$t('Bank account')}}*</label>
                          <select  v-model="objCorporateFinance.bank_id">
+                         <option :value="null" disabled>{{$t('Bank account')}}</option>
                             <option v-for="bank in purchaseForm.banks" :value="bank.id"  >{{ bank.name }}</option>
                         </select>
                          <div v-if="pending" class="spinner-border spinner-border-sm" role="status">
@@ -276,8 +281,8 @@
                      </div>
                      <div class="corporate" :class="{'active':methodActiveCorparate == 2}" >
                         <div class="inp special" v-for="item,index in form" :key="item">
-                        <label for="">The selected vehicle *</label>
-                        <input class="bigOne" type="text" placeholder="Vehicle name" v-model="item.car_name">
+                        <label for="">{{ $t('The selected vehicle *') }}</label>
+                        <input class="bigOne" type="text" :placeholder="$t('Vehicle name')" v-model="item.car_name">
                         <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="car_nameErorr">{{ car_nameErorr }}</span>
                         <input type="number" placeholder="the number" v-model="item.count">
                        <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="car_countErorr">{{ car_countErorr }}</span>   
@@ -289,7 +294,7 @@
                      </div>
                      <div class="inp">
                         <label for="">{{ $t('Company Name') }} *</label>
-                        <input type="text" v-model="objCorporateCash.organization_name" placeholder="Company Name..">
+                        <input type="text" v-model="objCorporateCash.organization_name" :placeholder="$t('Company Name')">
                   <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="organization_nameError">{{ organization_nameError }}</span>
 
                      </div>
@@ -301,7 +306,7 @@
                      </div>
                      <div class="inp">
                         <label for="">{{ $t('The Chief Executive Officer (CEO)') }} *</label>
-                        <input type="text" v-model="objCorporateCash.organization_ceo" placeholder="The Chief Executive Officer (CEO) ...">
+                        <input type="text" v-model="objCorporateCash.organization_ceo" :placeholder="$t('The Chief Executive Officer (CEO)')">
                      <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="organization_ceoError">{{ organization_ceoError }}</span>    
     
                      </div>
@@ -339,7 +344,7 @@
                   </div>
                   <div class="icon d-flex align-items-center gap-3">
                 <i class="fa-brands fa-whatsapp"></i>
-                <h4>{{ $t('Whatsapp') }}: <span class="click">{{ $t('click here') }}</span></h4>
+                <h4>{{ $t('Whatsapp') }}: <a  target="_blank" :href="`https://wa.me/${generalData.whatsapp}`" class="click">{{ $t('click here') }}</a></h4>
                   </div>
                  </div>
                  <p class="text">
@@ -370,9 +375,15 @@ let pending = ref(false);
 
 let purchaseForm = ref([]);
 let mainCar = ref([]);
+let generalData = ref([]);
 const carAndPurchaseFunc = async () => {
   pending.value = true; 
 const  car  = await axios.get(`${url}/cars/${id}`,{
+      headers: {
+    'Content-Language':`${lang.value}`
+  }
+});
+const  general  = await axios.get(`${url}/general`,{
       headers: {
     'Content-Language':`${lang.value}`
   }
@@ -386,8 +397,8 @@ const  purchase  = await axios(`${url}/purchase-form-info`,{
    if (car.status == 200 && purchase.status == 200) {
       pending.value = false;
 }
-
- purchaseForm.value = purchase.data;
+generalData.value = general.data;
+purchaseForm.value = purchase.data;
  mainCar.value = car.data.data;
 }
 

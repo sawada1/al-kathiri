@@ -6,15 +6,16 @@
             <h3 class="fw-bolder" :data-brands="$t('AUTHORIZED DISTRIBUTOR')">{{ $t('car brands') }}</h3>
         </div>
          <div class="container">
-             <div class="boxes row  d-flex justify-content gap-3 align-items-center ">
-            <nuxt-link
+             <div class="boxes row  d-flex justify-content-center gap-3 align-items-center ">
+            <div
             v-for="box in brandArray"
-            :to="localePath(`/brandcar/${box.id}`)"
+             @click="goToBrandPageById(box.id)"
             class="box col-5 col-xl-1 col-lg-2"
+            style="cursor: pointer;"
           >
             <img :src="box.image" alt="" />
             <span>{{ box.name }}</span>
-          </nuxt-link>
+          </div>
            
            
         </div>
@@ -32,6 +33,7 @@ import axios from 'axios';
 const {locale } = useI18n();
 let lang = ref(locale);
 let url = getUrl();
+let router = useRouter();
 let brandArray = ref([]);
 let pending = ref(false);  
 const brandsFunc = async () => {
@@ -41,12 +43,22 @@ const brandsFunc = async () => {
     'Content-Language':`${lang.value}`
   }
    });
+   
   if (brands.status == 200) {
     pending.value = false;
 }
    brandArray.value = brands.data.data;  
 }
 brandsFunc();
+
+   const goToBrandPageById = (id) => {
+      const queryParams = {
+        id: id,
+      }
+         const url = lang.value + '/brandcar'
+
+      router.push({ path: url , query: queryParams })
+    }
 
 </script>
 

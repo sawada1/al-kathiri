@@ -19,7 +19,7 @@
             <form action="" @submit.prevent>
               <div class="inp">
                <label for=""> {{ $t('full name') }}</label>
-               <input type="text" v-model="mainObj.name" placeholder="write your name..">
+               <input type="text" v-model="mainObj.name" :placeholder="$t('write your name..')">
           <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="nameError">{{ nameError }}</span>
 
               </div>
@@ -45,6 +45,7 @@
               <div class="inp">
                <label for="">{{ $t('What is your car’s Brand?') }}</label>
                <select  name="" id="" v-model="mainObj.brand_id">
+                 <option :value="null" disabled>{{ $t('Select Brand...') }}</option>
                  <option v-for="brand in mainBrands" :value="brand.id">{{ brand.name }}</option>
                </select>
              <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="brandError">{{ brandError }}</span>
@@ -53,6 +54,7 @@
               <div class="inp">
                <label for="">{{ $t('Which car model are you booking for?') }}</label>
                <select name="" id="" v-model="mainObj.model_id">
+               <option :value="null" disabled>{{ $t('Select Model...') }}</option>
                  <option v-if="mainObj.brand_id" v-for="model,index in mainBrands[mainObj.brand_id - 1].models" :value="model.id">{{ model.name }}</option>
                </select>
           <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="modelError">{{ modelError }}</span>
@@ -63,12 +65,14 @@
                <div class="d-flex gap-3">
                <div class="d-flex flex-column w-50">
                 <select  name="" id="" class="w-100" v-model="mainObj.city_id">
+                 <option :value="null" disabled>{{ $t('Select city...') }}</option>
                  <option v-for="city in maincities" :value="city.id">{{ city.name }}</option>
                </select>
             <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="cityError">{{ cityError }}</span>   
                </div>
                <div class="d-flex flex-column w-50">
                  <select name="" id="" class="w-100" v-model="mainObj.branch_id">
+                  <option :value="null" disabled>{{ $t('Select branch...') }}</option>
                  <option v-if="mainObj.city_id" v-for="branch in  maincities[mainObj.city_id - 1].branches" :value="branch.id">{{ branch.name }}</option>
                </select>
               <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="branchError">{{ branchError }}</span>
@@ -81,7 +85,7 @@
               </div>
               <div class="inp">
                <label for="">{{ $t('Please add any extra information about your appointment request') }}</label>
-              <textarea style="resize:none;" v-model="mainObj.description" rows="" cols="" placeholder="write your message here"></textarea>
+              <textarea style="resize:none;" v-model="mainObj.description" rows="" cols="" :placeholder="$t('write your message here')"></textarea>
               <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="descError">{{descError }}</span>
 
               </div>
@@ -213,6 +217,7 @@ let timeError = ref(null);
 let terms_and_privacyError = ref(null);
 let modelYearError = ref(null);
 let spinnerBtn = ref(false);
+
 const sendAppointment = async () => {
   // start loading disable btn
     spinnerBtn.value = true;
@@ -246,6 +251,11 @@ const sendAppointment = async () => {
 
       } else {
         //mainObj.value = '';
+          Swal.fire(
+          'success',
+          `${json}`,
+          'success'
+        );
            let city = maincities.value[mainObj.value.city_id - 1].name;
          let branch = maincities.value[mainObj.value.city_id - 1].branches[mainObj.value.city_id - 1].name;
             const queryParams = {
@@ -254,16 +264,13 @@ const sendAppointment = async () => {
         time: mainObj.value.time,
         branch: branch,
         city: city,
-      }
+         }
+    
       const url = currentLang.value + '/booked'
       router.push({ path:`/${url}` , query: queryParams })
          spinnerBtn.value = false;
         console.log(mainObj.value);
-        Swal.fire(
-          'success',
-          `${json}`,
-          'success'
-        );
+       
          spinnerBtn.value = false;
         console.log(mainObj.value);
       

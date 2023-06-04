@@ -1,4 +1,4 @@
-// @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,500&family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200&display=swap");
+ @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,500&family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200&display=swap");
 
 $mainColor:#1B395F;
 
@@ -661,6 +661,7 @@ box-shadow: 0px 0px 44px #0000001A;
     padding:0px 115px;
 }
  html[dir=ltr] body .groups .swiper-slide img{
+   background-color: #F2F2F2;
     mix-blend-mode: multiply;
     width: 130px;
 }
@@ -1056,14 +1057,28 @@ border-radius: 6px;
     position: absolute;
     top: -50px;
 }
- html[dir=ltr] body .news .head h3{
+.news .head.newSection::before{
+     content: '';
+    width: 60%;
+    height: 10px;
+    background-color: #1B395F;
+    position: absolute;
+    top: -50px;
+}
+
+
+ html[dir=ltr] body .news .head h3,
+html[dir=ltr] body .news .newSection h3
+ {
     font-size: 40px;
     color: $mainColor;
     text-transform: uppercase;
     position: relative;
     padding: 10px 70px;
 }
- html[dir=ltr] body .news .head h3::before{
+ html[dir=ltr] body .news .head h3::before,
+ html[dir=ltr] body .news .newSection h3::before
+ {
 @include textAnimated(data-news, 55px ,-25% , -55px , #222);
 }
 .news .latestNews{
@@ -1238,7 +1253,7 @@ gap: 30px;
 }
 .subscribe .text h2{
     color: #fff;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
 }
 .subscribe .text .btn{
@@ -2359,7 +2374,6 @@ align-items: center;
  background: #ffff;
 box-shadow: -20px 5px 50px -25px rgba(0, 0, 0, 0.2);
 img{
-// // filter: invert(14%) sepia(98%) saturate(816%) hue-rotate(186deg) brightness(95%) contrast(89%);
 filter: invert(14%) sepia(40%) saturate(600%) hue-rotate(180deg) brightness(60%) contrast(109%);
 background-color: #cccccc32;
 padding: 10px;
@@ -2369,13 +2383,13 @@ border-radius: 30px;
  span{
     color: $mainColor;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 14px;
  }
 width: 200px;
 border-start-start-radius: 20px;
 border-end-start-radius: 20px;
   flex-direction: row;
-  padding: 25px 50px;
+  padding: 25px 10px;
 z-index: 1;
 gap: 30px;
   color: #222;
@@ -2442,6 +2456,7 @@ padding: 20px;
           a{
             color: #767676;
             cursor: pointer;
+            
             &.active{
                 background-color: #3d55743e;
                 padding: 10px;
@@ -2596,8 +2611,10 @@ button:focus {
            .tab{
             &.active{
                 width: 100%;
-                padding: 20px 30px;
-                
+                padding: 20px 15px;
+                span{
+                  font-size: 11px;
+                }
             }
           
         }
@@ -2611,7 +2628,11 @@ button:focus {
                             text-align: center;
                             flex-direction: column;
                             align-items: center;
+                           
                         }
+                         p,span{
+                              font-size: 12px;
+                            }
                     }
                 }
             }
@@ -2629,6 +2650,13 @@ button:focus {
                 display: none;
             }
 
+    }
+    .Alldescription{
+      .header{
+        a{
+          font-size: 13px;
+        }
+      }
     }
    
 }
@@ -2678,7 +2706,7 @@ padding: 10px;
 
 .jobs{
    overflow-y: auto;
-   height: 542px;
+  //  height: 542px;
     .job{
       background-color: #F2F2F2;
       padding: 15px 10px;
@@ -2709,7 +2737,7 @@ padding: 10px;
       }
       .det{
         span{
-            font-size: 13px;
+            font-size: 11px;
             color:#6F6F6E;
         }
       }
@@ -2756,7 +2784,7 @@ form{
         }
         span{
             color:#767676;
-            font-size: 13px;
+            font-size: 10px;
         }
     }
 }
@@ -3200,9 +3228,9 @@ border-radius: 13px;
         .read{
             color:$mainColor;
             font-weight: 400;
-            font-size: 15px;
+            font-size: 11px;
             i{
-              font-size: 12px;
+              font-size: 11px;
             }
             cursor: pointer;
         }
@@ -3309,9 +3337,6 @@ padding: 0px;
 
 
 
-// start rtl site
-
-
 html[dir=rtl], body.rtl {
   scroll-behavior: smooth;
   width: 100%;
@@ -3416,7 +3441,7 @@ html[dir=rtl] body .navbar.active .mainBook .book {
   }
 }
 html[dir=rtl] body .footer {
-  background: linear-gradient(#173358, #132f54), url("~/assets/images/footer.png") 100% 0% no-repeat padding-box;
+  background: linear-gradient(#173358, #132f54), url("~/assets/images/footer.png") 0% 0% no-repeat padding-box;
   background-size: cover;
   background-position: 30%;
   background-repeat: no-repeat;
@@ -3441,12 +3466,12 @@ html[dir=rtl] body .footer #arrow-up {
 
 html[dir=rtl] body .footer .img-left {
   position: absolute;
-  right: 0;
+  left: 0;
 }
 
 html[dir=rtl] body .footer .img-right {
   position: absolute;
-  right: 80%;
+  left: 0%;
   top: 40%;
 }
 
@@ -3789,7 +3814,7 @@ html[dir=rtl] body .landing .image .img3 {
 
 html[dir=rtl] body .landing .image .img1 {
   position: absolute;
-  left: 30%;
+  left: 40%;
   top: -100px;
   z-index: -2;
 }
@@ -3873,6 +3898,7 @@ html[dir=rtl] body .groups .swiper-slide {
 }
 
 html[dir=rtl] body .groups .swiper-slide img {
+    background-color: #F2F2F2;
   mix-blend-mode: multiply;
   width: 130px;
 }
@@ -4259,7 +4285,17 @@ html[dir=rtl] body .news .head::before {
   top: -50px;
 }
 
-html[dir=rtl] body .news .head h3 {
+.news .head.newSection::before {
+  content: "";
+  width: 60%;
+  height: 10px;
+  background-color: #1B395F;
+  position: absolute;
+  top: -50px;
+}
+
+html[dir=rtl] body .news .head h3,
+html[dir=rtl] body .news .newSection h3 {
   font-size: 40px;
   color: #1B395F;
   text-transform: uppercase;
@@ -4267,7 +4303,8 @@ html[dir=rtl] body .news .head h3 {
   padding: 10px 70px;
 }
 
-html[dir=rtl] body .news .head h3::before {
+html[dir=rtl] body .news .head h3::before,
+html[dir=rtl] body .news .newSection h3::before {
   content: attr(data-news);
   font-size: 55px;
   font-weight: bolder;
@@ -4422,7 +4459,7 @@ html[dir=rtl] body .subscribe {
 
 html[dir=rtl] body .subscribe .text {
   width: 70%;
-  background: transparent url("@/assets/images/sub.png") 100% 0% no-repeat padding-box;
+  background: transparent url("@/assets/images/sub.png") 0% 0% no-repeat padding-box;
   opacity: 1;
   border-radius: 20px;
   padding: 30px;
@@ -4433,6 +4470,7 @@ html[dir=rtl] body .subscribe .text {
 
 .subscribe .text h2 {
   color: #fff;
+  font-size: 25px;
   text-align: center;
 }
 
@@ -5453,7 +5491,7 @@ html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
   border-start-start-radius: 20px;
   border-end-start-radius: 20px;
   flex-direction: row;
-  padding: 25px 50px;
+  padding: 25px 10px;
   z-index: 1;
   gap: 30px;
   color: #222;
@@ -5467,7 +5505,7 @@ html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active img {
 html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
   color: #1B395F;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 14px;
 }
 html[dir=rtl] body .Alldescription .tabs-container .content-container {
   background: #f6fdff;
@@ -5663,7 +5701,10 @@ button:focus {
   }
   html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
     width: 100%;
-    padding: 20px 30px;
+    padding: 20px 15px;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
+    font-size: 11px;
   }
   html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active {
     width: 100%;
@@ -5674,6 +5715,9 @@ button:focus {
     flex-direction: column;
     align-items: center;
   }
+  html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active p, html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active span {
+    font-size: 12px;
+  }
 }
 @media (max-width: 768px) {
   html[dir=rtl] body .thecarSwiper {
@@ -5683,6 +5727,9 @@ button:focus {
   html[dir=rtl] body .thecarSwiper .swiper-button-next,
   html[dir=rtl] body .thecarSwiper .swiper-button-prev {
     display: none;
+  }
+  .Alldescription .header a {
+    font-size: 13px;
   }
 }
 html[dir=rtl] body .career {
@@ -5735,7 +5782,7 @@ html[dir=rtl] body .career .inpsearch i {
 }
 html[dir=rtl] body .career .jobs {
   overflow-y: auto;
-  height: 542px;
+ 
 }
 html[dir=rtl] body .career .jobs .job {
   background-color: #F2F2F2;
@@ -5805,7 +5852,7 @@ html[dir=rtl] body .career .jobdetail .title h4 {
 }
 html[dir=rtl] body .career .jobdetail .title span {
   color: #767676;
-  font-size: 13px;
+  font-size: 10px;
 }
 
 html[dir=rtl] body .purchasee {
@@ -6253,11 +6300,11 @@ html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .icons .icon {
 html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .read {
   color: #1B395F;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 11px;
   cursor: pointer;
 }
 html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .read i {
-  font-size: 12px;
+  font-size: 11px;
 }
 html[dir=rtl] body .mainlatest .boxx .mainpic {
   width: 100%;
@@ -6346,5 +6393,9 @@ html[dir=rtl] body .relatedcarLatest h5 {
     flex-direction: column;
   }
 }
+
+// start rtl site
+
+
 
 //end rtl site

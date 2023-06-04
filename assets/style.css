@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,500&family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -587,6 +588,7 @@ html[dir=ltr] body .groups .swiper-slide {
 }
 
 html[dir=ltr] body .groups .swiper-slide img {
+  background-color: #F2F2F2;
   mix-blend-mode: multiply;
   width: 130px;
 }
@@ -973,7 +975,17 @@ html[dir=ltr] body .news .head::before {
   top: -50px;
 }
 
-html[dir=ltr] body .news .head h3 {
+.news .head.newSection::before {
+  content: "";
+  width: 60%;
+  height: 10px;
+  background-color: #1B395F;
+  position: absolute;
+  top: -50px;
+}
+
+html[dir=ltr] body .news .head h3,
+html[dir=ltr] body .news .newSection h3 {
   font-size: 40px;
   color: #1B395F;
   text-transform: uppercase;
@@ -981,7 +993,8 @@ html[dir=ltr] body .news .head h3 {
   padding: 10px 70px;
 }
 
-html[dir=ltr] body .news .head h3::before {
+html[dir=ltr] body .news .head h3::before,
+html[dir=ltr] body .news .newSection h3::before {
   content: attr(data-news);
   font-size: 55px;
   font-weight: bolder;
@@ -1147,7 +1160,7 @@ html[dir=ltr] body .subscribe .text {
 
 .subscribe .text h2 {
   color: #fff;
-  font-size: 30px;
+  font-size: 25px;
   text-align: center;
 }
 
@@ -2168,7 +2181,7 @@ html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active {
   border-start-start-radius: 20px;
   border-end-start-radius: 20px;
   flex-direction: row;
-  padding: 25px 50px;
+  padding: 25px 10px;
   z-index: 1;
   gap: 30px;
   color: #222;
@@ -2182,7 +2195,7 @@ html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active img {
 html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active span {
   color: #1B395F;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 14px;
 }
 html[dir=ltr] body .Alldescription .tabs-container .content-container {
   background: #f6fdff;
@@ -2378,7 +2391,10 @@ button:focus {
   }
   html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active {
     width: 100%;
-    padding: 20px 30px;
+    padding: 20px 15px;
+  }
+  html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active span {
+    font-size: 11px;
   }
   html[dir=ltr] body .Alldescription .tabs-container .content-container .content.active {
     width: 100%;
@@ -2389,6 +2405,9 @@ button:focus {
     flex-direction: column;
     align-items: center;
   }
+  html[dir=ltr] body .Alldescription .tabs-container .content-container .content.active p, html[dir=ltr] body .Alldescription .tabs-container .content-container .content.active span {
+    font-size: 12px;
+  }
 }
 @media (max-width: 768px) {
   html[dir=ltr] body .thecarSwiper {
@@ -2398,6 +2417,9 @@ button:focus {
   html[dir=ltr] body .thecarSwiper .swiper-button-next,
   html[dir=ltr] body .thecarSwiper .swiper-button-prev {
     display: none;
+  }
+  .Alldescription .header a {
+    font-size: 13px;
   }
 }
 html[dir=ltr] body .career {
@@ -2450,7 +2472,6 @@ html[dir=ltr] body .career .inpsearch i {
 }
 html[dir=ltr] body .career .jobs {
   overflow-y: auto;
-  height: 542px;
 }
 html[dir=ltr] body .career .jobs .job {
   background-color: #F2F2F2;
@@ -2480,7 +2501,7 @@ html[dir=ltr] body .career .jobs .job h6 {
   color: #1B395F;
 }
 html[dir=ltr] body .career .jobs .job .det span {
-  font-size: 13px;
+  font-size: 11px;
   color: #6F6F6E;
 }
 html[dir=ltr] body .career form h5 {
@@ -2520,7 +2541,7 @@ html[dir=ltr] body .career .jobdetail .title h4 {
 }
 html[dir=ltr] body .career .jobdetail .title span {
   color: #767676;
-  font-size: 13px;
+  font-size: 10px;
 }
 
 html[dir=ltr] body .purchasee {
@@ -2968,11 +2989,11 @@ html[dir=ltr] body .mainlatest .boxx .textt .mainIcons .icons .icon {
 html[dir=ltr] body .mainlatest .boxx .textt .mainIcons .read {
   color: #1B395F;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 11px;
   cursor: pointer;
 }
 html[dir=ltr] body .mainlatest .boxx .textt .mainIcons .read i {
-  font-size: 12px;
+  font-size: 11px;
 }
 html[dir=ltr] body .mainlatest .boxx .mainpic {
   width: 100%;
@@ -3177,7 +3198,7 @@ html[dir=rtl] body .navbar.active .mainBook .book {
   }
 }
 html[dir=rtl] body .footer {
-  background: linear-gradient(#173358, #132f54), url("~/assets/images/footer.png") 100% 0% no-repeat padding-box;
+  background: linear-gradient(#173358, #132f54), url("~/assets/images/footer.png") 0% 0% no-repeat padding-box;
   background-size: cover;
   background-position: 30%;
   background-repeat: no-repeat;
@@ -3203,12 +3224,12 @@ html[dir=rtl] body .footer #arrow-up {
 
 html[dir=rtl] body .footer .img-left {
   position: absolute;
-  right: 0;
+  left: 0;
 }
 
 html[dir=rtl] body .footer .img-right {
   position: absolute;
-  right: 80%;
+  left: 0%;
   top: 40%;
 }
 
@@ -3570,7 +3591,7 @@ html[dir=rtl] body .landing .image .img3 {
 
 html[dir=rtl] body .landing .image .img1 {
   position: absolute;
-  left: 30%;
+  left: 40%;
   top: -100px;
   z-index: -2;
 }
@@ -3655,6 +3676,7 @@ html[dir=rtl] body .groups .swiper-slide {
 }
 
 html[dir=rtl] body .groups .swiper-slide img {
+  background-color: #F2F2F2;
   mix-blend-mode: multiply;
   width: 130px;
 }
@@ -4046,7 +4068,17 @@ html[dir=rtl] body .news .head::before {
   top: -50px;
 }
 
-html[dir=rtl] body .news .head h3 {
+.news .head.newSection::before {
+  content: "";
+  width: 60%;
+  height: 10px;
+  background-color: #1B395F;
+  position: absolute;
+  top: -50px;
+}
+
+html[dir=rtl] body .news .head h3,
+html[dir=rtl] body .news .newSection h3 {
   font-size: 40px;
   color: #1B395F;
   text-transform: uppercase;
@@ -4054,7 +4086,8 @@ html[dir=rtl] body .news .head h3 {
   padding: 10px 70px;
 }
 
-html[dir=rtl] body .news .head h3::before {
+html[dir=rtl] body .news .head h3::before,
+html[dir=rtl] body .news .newSection h3::before {
   content: attr(data-news);
   font-size: 55px;
   font-weight: bolder;
@@ -4214,7 +4247,7 @@ html[dir=rtl] body .subscribe {
 
 html[dir=rtl] body .subscribe .text {
   width: 70%;
-  background: transparent url("@/assets/images/sub.png") 100% 0% no-repeat padding-box;
+  background: transparent url("@/assets/images/sub.png") 0% 0% no-repeat padding-box;
   opacity: 1;
   border-radius: 20px;
   padding: 30px;
@@ -4225,6 +4258,7 @@ html[dir=rtl] body .subscribe .text {
 
 .subscribe .text h2 {
   color: #fff;
+  font-size: 25px;
   text-align: center;
 }
 
@@ -5394,7 +5428,7 @@ html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
   border-start-start-radius: 20px;
   border-end-start-radius: 20px;
   flex-direction: row;
-  padding: 25px 50px;
+  padding: 25px 10px;
   z-index: 1;
   gap: 30px;
   color: #222;
@@ -5410,7 +5444,7 @@ html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active img {
 html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
   color: #1B395F;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 14px;
 }
 
 html[dir=rtl] body .Alldescription .tabs-container .content-container {
@@ -5625,7 +5659,10 @@ button:focus {
   }
   html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
     width: 100%;
-    padding: 20px 30px;
+    padding: 20px 15px;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
+    font-size: 11px;
   }
   html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active {
     width: 100%;
@@ -5636,6 +5673,9 @@ button:focus {
     flex-direction: column;
     align-items: center;
   }
+  html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active p, html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active span {
+    font-size: 12px;
+  }
 }
 @media (max-width: 768px) {
   html[dir=rtl] body .thecarSwiper {
@@ -5645,6 +5685,9 @@ button:focus {
   html[dir=rtl] body .thecarSwiper .swiper-button-next,
   html[dir=rtl] body .thecarSwiper .swiper-button-prev {
     display: none;
+  }
+  .Alldescription .header a {
+    font-size: 13px;
   }
 }
 html[dir=rtl] body .career {
@@ -5705,7 +5748,6 @@ html[dir=rtl] body .career .inpsearch i {
 
 html[dir=rtl] body .career .jobs {
   overflow-y: auto;
-  height: 542px;
 }
 
 html[dir=rtl] body .career .jobs .job {
@@ -5792,7 +5834,7 @@ html[dir=rtl] body .career .jobdetail .title h4 {
 
 html[dir=rtl] body .career .jobdetail .title span {
   color: #767676;
-  font-size: 13px;
+  font-size: 10px;
 }
 
 html[dir=rtl] body .purchasee {
@@ -6294,12 +6336,12 @@ html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .icons .icon {
 html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .read {
   color: #1B395F;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 11px;
   cursor: pointer;
 }
 
 html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .read i {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 html[dir=rtl] body .mainlatest .boxx .mainpic {

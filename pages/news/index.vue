@@ -1,7 +1,79 @@
 <template>
     <div>
+  
+
+        <div class="news">
+  <div class="newSection mt-5">
+        <h3 class="fw-bolder" :data-news="$t('BE AWARE OF OUR')">{{ $t('latest news') }}</h3>
+      </div>
+      <swiper
+        :spaceBetween="50"
+        
+        :loop="true"
+        :centeredSlides="true"
+           :autoplay="{
+          delay: 2500,
+          disableOnInteraction: false,
+        }"
+        :breakpoints="{
+          '640': {
+            slidesPerView: 1,
+            spaceBetween: 50,
+          },
+          '768': {
+            slidesPerView: 2,
+            spaceBetween: 40,
+          },
+          '1024': {
+            slidesPerView: 2.7,
+            spaceBetween: 100,
+          },
+        }"
+        :pagination="{
+          clickable: true,
+        }"
+        :navigation="true"
+        :modules="modules"
+        class="mySwiper latestNews"
+      >
+        <swiper-slide v-for="box in newsArray" class="box">
+        <nuxt-link :to="localePath(`/news/${box.id}`)">
+        
+          <div class="image">
+            <img :src="box.cover_image" loading="lazy" alt="" />
+          </div>
+          <div class="text">
+            <h3>{{ box.title }}</h3>
+            
+              <p>
+               {{box.description.substring(3 , 180) }}
+              </p>
+            
+            <div class="detail">
+              <div class="tags">
+                <div class="tag">
+                  <i class="fa-solid fa-tag"></i>
+                  <span>{{ box.tags }}</span>
+                </div>
+                <div class="tag">
+                  <i class="fa-regular fa-clock"></i>
+                  <span>{{ box.created_at }}</span>
+                </div>
+              </div>
+              <div class="read">
+                 <span class="fw-bold">{{ $t('now more') }}</span>              
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+            </div>
+          </div> 
+        
+        </nuxt-link>
+       
+        </swiper-slide>
+      
+      </swiper>
+    </div>
          <div class="container mainlatest">
-           <h3 :data-latestnews="$t('BE AWARE OF OUR')">{{ $t('latest news') }}</h3>
            <div class="row gap-2 justify-content-center">
 
         <div v-for="product in newsArray" class="col-12 col-xl-3 col-lg-3 col-md-2 boxx">

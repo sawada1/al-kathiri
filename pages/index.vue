@@ -37,8 +37,8 @@
 
     <div class="searchBar">
       <div class="main">
-        <select v-model="mainObj.type">
-          <option>{{ $t('select the vehicle type') }}</option>
+        <select v-model="mainObj.type" >
+          <option :value="null" disabled>{{ $t('select the vehicle type') }}</option>
           <option>hatchback</option>
           <option>sedan</option>
           <option>4_by_4</option>
@@ -46,11 +46,11 @@
           <option>commercial</option>
         </select>
         <select v-model="mainObj.id">
-          <option>{{ $t('choose brand') }}</option>
+          <option :value="null" disabled>{{ $t('choose brand') }}</option>
           <option v-for="brand in brandsWithModles" :value="brand.id">{{ brand.name }}</option>
         </select>
         <select v-model="mainObj.model">
-          <option>{{ $t('choose a model') }}</option>
+          <option :value="null" disabled>{{ $t('choose a model') }}</option>
           <option v-if="mainObj.id" v-for="model in brandsWithModles[mainObj.id - 1].parent_models" :value="model.id">{{ model.name }}</option>
         </select>
         <button @click="goToBrandPageSearch()">{{ $t('search') }}</button>
@@ -82,23 +82,23 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide @click="goToBrandPageByType('sedan')">
+        <swiper-slide @click="goToBrandPageByType('sedan')" style="cursor: pointer;">
           <img  src="@/assets/images/group1.png" loading="lazy" alt="" />
           <span>sedan</span>
         </swiper-slide>
-        <swiper-slide @click="goToBrandPageByType('family')">
+        <swiper-slide @click="goToBrandPageByType('family')" style="cursor: pointer;">
           <img src="@/assets/images/group2.png" loading="lazy" alt="" />
           <span>family</span>
         </swiper-slide>
-        <swiper-slide @click="goToBrandPageByType('sedan')">
+        <swiper-slide @click="goToBrandPageByType('sedan')" style="cursor: pointer;">
           <img src="@/assets/images/group1.png" loading="lazy" alt="" />
           <span>sedan</span>
         </swiper-slide>
-        <swiper-slide>
+        <swiper-slide style="cursor: pointer;">
           <img src="@/assets/images/group1.png" loading="lazy" alt="" />
           <span>4x4</span>
         </swiper-slide>
-        <swiper-slide>
+        <swiper-slide style="cursor: pointer;">
           <img src="@/assets/images/group4.png" loading="lazy" alt="" />
           <span>commercial</span>
         </swiper-slide>
@@ -194,6 +194,7 @@
             v-for="box in brandArray"
              @click="goToBrandPageById(box.id)"
             class="box col-5 col-xl-1 col-lg-2"
+            style="cursor: pointer;"
           >
             <img :src="box.image" loading="lazy" alt="" />
             <span>{{ box.name }}</span>
@@ -237,7 +238,7 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide v-for="car in latestArray" @click="goToCarPage(car.id , car.name)" class="mainlatestbox latestboxes">
+        <swiper-slide v-for="car in latestArray" @click="goToCarPage(car.id , car.name)" style="cursor: pointer;" class="mainlatestbox latestboxes">
           
             <div class="image">
               <img :src="car.main_image" loading="lazy" alt="" />
@@ -417,7 +418,7 @@ export default {
       }
          const url = currentLang.value + '/car'
 
-      router.push({ path: url , query: queryParams })
+      router.push({ path: `/${url}` , query: queryParams })
     }
 
     const goToBrandPageSearch = () => {
@@ -491,11 +492,12 @@ const brandsFunc = async () => {
     let favState = ref([]);
     let sweetGoodJob = '';
     let sweetAdded = '';
+    let sweetsuccess = '';
     let sweetdeleted = '';
     let sweetfiledel =  '';
     let sweetWarning1 = '';
     let sweetWarning2 = '';
-    if (lang == 'en') {
+    if (lang.value == 'en') {
      sweetGoodJob = 'Good job!';
      sweetAdded = 'You added to the favourite list';
      sweetsuccess = 'success';
@@ -503,7 +505,7 @@ const brandsFunc = async () => {
      sweetfiledel =  'Your file has been deleted';
      sweetWarning1 = 'this is already in your favourite list Are you sure to delete it?';
      sweetWarning2 = 'Yes, delete it!';
-    } else if (lang == 'ar') {
+    } else if (lang.value == 'ar') {
      sweetGoodJob = 'أحسنت!';
      sweetAdded = 'أضفت إلى قائمة المفضلة';
      sweetsuccess = 'نجاح';

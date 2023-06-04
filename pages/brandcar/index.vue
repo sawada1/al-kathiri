@@ -137,7 +137,7 @@
               {{ $t('all cars') }}
             </h2>
                   <div class="row justify-content-between ">
-              <div v-for="car in brandCars" @click="goToCarPage(car.id , car.name)" class="mainlatestbox col-xl-3 col-lg-3 col-md-5 ">
+              <div v-for="car in brandCars" style="cursor: pointer;" @click="goToCarPage(car.id , car.name)" class="mainlatestbox col-xl-3 col-lg-3 col-md-5 ">
                 <div  class="image">
                     <img :src="car.main_image" alt="">
                 </div>

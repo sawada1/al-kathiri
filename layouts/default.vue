@@ -84,7 +84,7 @@
         <nuxt-link :to="localePath('/offers')">
             <span>{{$t('offers')}}</span>
         </nuxt-link>
-            <span @click="goToPurchasePage()">{{$t('purchase')}}</span>
+            <span style="cursor: pointer;" @click="goToPurchasePage()">{{$t('purchase')}}</span>
         <nuxt-link :to="localePath('/faQ')">
             <span>{{$t('faq')}}</span>
         </nuxt-link>
@@ -237,8 +237,7 @@ const changeLang = async () => {
         }
       
     }
-    //updateLang();
-    //updateLang();
+   
     await navigateTo(localePath(useRoute().path));    
 }
 

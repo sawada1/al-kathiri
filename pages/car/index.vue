@@ -36,8 +36,8 @@
         </div>
     </div>
     <div class="icons d-flex align-items-center gap-3">
-        <img data-bs-toggle="modal" data-bs-target="#shareViaModal" src="@/assets/images/share.svg" alt="">
-        <img @click="addToFav()" src="@/assets/images/heart.svg" alt="">
+        <img style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#shareViaModal" src="@/assets/images/share.svg" alt="">
+        <img style="cursor: pointer;" @click="addToFav()" src="@/assets/images/heart.svg" alt="">
     </div>
  </div>
 
@@ -75,7 +75,7 @@
                 </div>
                 <div class="modal-footer  w-100">
                     <div class="inp w-100">
-                        <input disabled :value="route" class="col-11 ur" type="url" :placeholder="route"
+                        <input disabled :value="route" class="col-11 ur" type="url" :placeholder="route ? route : 'loading..' "
                             id="myInput" aria-describedby="inputGroup-sizing-default" style="">
                         <button class="" @click="copyToClipboard()"><i class="far fa-clone"></i></button>
                     </div>
@@ -337,18 +337,14 @@ export default {
     const { locale } = useI18n();
     const router = useRouter();
     const MainRoute = useRoute();
-    console.log(MainRoute);
     let id = MainRoute.query.id;
     let name = MainRoute.query.name;
-    let route = ref(null);
+    let route = ref(process.client ? window.location.href : '');
     let currentLang = ref(locale);
 
-let lang = process.client ? sessionStorage.getItem('lang') : 'en';
+
     if (process.client) {
-      route.value = `${window.location.origin}${MainRoute.fullPath}`;
-  if (lang == null) {
-    lang = 'en';
-  }
+      route.value = window.location.href;
     }
 console.log(route.value);
 const scrollNameCar = () => {
@@ -373,8 +369,8 @@ const scrollNameCar = () => {
     let pending = ref(false);
     let mainCar = ref([]);
     let similar_vehicles = ref([]);
-        let specifications_and_features = ref([]);
-      let apiColors = ref([]); 
+    let specifications_and_features = ref([]);
+    let apiColors = ref([]); 
     let imagesWithColors = ref([]);
           let valuesOfSpecifications = ref([]);
     let valuesWithFeatures = ref([]);
@@ -428,7 +424,7 @@ const scrollNameCar = () => {
     let sweetfiledel =  '';
     let sweetWarning1 = '';
     let sweetWarning2 = '';
-    if (lang == 'en') {
+    if (currentLang.value == 'en') {
      sweetGoodJob = 'Good job!';
      sweetAdded = 'You added to the favourite list';
      sweetsuccess = 'success';
@@ -436,7 +432,7 @@ const scrollNameCar = () => {
      sweetfiledel =  'Your file has been deleted';
      sweetWarning1 = 'this is already in your favourite list Are you sure to delete it?';
      sweetWarning2 = 'Yes, delete it!';
-    } else if (lang == 'ar') {
+    } else if (currentLang.value == 'ar') {
      sweetGoodJob = 'أحسنت!';
      sweetAdded = 'أضفت إلى قائمة المفضلة';
      sweetsuccess = 'نجاح';
@@ -564,7 +560,7 @@ clipBoard.writeText(input).then(() => {
    similar_vehicles,
    route,
    name,
-  copyToClipboard
+   copyToClipboard,
       };
         
     }

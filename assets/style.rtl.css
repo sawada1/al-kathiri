@@ -1,4 +1,5 @@
 
+
 html[dir=rtl], body.rtl {
   scroll-behavior: smooth;
   width: 100%;
@@ -466,7 +467,7 @@ html[dir=rtl] body .mainlatestbox .fav.active {
 html[dir=rtl] body .landing .image .img3 {
   position: absolute;
   top: -220px;
-  right: 50px;
+  right: -50px;
   width: 769px;
   height: 544px;
   background: transparent url("~/assets/images/landing3.png") 100% 0% no-repeat padding-box;
@@ -476,7 +477,7 @@ html[dir=rtl] body .landing .image .img3 {
 
 html[dir=rtl] body .landing .image .img1 {
   position: absolute;
-  left: 40%;
+  left: 60%;
   top: -100px;
   z-index: -2;
 }
@@ -946,7 +947,17 @@ html[dir=rtl] body .news .head::before {
   top: -50px;
 }
 
-html[dir=rtl] body .news .head h3 {
+.news .head.newSection::before {
+  content: "";
+  width: 60%;
+  height: 10px;
+  background-color: #1B395F;
+  position: absolute;
+  top: -50px;
+}
+
+html[dir=rtl] body .news .head h3,
+html[dir=rtl] body .news .newSection h3 {
   font-size: 40px;
   color: #1B395F;
   text-transform: uppercase;
@@ -954,7 +965,8 @@ html[dir=rtl] body .news .head h3 {
   padding: 10px 70px;
 }
 
-html[dir=rtl] body .news .head h3::before {
+html[dir=rtl] body .news .head h3::before,
+html[dir=rtl] body .news .newSection h3::before {
   content: attr(data-news);
   font-size: 55px;
   font-weight: bolder;
@@ -1036,8 +1048,7 @@ html[dir=rtl] body .news .box h3 {
   color: #1B395F;
 }
 
-.news .box .text .detail .tags,
-.news .box .text .detail .read {
+.news .box .text .detail .tags {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1121,6 +1132,7 @@ html[dir=rtl] body .subscribe .text {
 
 .subscribe .text h2 {
   color: #fff;
+  font-size: 25px;
   text-align: center;
 }
 
@@ -2141,7 +2153,7 @@ html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
   border-start-start-radius: 20px;
   border-end-start-radius: 20px;
   flex-direction: row;
-  padding: 25px 50px;
+  padding: 25px 10px;
   z-index: 1;
   gap: 30px;
   color: #222;
@@ -2155,7 +2167,7 @@ html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active img {
 html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
   color: #1B395F;
   font-weight: bold;
-  font-size: 17px;
+  font-size: 14px;
 }
 html[dir=rtl] body .Alldescription .tabs-container .content-container {
   background: #f6fdff;
@@ -2206,11 +2218,11 @@ html[dir=rtl] body .Alldescription .header::before {
   height: 1px;
   top: 100%;
 }
-html[dir=rtl] body .Alldescription .header span {
+html[dir=rtl] body .Alldescription .header a {
   color: #767676;
   cursor: pointer;
 }
-html[dir=rtl] body .Alldescription .header span.active {
+html[dir=rtl] body .Alldescription .header a.active {
   background-color: rgba(61, 85, 116, 0.2431372549);
   padding: 10px;
   border-radius: 7px 7px 0px 0px;
@@ -2240,6 +2252,85 @@ html[dir=rtl] body .similarr .thehead {
 }
 html[dir=rtl] body .similarr .mainlatestbox {
   width: 270px;
+}
+
+#shareViaModal .modal-title {
+  font-weight: 900;
+}
+
+#shareViaModal .modal-content {
+  border-radius: 13px;
+}
+
+#shareViaModal .modal-body {
+  color: #3b3b3b;
+}
+
+.img-thumbnail {
+  border-radius: 33px;
+  width: 61px;
+  height: 61px;
+}
+
+#shareViaModal .fab:before {
+  position: relative;
+  top: 13px;
+}
+
+#shareViaModal .smd {
+  width: 200px;
+  font-size: small;
+  text-align: center;
+}
+
+#shareViaModal .modal-footer {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+#shareViaModal .modal-footer .inp {
+  display: flex;
+}
+#shareViaModal .modal-footer .inp input {
+  padding: 5px;
+  width: 85%;
+  border-radius: 5px;
+}
+#shareViaModal .modal-footer .inp button {
+  width: 15%;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+#shareViaModal .ur {
+  border: none;
+  background-color: #e6e2e2;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+#shareViaModal .cpy {
+  border: none;
+  background-color: #e6e2e2;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  cursor: pointer;
+}
+
+#shareViaModal button.focus,
+button:focus {
+  outline: 0;
+  box-shadow: none !important;
+}
+
+#shareViaModal .ur.focus,
+.ur:focus {
+  outline: 0;
+  box-shadow: none !important;
+}
+
+#shareViaModal a:hover, .smd p {
+  color: #3b3b3b !important;
 }
 
 @media (max-width: 850px) {
@@ -2272,7 +2363,10 @@ html[dir=rtl] body .similarr .mainlatestbox {
   }
   html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
     width: 100%;
-    padding: 20px 30px;
+    padding: 20px 15px;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
+    font-size: 11px;
   }
   html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active {
     width: 100%;
@@ -2283,6 +2377,9 @@ html[dir=rtl] body .similarr .mainlatestbox {
     flex-direction: column;
     align-items: center;
   }
+  html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active p, html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active span {
+    font-size: 12px;
+  }
 }
 @media (max-width: 768px) {
   html[dir=rtl] body .thecarSwiper {
@@ -2292,6 +2389,9 @@ html[dir=rtl] body .similarr .mainlatestbox {
   html[dir=rtl] body .thecarSwiper .swiper-button-next,
   html[dir=rtl] body .thecarSwiper .swiper-button-prev {
     display: none;
+  }
+  .Alldescription .header a {
+    font-size: 13px;
   }
 }
 html[dir=rtl] body .career {
@@ -2361,11 +2461,11 @@ html[dir=rtl] body .career .jobs .job.active h6 {
 html[dir=rtl] body .career .jobs .job.active .det span {
   color: #fff;
 }
-html[dir=rtl] body .career .jobs .job.active .arrow {
+html[dir=rtl] body .career .jobs .job.active i {
   color: #fff;
 }
-html[dir=rtl] body .career .jobs .job .arrow {
-  font-size: 35px;
+html[dir=rtl] body .career .jobs .job i {
+  font-size: 20px;
   color: #1B395F;
 }
 html[dir=rtl] body .career .jobs .job h6 {
@@ -2862,11 +2962,11 @@ html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .icons .icon {
 html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .read {
   color: #1B395F;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 11px;
   cursor: pointer;
 }
 html[dir=rtl] body .mainlatest .boxx .textt .mainIcons .read i {
-  font-size: 12px;
+  font-size: 11px;
 }
 html[dir=rtl] body .mainlatest .boxx .mainpic {
   width: 100%;
@@ -2955,5 +3055,3 @@ html[dir=rtl] body .relatedcarLatest h5 {
     flex-direction: column;
   }
 }
-
-

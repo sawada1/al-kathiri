@@ -4,12 +4,12 @@
            <h3 class="head" :data-fav="$t('REACH YOUR CAR')">{{ $t('YOUR FAVORITE') }}</h3>
             
             <div  class="row  justify-content-center gap-2 p-2 ">
-             <div v-for="car in favState" class="mainlatestbox col-xl-2 col-lg-2 col-md-4">
-              <nuxt-link :to="`/car/${car.id}`">
-            <div class="image">
+             <div v-for="car in favState" style="cursor: pointer;" @click="goToCarPage(car.id , car.name)" class="mainlatestbox col-xl-2 col-lg-2 col-md-4">
+              
+            <div class="image"   >
               <img :src="car.main_image" loading="lazy" alt="" />
             </div>
-          </nuxt-link>
+          
 
           <h3>{{ car.name }}</h3>
           <div class="text1">
@@ -44,12 +44,19 @@
 <script setup>
  const favState = process.client ? JSON.parse(sessionStorage.getItem('thefav')) : null;
 console.log(favState);
-const removefav = (id) => {
-  favState.slice(0, id);
-  if (process.client) {
-    sessionStorage.setItem('thefav', favState);
-  }
-}
+const { locale } = useI18n();
+const router = useRouter();
+let currentLang = ref(locale);
+const goToCarPage = (id , name) => {
+      const queryParams = {
+        id: id,
+        name: name,
+      }
+         const url = currentLang.value + '/car'
+
+      router.push({ path: `/${url}` , query: queryParams })
+    }
+
 </script>
 
 <style lang="scss">

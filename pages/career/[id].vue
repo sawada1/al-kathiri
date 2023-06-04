@@ -27,7 +27,7 @@
                 <h5><i class="fa-solid fa-chevron-left"></i> {{ job.title }}</h5>
                 <div class="inp">
                  <label for="">{{ $t('full name') }}</label>
-                 <input  v-model="namee" type="text" placeholder="write your name..">
+                 <input  v-model="namee" type="text" :placeholder="$t('write your name..')">
                <span class="errorMessage text-danger fw-bold fs-5 my-2" v-if="nameError">{{ nameError }}</span>
                 </div>
                 <div class="inp">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="inp">
                  <label for="">{{ $t('Do you have any comments ?') }}</label>
-                 <textarea style="resize: none;" placeholder="Write your message here..." name="" cols="10" rows="5"></textarea>
+                 <textarea style="resize: none;" :placeholder="$t('write your message here')" name="" cols="10" rows="5"></textarea>
                 </div>
                 <div>
                  <nuxt-link >

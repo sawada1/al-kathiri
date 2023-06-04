@@ -19,7 +19,7 @@
                
               </div>
            </div>
-           <div  class="col-12 col-xl-7 col-lg-7 col-md-7 my-5">
+           <div  class="col-12 col-xl-7 col-lg-7 col-md-7 mt-5 ">
               <div v-for="job,index in allJobs" class="jobdetail">
               <div v-if="checkJob == job.id" >
                  <div class="title d-flex align-items-center justify-content-between">
