@@ -1,3 +1,4 @@
+import { Title } from './.nuxt/components.d';
 
 
 export default defineNuxtConfig({
@@ -37,14 +38,15 @@ export default defineNuxtConfig({
  
     app: {
       // baseURL: "/al-kathiri/",
-        head: {
+      head: {
           htmlAttrs:{
             lang: 'en',
             dir: 'ltr'
           },
             meta: [
-                {
-                 
+              {
+                name: "theme-color",
+              content:"#1B395F"  
              }
             ],
         link: [

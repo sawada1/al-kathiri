@@ -188,9 +188,7 @@ const router = useRouter();
 const mainId = route.query.id ? route.query.id : null;
 const mainType = route.query.type ? route.query.type : null;
 const mainModel = route.query.model ? route.query.model : null;
-console.log(mainId);
-console.log(mainType);
-console.log(mainModel);
+const mainName = route.query.name ? route.query.name : null;
 let checkType = ref(mainType ? mainType : null);
 const localePath = useLocalePath();
 let url = getUrl();
@@ -383,7 +381,13 @@ onMounted(() => {
   rangeSlider();
   showCars();
 
-})
+});
+  useHead({
+  title: currentLang.value == 'ar' ? `${mainName || 'السيارات'}/الكثيري للسيارات` : `alkathiri motors / ${mainName || 'cars'}`,
+  meta: [
+    { name: 'description', content: '' }
+  ]
+});
 </script>
 
 <style lang="scss">

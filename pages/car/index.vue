@@ -111,13 +111,13 @@
   >
   
     <swiper-slide >
-        <img :src="mainCar.cover_image" class="img-fluid mainpic" alt="">
+        <img :src="mainCar.cover_image" class="img-fluid mainpic" :alt="mainCar.name">
     </swiper-slide>
     <swiper-slide >
      <div v-for="color,index in  imagesWithColors"  class="row gap-2 justify-content-around   images">
      <div v-for="item in color.images" class="col-5 col-xl-3 col-lg-3 mx-2">
         <div v-if="colorCar==index+1">
-          <img  class="img-fluid" :src="item" alt="">
+          <img  class="img-fluid" :src="item" :alt="mainCar.name">
         </div>
      </div>
             
@@ -253,7 +253,7 @@
 <div class="theTabs">
 <div class="tabs">
         <div v-for="tab,index in specifications_and_features[1]"  class="tab " @click="checkTabsWithfeatures = index + 1 " :class="{'active':checkTabsWithfeatures == index+1}">
-           <img src="@/assets/images/sp3.svg" class="img-fluid" alt="">
+           <img src="@/assets/images/sp4.svg" class="img-fluid" alt="">
           <span>{{ tab.name }}</span>   
         </div>
       
@@ -535,7 +535,15 @@ clipBoard.writeText(input).then(() => {
           
       }
           
-        }
+    }
+
+
+          useHead({
+  title: currentLang.value == 'ar' ? `${name}/الكثيري للسيارات` : `alkathiri motors / ${name}`,
+  meta: [
+    { name: 'description', content: mainCar.value.description }
+  ]
+});
         
     
  return {

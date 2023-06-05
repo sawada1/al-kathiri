@@ -76,9 +76,9 @@
          <div class="container mainlatest">
            <div class="row gap-2 justify-content-center">
 
-        <div v-for="product in newsArray" class="col-12 col-xl-3 col-lg-3 col-md-2 boxx">
-          <nuxt-link :to="localePath(`/news/${product.id}`)">
-          <img class="mainpic" :src="product.cover_image" alt="">
+        <div v-for="product in newsArray" @click="goToNewsPage(product.title , product.id)" style="cursor: pointer;" class="col-12 col-xl-3 col-lg-3 col-md-2 boxx">
+        
+          <img class="mainpic" :src="product.cover_image" :alt="product.title">
               <div class="textt">
                 <h4>{{ product.title }}</h4>
                 <client-only>
@@ -109,7 +109,6 @@
               </div>
               
           
-          </nuxt-link>
               
 
             </div>          
@@ -148,6 +147,22 @@ const  products  = await axios(`${url}/news`,{
 }
 productNews();
 
+   const goToNewsPage = (name,id) => {
+        const queryParams = {
+          name: name,
+        id:id
+      }
+      const url = lang.value + '/new'
+      router.push({ path: `/${url}` , query: queryParams })
+    }
+
+useHead({
+  title: lang.value == 'ar' ? 'اخبار / الكثيري للسيارات' : 'alkathiri motors / news',
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ]
+});
+  
 // console.log(products.value.data);
 
 </script>

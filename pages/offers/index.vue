@@ -10,10 +10,10 @@
     </div>
     <div class="row offers px-2 justify-content-around gap-2">
 
-<div v-for="box in offersArr" class="offer col-xl-3 col-lg-3 col-sm-5 col-md-4 d-flex gap-3 flex-column justify-content-between">
-    <nuxt-link :to="localePath(`/offers/${box.id}`)">
-        <img :src="box.image" alt="">
-    </nuxt-link>
+<div v-for="box in offersArr" @click="goToOfferPage(box.title,box.id)" style="cursor: pointer;" class="offer col-xl-3 col-lg-3 col-sm-5 col-md-4 d-flex gap-3 flex-column justify-content-between">
+    
+        <img :src="box.image" :alt="box.title">
+  
      <h5 class="fw-bolder"> {{ box.title }}</h5>
 </div>
 
@@ -32,7 +32,7 @@
 import axios from 'axios';
     const {locale } = useI18n();
 let lang = ref(locale);
-
+const router = useRouter();
 let pending = ref(true);
 let offersArr = ref([]);
 
@@ -56,7 +56,21 @@ const offersFunc = async () => {
 offersFunc();
  
 
-  
+      const goToOfferPage = (title,id) => {
+        const queryParams = {
+        name: title,
+        id:id
+      }
+      const url = lang.value + '/offer'
+      router.push({ path: `/${url}` , query: queryParams })
+}
+
+useHead({
+  title: lang.value == 'ar' ? 'العروض/الكثيري للسيارات' : 'alkathiri motors / offers',
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ]
+});
   
 
 </script>

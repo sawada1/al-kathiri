@@ -9,11 +9,11 @@
              <div class="boxes row  d-flex justify-content-center gap-3 align-items-center ">
             <div
             v-for="box in brandArray"
-             @click="goToBrandPageById(box.id)"
+             @click="goToBrandPageByIdAndName(box.id , box.name)"
             class="box col-5 col-xl-1 col-lg-2"
             style="cursor: pointer;"
           >
-            <img :src="box.image" alt="" />
+            <img :src="box.image" :alt="box.name" />
             <span>{{ box.name }}</span>
           </div>
            
@@ -51,14 +51,23 @@ const brandsFunc = async () => {
 }
 brandsFunc();
 
-   const goToBrandPageById = (id) => {
+  const goToBrandPageByIdAndName = (id,name) => {
       const queryParams = {
         id: id,
+        name: name,
       }
          const url = lang.value + '/brandcar'
 
-      router.push({ path: url , query: queryParams })
-    }
+      router.push({ path: `/${url}` , query: queryParams })
+}
+
+
+      useHead({
+  title: lang.value == 'ar' ? 'السيارات/الكثيري للسيارات': 'alkathiri motors / cars',
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ]
+})
 
 </script>
 

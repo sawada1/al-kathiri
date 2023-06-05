@@ -26,9 +26,9 @@
           </div>
           <div class="col col-lg-5 col-xl-5 col-md-12 col-sm-12">
             <div class="image">
-              <img class="img2" loading="lazy" src="~/assets/images/landing2.png" alt="" />
+              <img class="img2" loading="lazy" src="~/assets/images/landing2.png" alt="landing" />
               <div class="img3" loading="lazy" ></div>
-              <img class="img1" loading="lazy" src="~/assets/images/landing1.svg" alt="" />
+              <img class="img1" loading="lazy" src="~/assets/images/landing1.svg" alt="landing" />
             </div>
           </div>
         </div>
@@ -83,23 +83,23 @@
         class="mySwiper"
       >
         <swiper-slide @click="goToBrandPageByType('sedan')" style="cursor: pointer;">
-          <img  src="@/assets/images/group1.png" loading="lazy" alt="" />
+          <img  src="~/assets/images/group1.png" loading="lazy" alt="sedan" />
           <span>sedan</span>
         </swiper-slide>
         <swiper-slide @click="goToBrandPageByType('family')" style="cursor: pointer;">
-          <img src="@/assets/images/group2.png" loading="lazy" alt="" />
+          <img src="~/assets/images/group2.png" loading="lazy" alt="family" />
           <span>family</span>
         </swiper-slide>
         <swiper-slide @click="goToBrandPageByType('sedan')" style="cursor: pointer;">
-          <img src="@/assets/images/group1.png" loading="lazy" alt="" />
+          <img src="~/assets/images/group1.png" loading="lazy" alt="sedan" />
           <span>sedan</span>
         </swiper-slide>
         <swiper-slide style="cursor: pointer;">
-          <img src="@/assets/images/group1.png" loading="lazy" alt="" />
+          <img src="~/assets/images/group1.png" loading="lazy" alt="4x4" />
           <span>4x4</span>
         </swiper-slide>
         <swiper-slide style="cursor: pointer;">
-          <img src="@/assets/images/group4.png" loading="lazy" alt="" />
+          <img src="~/assets/images/group4.png" loading="lazy" alt="commercial" />
           <span>commercial</span>
         </swiper-slide>
      
@@ -111,7 +111,7 @@
         <div class="row gap-5 align-items-center justify-content-around">
           <div class="col-12 col-xl-4 col-lg-4">
             <div class="image">
-              <img src="@/assets/images/about.png" loading="lazy" alt="" />
+              <img src="@/assets/images/about.png" loading="lazy" alt="about-section" />
             </div>
           </div>
           <div class="col-12 col-xl-6 col-lg-6">
@@ -145,7 +145,7 @@
       <div class="main mb-5 position-relative">
         <div class="boxes row d-flex align-items-center justify-content-center gap-5">
             <div class="box col-xl-3 col-lg-3 col-md-5 col-sm-12 ">
-                <img src="@/assets/images/box1.svg" loading="lazy" alt="">
+                <img src="~/assets/images/box1.svg" loading="lazy" alt="why-choose">
                 <div class="text">
                     <ClientOnly>
                     <p v-html="generalData.why_alkathiri_cars_card_1"></p>
@@ -157,7 +157,7 @@
         </div>
             </div>
             <div class="box col-xl-3 col-lg-3 col-md-5 col-sm-12">
-                <img src="@/assets/images/box2.svg" loading="lazy" alt="">
+                <img src="~/assets/images/box2.svg" loading="lazy" alt="why-choose">
                 <div class="text">
                   <ClientOnly>
                     <p v-html="generalData.why_alkathiri_cars_card_2"></p>
@@ -169,7 +169,7 @@
         </div>  
             </div>
             <div class="box col-xl-3 col-lg-3 col-md-5 col-sm-12">
-                <img src="@/assets/images/box3.svg" loading="lazy" alt="">
+                <img src="~/assets/images/box3.svg" loading="lazy" alt="why-choose">
                 <div class="text">
                     <ClientOnly>
                     <p v-html="generalData.why_alkathiri_cars_card_3"></p>
@@ -192,11 +192,11 @@
         <div class="boxes row d-flex justify-content-center gap-3 align-items-center">
           <div
             v-for="box in brandArray"
-             @click="goToBrandPageById(box.id)"
+             @click="goToBrandPageByIdAndName(box.id,box.name)"
             class="box col-5 col-xl-1 col-lg-2"
             style="cursor: pointer;"
           >
-            <img :src="box.image" loading="lazy" alt="" />
+            <img :src="box.image" loading="lazy" :alt="box.name" />
             <span>{{ box.name }}</span>
           </div>
         </div>
@@ -206,7 +206,9 @@
       <div class="head">
         <h3 class="fw-bolder" :data-latest="$t('JUST PUBLISHED')">{{ $t('latest vehicles') }}</h3>
         <div class="see">
-          <span>{{ $t('see all') }} </span>
+         <nuxt-link :to="localePath('/brandcar')">
+           <span>{{ $t('see all') }} </span>
+            </nuxt-link>
           <i class="fa-solid fa-chevron-right"></i>
         </div>
       </div>
@@ -241,7 +243,7 @@
         <swiper-slide v-for="car in latestArray" @click="goToCarPage(car.id , car.name)" style="cursor: pointer;" class="mainlatestbox latestboxes">
           
             <div class="image">
-              <img :src="car.main_image" loading="lazy" alt="" />
+              <img :src="car.main_image" loading="lazy" :alt="car.name" />
             </div>
          
 
@@ -261,7 +263,6 @@
                     <i class="fa-solid fa-chevron-right"></i> 
           </span>
           <div class="overlay"></div>
-           <!-- :class="{'active':checkFav,'fa-solid':checkFav}" -->
           <i @click="addToFav(car)" class="fa-regular fa-heart fav"  :class="{'fa-solid':car.is_in_favorite}"  ></i>
      
         </swiper-slide>
@@ -303,11 +304,10 @@
         :modules="modules"
         class="mySwiper latestNews"
       >
-        <swiper-slide v-for="box in newsArray" class="box">
-        <nuxt-link :to="localePath(`/news/${box.id}`)">
+        <swiper-slide v-for="box in newsArray" class="box" @click="goToNewsPage(box.title , box.id)" style="cursor: pointer;">
         
           <div class="image">
-            <img :src="box.cover_image" loading="lazy" alt="" />
+            <img :src="box.cover_image" loading="lazy" :alt="box.title" />
           </div>
           <div class="text">
             <h3>{{ box.title }}</h3>
@@ -334,7 +334,6 @@
             </div>
           </div> 
         
-        </nuxt-link>
        
         </swiper-slide>
       
@@ -395,9 +394,10 @@ export default {
       model: null,
        type:null,
      })
-    const goToBrandPageById = (id) => {
+    const goToBrandPageByIdAndName = (id,name) => {
       const queryParams = {
         id: id,
+        name: name,
       }
          const url = currentLang.value + '/brandcar'
 
@@ -426,13 +426,21 @@ export default {
       router.push({ path: url , query: mainObj.value })
     }
 
+    const goToNewsPage = (name,id) => {
+        const queryParams = {
+          name: name,
+        id:id
+      }
+      const url = currentLang.value + '/new'
+      router.push({ path: `/${url}` , query: queryParams })
+    }
 
 
     let lang = ref(locale);
     const localePath = useLocalePath();
     let url = getUrl();
 
-      let mainBrands = ref([]); 
+    let mainBrands = ref([]); 
     let generalData = ref([])
     let brandsWithModles = ref([]);
     let generalSpinner = ref(false);
@@ -579,7 +587,12 @@ const brandsFunc = async () => {
     }
 
   
-  
+  useHead({
+  title: lang.value == 'ar' ? 'الكثيري للسيارات': 'alkathiri motors',
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ]
+})
  
    
     
@@ -596,13 +609,14 @@ const brandsFunc = async () => {
       favState,
       localePath,
       mainObj,
-      goToBrandPageById,
+     goToBrandPageByIdAndName,
       goToBrandPageSearch,
       brandsWithModles,
       mainBrands,
       goToCarPage,
       goToBrandPageByType,
-      generalSpinner
+      generalSpinner,
+      goToNewsPage
     };
   },
 };

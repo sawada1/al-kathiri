@@ -283,11 +283,15 @@ const sendAppointment = async () => {
 }
 
 
+   useHead({
+  title: currentLang.value == 'ar' ? 'احجز موعد صيانتك / الكثيري للسيارات' : 'alkathiri motors / BOOK YOUR MAINTENANCE APPOINTMENT',
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ]
+});
+
 onMounted(async () => {
   calender();
- 
- 
-
 })
 
 

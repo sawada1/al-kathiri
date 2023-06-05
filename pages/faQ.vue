@@ -67,6 +67,14 @@ theFaqs.value = faqs.data.data;
 }
 faQFunc();
 
+useHead({
+  title: lang.value == 'ar' ? 'الأسئلة الشائعة/الكثيري للسيارات' : 'alkathiri motors / faQ',
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ]
+});
+  
+
 </script>
 
 <style lang="scss"></style>

@@ -336,11 +336,11 @@
                  <div class="icons">
                   <div class="icon d-flex align-items-center gap-3">
                    <i class="fa-solid fa-phone"></i>
-                    <h4>{{ $t('mobile number') }}: <span>05000000</span></h4>
+                    <h4>{{ $t('mobile number') }}: <span>{{generalData.phone}}</span></h4>
                   </div>
                   <div class="icon d-flex align-items-center gap-3">
                    <i class="fa-solid fa-envelope"></i>
-                      <h4>{{ $t('email') }}: <span> example@mail.com</span></h4>
+                      <h4>{{ $t('email') }}: <span>{{generalData.email}}</span></h4>
                   </div>
                   <div class="icon d-flex align-items-center gap-3">
                 <i class="fa-brands fa-whatsapp"></i>

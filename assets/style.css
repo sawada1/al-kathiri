@@ -588,7 +588,6 @@ html[dir=ltr] body .groups .swiper-slide {
 }
 
 html[dir=ltr] body .groups .swiper-slide img {
-  background-color: #F2F2F2;
   mix-blend-mode: multiply;
   width: 130px;
 }
@@ -2189,8 +2188,8 @@ html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active {
 html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active img {
   filter: invert(14%) sepia(40%) saturate(600%) hue-rotate(180deg) brightness(60%) contrast(109%);
   background-color: rgba(204, 204, 204, 0.1960784314);
-  padding: 10px;
-  border-radius: 30px;
+  padding: 20px;
+  border-radius: 40%;
 }
 html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active span {
   color: #1B395F;
@@ -3676,7 +3675,6 @@ html[dir=rtl] body .groups .swiper-slide {
 }
 
 html[dir=rtl] body .groups .swiper-slide img {
-  background-color: #F2F2F2;
   mix-blend-mode: multiply;
   width: 130px;
 }

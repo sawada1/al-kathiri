@@ -3,7 +3,7 @@
        <nav class="navbar  navbar-expand-lg " style="padding:20px 30px;" :class="{'active':checkNav}">
   <div class="container">
   <nuxt-link :to="localePath('/')">
-      <img src="~/assets/images/logo.svg" alt="" class="navbar-brand">
+      <img src="~/assets/images/logo.svg" alt="الكثيري للسيارات" class="navbar-brand">
   </nuxt-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -69,7 +69,7 @@
    </div>
     <div class="mainboxes position-relative row gap-5 justify-content-center align-items-center">
   <div class="box col-xl-2 col-lg-4 col-md-6 col-sm-12">
-        <img src="~/assets/images/footer2.png" alt="">
+        <img src="~/assets/images/footer2.png" alt="الكثيري للسيارات">
     </div>
     <div class="box col-xl-2  col-lg-4  col-md-6 col-sm-12">
         <h4>{{ $t('Important Links') }}</h4>
@@ -99,7 +99,7 @@
              <nuxt-link :to="localePath('/news')">
                 <span>{{$t('news')}}</span>
              </nuxt-link>
-              <nuxt-link :to="localePath('/career')">
+              <nuxt-link :to="localePath('/careers')">
         <span>{{$t('careers')}}</span>
               </nuxt-link>
             <span type="button" data-bs-toggle="modal" data-bs-target="#termsModal">{{$t('Term And Conditions')}}</span>
@@ -128,7 +128,7 @@
         <nuxt-link :to="localePath('/maintenance')">
             <span>{{$t('book appointment')}}</span>
         </nuxt-link>
-            <p>{{$t('For Maintenance')}}</p>
+            <p class="mt-2">{{$t('For Maintenance')}}</p>
         </div>
     </div>
     </div>
@@ -136,7 +136,10 @@
         <span>&copy; {{$t('AL KATHIRI MOTORS')}}, {{$t('All Rights Reserved')}}</span>
         <p>
             <span>{{$t('Developed By')}}</span>
-            <img src="~/assets/images/logo-footer.svg" alt="">
+            <a href="https://www.webstdy.com/ar" target="_blank" rel="noopener noreferrer">
+             <img src="~/assets/images/logo-footer.svg" alt="webstdy">
+            </a>
+           
         </p>
     </div>
    <i @click="scrollUp()" class="fa-solid fa-arrow-up" id="arrow-up"></i>

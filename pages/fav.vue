@@ -57,6 +57,12 @@ const goToCarPage = (id , name) => {
       router.push({ path: `/${url}` , query: queryParams })
     }
 
+   useHead({
+  title: currentLang.value == 'ar' ? 'المفضلة / الكثيري للسيارات' : 'alkathiri motors / favourite',
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ]
+});
 </script>
 
 <style lang="scss">
