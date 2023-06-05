@@ -207,7 +207,7 @@
         <h3 class="fw-bolder" :data-latest="$t('JUST PUBLISHED')">{{ $t('latest vehicles') }}</h3>
         <div class="see">
          <nuxt-link :to="localePath('/brandcar')">
-           <span>{{ $t('see all') }} </span>
+           <span style="color:#1B395F;">{{ $t('see all') }} </span>
             </nuxt-link>
           <i class="fa-solid fa-chevron-right"></i>
         </div>
@@ -457,7 +457,15 @@ export default {
     }
     let mainBrands = ref([]); 
       generalData.value = generalAbout.data;
-     brandsWithModles.value = generalAbout.data.brands_with_models;
+      brandsWithModles.value = generalAbout.data.brands_with_models;
+       useHead({
+      title: lang.value == 'ar' ? 'الكثيري للسيارات' : 'alkathiri motors',
+      meta: [
+        { name: 'description', content: generalData.value.meta_tag_description },
+        { name: 'keywords', content: generalData.value.meta_tag_keywords }
+      ]
+    });
+      console.log(generalData.value);
     }
    
     generalFunc();
@@ -587,13 +595,7 @@ const brandsFunc = async () => {
     }
 
   
-  useHead({
-  title: lang.value == 'ar' ? 'الكثيري للسيارات': 'alkathiri motors',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
-})
- 
+  
    
     
 

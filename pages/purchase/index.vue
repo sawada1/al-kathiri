@@ -1,7 +1,7 @@
 <template>
     <div>
        <div v-if="typeActive==1" class="container purchasee">
-           <div class="row">
+           <div class="row justify-content-cente">
              <div class="col-12 col-xl-7 col-lg-7 ">
                 <h3 class="head" :data-purchase="$t('FIND WHAT YOU NEED')">{{ $t('PURCHASE ORDER') }}</h3>
                 <div class="individual">

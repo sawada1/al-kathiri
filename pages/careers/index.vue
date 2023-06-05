@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="container career">
+          <h3 :data-find="$t('JOIN OUR TEAM')">{{ $t('find your career') }}</h3>
           <div class="row gap-2 justify-content-center">
            <div class="col-12 col-xl-4 col-lg-4 col-md-4    d-flex flex-column gap-3">
              <div class="inpsearch d-flex align-items-center justify-content-between">

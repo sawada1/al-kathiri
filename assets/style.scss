@@ -2611,6 +2611,7 @@ button:focus {
             &.active{
                 width: 100%;
                 padding: 20px 15px;
+                margin-right: 20px;
                 span{
                   font-size: 11px;
                 }
@@ -2674,7 +2675,7 @@ button:focus {
         padding: 0px 50px;
         position: relative;
         &::before{
-        @include textAnimated('JOIN OUR TEAM' , 60px , -90% , -30px , #333);
+        @include textAnimated(data-find, 60px , -90% , -30px , #333);
     }    
 }
 .numjobs{
@@ -2971,9 +2972,14 @@ form{
         }
       .thefixed{
         position:relative;
-        left: 0;
+        left:0%;
         top:0;
-        right:0;
+        right:0px;
+           display: flex;
+         justify-content: center;
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
         margin-top: 50px;
         margin-bottom:100px;
          width:100%;  
@@ -5700,6 +5706,7 @@ button:focus {
   html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
     width: 100%;
     padding: 20px 15px;
+     margin-right: 20px;
   }
   html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
     font-size: 11px;
@@ -5741,7 +5748,7 @@ html[dir=rtl] body .career h3 {
   position: relative;
 }
 html[dir=rtl] body .career h3::before {
-  content: attr("JOIN OUR TEAM");
+  content: attr(data-find);
   font-size: 60px;
   font-weight: bolder;
   color: transparent;
@@ -6032,6 +6039,10 @@ html[dir=rtl] body .purchasee .inp i {
     right: 0;
     top: 0;
     left: 0;
+          display: flex;
+         justify-content: center;
+         flex-direction: column;
+         align-items: center;
     margin-top: 50px;
     margin-bottom: 100px;
     width: 100%;

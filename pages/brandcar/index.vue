@@ -136,21 +136,21 @@
             <h2 v-else class="fw-bolder">
               {{ $t('all cars') }}
             </h2>
-                  <div class="row justify-content-between ">
+                  <div class="row justify-content-center ">
               <div v-for="car in brandCars" style="cursor: pointer;" @click="goToCarPage(car.id , car.name)" class="mainlatestbox col-xl-3 col-lg-3 col-md-5 ">
                 <div  class="image">
                     <img :src="car.main_image" alt="">
                 </div>
                
-                <h3>{{ car.name }}</h3>
+                <h3 style="font-size: 16px;">{{ car.name }}</h3>
                 <div class="text1">
                     <div class="price">
                         <span>{{ $t('price') }}</span>
-                        <h4>{{ car.selling_price }} SAR</h4>
+                        <h4 style="font-size: 14px;">{{ car.selling_price }} SAR</h4>
                     </div>
                     <div class="after">
                         <span>{{ $t('after vat') }}</span>
-                        <h4>{{car.selling_price_after_vat}} SAR</h4>
+                        <h4 style="font-size: 14px;">{{car.selling_price_after_vat}} SAR</h4>
                     </div>
                 </div>
                  <p class="detail">

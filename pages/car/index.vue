@@ -131,7 +131,7 @@
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-12 col-xl-7 col-lg-7 col-md-6 theSetting">
-                <div class="row gap-2 text-center p-3">
+                <div class="row gap-2 text-center  align-items-center justify-content-center p-3">
                     <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" style="white-space: nowrap;">
                         <img src="@/assets/images/icon1.svg" alt="">
                         <span>{{ $t('Model Year') }}</span>
@@ -228,7 +228,7 @@
 <div class="theTabs">
 <div class="tabs">
         <div v-for="tab,index in specifications_and_features[0]"  class="tab " @click="checkTabsWithSpecifications = index + 1 " :class="{'active':checkTabsWithSpecifications == index+1}">
-           <img src="~/assets/images/sp3.svg" class="img-fluid" alt="">
+           <img :src="tab.image" class="img-fluid" :alt="tab.name">
           <span>{{ tab.name }}</span>   
         </div>
       
@@ -253,7 +253,7 @@
 <div class="theTabs">
 <div class="tabs">
         <div v-for="tab,index in specifications_and_features[1]"  class="tab " @click="checkTabsWithfeatures = index + 1 " :class="{'active':checkTabsWithfeatures == index+1}">
-           <img src="@/assets/images/sp4.svg" class="img-fluid" alt="">
+           <img :src="tab.image" class="img-fluid" :alt="tab.name">
           <span>{{ tab.name }}</span>   
         </div>
       
@@ -308,7 +308,7 @@
           </div>
         
 
-           <div v-if="pending"  class="mainLoader">
+       <div v-if="pending"  class="mainLoader">
      <span class="loader"></span>
     </div>
     </div>
@@ -386,7 +386,6 @@ const scrollNameCar = () => {
        apiColors.value = mainCar.value.colors; 
       imagesWithColors.value = mainCar.value.colors;
     const carFunc = async () => {
-      pending.value = true;
       if (car.status == 200) {
      pending.value = false
    }
@@ -395,7 +394,8 @@ const scrollNameCar = () => {
     }
     for (let i = 0; i < specifications_and_features.value[1].length; i++) {
       valuesWithFeatures.value.push(specifications_and_features.value[1][i].features)
-    }   
+      }
+     
     }
     carFunc();
       
@@ -537,13 +537,14 @@ clipBoard.writeText(input).then(() => {
           
     }
 
-
-          useHead({
+             useHead({
   title: currentLang.value == 'ar' ? `${name}/الكثيري للسيارات` : `alkathiri motors / ${name}`,
   meta: [
-    { name: 'description', content: mainCar.value.description }
+    { name: 'description', content: mainCar.value.meta_tag_description },
+    { name: 'keywords', content: mainCar.value.meta_tag_keywords }
   ]
-});
+}); 
+
         
     
  return {
@@ -567,6 +568,7 @@ clipBoard.writeText(input).then(() => {
    pending,
    similar_vehicles,
    route,
+   pending,
    name,
    copyToClipboard,
       };

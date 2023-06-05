@@ -2391,6 +2391,7 @@ button:focus {
   html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active {
     width: 100%;
     padding: 20px 15px;
+    margin-right: 20px;
   }
   html[dir=ltr] body .Alldescription .tabs-container .tabs .tab.active span {
     font-size: 11px;
@@ -2432,7 +2433,7 @@ html[dir=ltr] body .career h3 {
   position: relative;
 }
 html[dir=ltr] body .career h3::before {
-  content: attr("JOIN OUR TEAM");
+  content: attr(data-find);
   font-size: 60px;
   font-weight: bolder;
   color: transparent;
@@ -2719,9 +2720,14 @@ html[dir=ltr] body .purchasee .inp i {
   }
   html[dir=ltr] body .purchasee .thefixed {
     position: relative;
-    left: 0;
+    left: 0%;
     top: 0;
-    right: 0;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     margin-top: 50px;
     margin-bottom: 100px;
     width: 100%;
@@ -5658,6 +5664,7 @@ button:focus {
   html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
     width: 100%;
     padding: 20px 15px;
+    margin-right: 20px;
   }
   html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
     font-size: 11px;
@@ -5701,7 +5708,7 @@ html[dir=rtl] body .career h3 {
 }
 
 html[dir=rtl] body .career h3::before {
-  content: attr("JOIN OUR TEAM");
+  content: attr(data-find);
   font-size: 60px;
   font-weight: bolder;
   color: transparent;
@@ -6041,6 +6048,10 @@ html[dir=rtl] body .purchasee .inp i {
     right: 0;
     top: 0;
     left: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 50px;
     margin-bottom: 100px;
     width: 100%;
