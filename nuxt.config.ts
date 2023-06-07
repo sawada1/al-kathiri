@@ -26,7 +26,7 @@ export default defineNuxtConfig({
        },
 
      ],
-     defaultLocale:"en"
+     defaultLocale:"ar"
   },
   ssr: true, //server side rendered enabled //When true
   nitro: {

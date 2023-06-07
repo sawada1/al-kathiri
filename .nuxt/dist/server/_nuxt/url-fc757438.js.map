@@ -1,0 +1,1 @@
+{"version":3,"file":"url-fc757438.js","sources":["../../../../composables/url.js"],"sourcesContent":["export const getUrl = () => {\r\n    return 'https://alkethiri.webstdy.com/api';\r\n    // return 'http://192.168.1.124:8000/api';\r\n}"],"names":[],"mappings":"AAAY,MAAC,SAAS,MAAM;AACxB,SAAO;AAEX;"}

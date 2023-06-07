@@ -2,7 +2,6 @@ node_modules
 
 *.log*
 
-.nuxt
 
 .vscode
 
@@ -10,8 +9,8 @@ node_modules
 
 .cache
 
-.output
+ .output
+ 
+ .next
 
 .env
-
-dist
