@@ -1,4 +1,3 @@
-import { Title } from './.nuxt/components.d';
 
 
 export default defineNuxtConfig({
