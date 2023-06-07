@@ -9,7 +9,6 @@
               <span>{{ $t('with al kathiri motors') }}</span>
               <h2>
                 {{ $t('FIND YOUR DREAM CAR') }}
-                favv
               </h2>
               
                 <p>
