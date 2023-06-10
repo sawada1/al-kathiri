@@ -58,10 +58,7 @@ const goToCarPage = (id , name) => {
     }
 
    useHead({
-  title: currentLang.value == 'ar' ? 'المفضلة / الكثيري للسيارات' : 'alkathiri motors / favourite',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
+  title: currentLang.value == 'ar' ? 'المفضلة / الكثيري للسيارات' : 'alkathiri motors / favourite'
 });
 </script>
 

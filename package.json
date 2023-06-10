@@ -21,6 +21,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "axios": "^1.4.0",
     "moment": "^2.29.4",
+    "mosha-vue-toastify": "^1.0.23",
     "nuxt-sweetalert2": "^1.0.0",
     "nuxt-swiper": "^1.1.0",
     "sass": "^1.62.1"

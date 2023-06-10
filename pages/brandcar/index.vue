@@ -137,8 +137,8 @@
               {{ $t('all cars') }}
             </h2>
                   <div class="row justify-content-center ">
-              <div v-for="car in brandCars" style="cursor: pointer;" @click="goToCarPage(car.id , car.name)" class="mainlatestbox col-xl-3 col-lg-3 col-md-5 ">
-                <div  class="image">
+              <div v-for="car in brandCars" style="cursor: pointer;"  class="mainlatestbox col-xl-3 col-lg-3 col-md-5 ">
+                <div @click="goToCarPage(car.id , car.name)"  class="image">
                     <img :src="car.main_image" alt="">
                 </div>
                
@@ -157,9 +157,9 @@
                  {{$t('details')}}
                   <i class="fa-solid fa-chevron-right"></i>
                  </p>
-                 <div class="overlay"></div>
+                 <div @click="goToCarPage(car.id , car.name)" class="overlay"></div>
                
-              <i @click="addToFav(car)" class="fa-regular fa-heart fav"></i>
+              <i @click="addToFav(car)" class="fa-regular fa-heart fav" :class="{'fa-solid':car.is_in_favorite}"></i>
              </div>
             
 
@@ -183,6 +183,8 @@
 
 <script setup>
 import axios from 'axios'
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css'
 const route = useRoute();
 const router = useRouter();
 const mainId = route.query.id ? route.query.id : null;
@@ -256,69 +258,62 @@ rangeInputs.forEach((e) => {
     }
 
    let fav = ref([]); 
-    let sweetGoodJob = '';
-    let sweetAdded = '';
-    let sweetsuccess = '';
-    let sweetdeleted = '';
-    let sweetfiledel =  '';
-    let sweetWarning1 = '';
-    let sweetWarning2 = '';
-    if (currentLang.value == 'en') {
-     sweetGoodJob = 'Good job!';
-     sweetAdded = 'You added to the favourite list';
-     sweetsuccess = 'success';
-     sweetdeleted = 'Deleted!';
-     sweetfiledel =  'Your file has been deleted';
-     sweetWarning1 = 'this is already in your favourite list Are you sure to delete it?';
-     sweetWarning2 = 'Yes, delete it!';
-    } else if (currentLang.value == 'ar') {
-     sweetGoodJob = 'أحسنت!';
-     sweetAdded = 'أضفت إلى قائمة المفضلة';
-     sweetsuccess = 'نجاح';
-     sweetdeleted = 'تم الحذف!';
-     sweetfiledel =  'تم الحذف';
-     sweetWarning1 = 'هذا موجود بالفعل في قائمة المفضلة لديك هل أنت متأكد من حذفه؟';
-     sweetWarning2 = 'نعم ، احذفها!';
-}
-    
+
+       let addedList = ref('added to wishlist');
+    let success = ref('success');
+    let removedList = ref('removed from wishlist')
+    if (currentLang.value == 'ar') {
+      addedList.value = 'تم الاضافة الي قائمة المفضلات'
+      success.value = 'نجاح';
+      removedList.value = 'تم الحذف من قائمة المفضلات'
+    } else if (currentLang.value == 'en') {
+       addedList.value = 'added to wishlist'
+      success.value = 'success';
+      removedList.value = 'removed from wishlist';
+    }
     const addToFav = (box) => {
       if (process.client) {
    let favGet = JSON.parse(sessionStorage.getItem('thefav'))? JSON.parse(sessionStorage.getItem('thefav')) : [];
       // let favChoose = favGet.find((boxi) => boxi.name == box.name);
-        let favChoose = favGet ? favGet.filter((ele) => {
+        let favChoose =  favGet.filter((ele) => {
           return ele.id == box.id;
-      }) : [];
+      });
       console.log(favChoose);
       // console.log(favGet);
         
-         
-        if (favChoose.length < 1) {
-        box.is_in_favorite = !box.is_in_favorite;
-      fav.value.push(box)       
-        sessionStorage.setItem('thefav', JSON.stringify(fav.value));
-          // console.log(box);
-          Swal.fire(
-              sweetGoodJob,
-            sweetAdded,
-             'success'
-              
-              
-            )          
-        } else  {
-                Swal.fire({
-                  title:sweetWarning1,
-                  icon:'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText:sweetWarning2
-                }).then((result) => {
-                  // dismiss != 'overlay'
-                  console.log(result);
-                  if (result.value == true) {
-                     let final =   favGet.filter((ele) => {
+          box.is_in_favorite = !box.is_in_favorite;
+      if (favChoose.length <= 1) {
+        //fav.value.push(box)
+        favGet.push(box);
+        if (box.is_in_favorite == true) {
+                       createToast({
+            title: addedList.value,
+            description: success.value,
+            },
+            {
+            timeout: 5000,
+            toastBackgroundColor: 'green',
+            showIcon: 'true',
+            type: 'success',
+            transition: 'bounce',
+            })
+         sessionStorage.setItem('thefav', JSON.stringify(favGet));
+        } else {
+           let final =   favGet.filter((ele) => {
                     return ele.id != box.id;
-                     });
+           });
+
+            createToast({
+            title: removedList.value,
+            description: success.value,
+            },
+            {
+              timeout: 5000,
+            toastBackgroundColor: 'green',
+            showIcon: 'true',
+            type: 'success',
+            transition: 'bounce',
+            })   
                   fav.value = [];
                    
                  sessionStorage.setItem('thefav', JSON.stringify(final));
@@ -328,15 +323,10 @@ rangeInputs.forEach((e) => {
                       // fav.value = [];
 
                     }
-                  console.log(final);
-                    Swal.fire(
-                      sweetdeleted,
-                      sweetfiledel,
-                      'success'
-                    )
-                  }
-                })
-              }
+      }       
+               
+        } 
+       
            
         
       }
@@ -362,11 +352,24 @@ const showCars = async () => {
     'Content-Language':`${currentLang.value}`
    }
   });
+    if (process.client) {
+   let favGet = JSON.parse(sessionStorage.getItem('thefav'))? JSON.parse(sessionStorage.getItem('thefav')) : [];
+      console.log(favGet);
+       if (favGet.length >= 1) {
+        //  latest.data.data = favGet;
+         for (let i = 0; i < favGet.length; i++){ 
+          
+          result.data.data[favGet[i].id - 1].is_in_favorite = favGet[i].is_in_favorite;
+          
+         }
+         //result.data.data[1].is_in_favorite = true;
+        }
+      }
   brandCars.value = result.data.data;
   if (result.status == 200) {
     spinner.value = false;
   }
-  console.log(result.data); 
+  console.log(result.data.data); 
 }
 
 const reset = () => {
@@ -383,10 +386,7 @@ onMounted(() => {
 
 });
   useHead({
-  title: currentLang.value == 'ar' ? `${mainName || 'السيارات'}/الكثيري للسيارات` : `alkathiri motors / ${mainName || 'cars'}`,
-  meta: [
-    { name: 'description', content: '' }
-  ]
+  title: currentLang.value == 'ar' ? `${mainName || 'السيارات'}/الكثيري للسيارات` : `alkathiri motors / ${mainName || 'cars'}`
 });
 </script>
 

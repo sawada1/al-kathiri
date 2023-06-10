@@ -130,6 +130,8 @@
 </template>
 
 <script setup>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import axios from 'axios';
     const {locale} = useI18n();
 let mainDate = ref(null);
@@ -284,10 +286,7 @@ const sendAppointment = async () => {
 
 
    useHead({
-  title: currentLang.value == 'ar' ? 'احجز موعد صيانتك / الكثيري للسيارات' : 'alkathiri motors / BOOK YOUR MAINTENANCE APPOINTMENT',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
+  title: currentLang.value == 'ar' ? 'احجز موعد صيانتك / الكثيري للسيارات' : 'alkathiri motors / BOOK YOUR MAINTENANCE APPOINTMENT'
 });
 
 onMounted(async () => {

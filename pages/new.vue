@@ -57,10 +57,7 @@ const  product  = await axios(`${url}/news/${id}`,{
   theproduct.value = product.data.data; 
 
   useHead({
-  title: lang.value == 'ar' ? `${theproduct.value.title}/ الكثيري للسيارات` : `alkathiri motors / ${theproduct.value.title}`,
-  meta: [
-    { name: 'description', content: theproduct.value.description }
-  ]
+  title: lang.value == 'ar' ? `${theproduct.value.title}/ الكثيري للسيارات` : `alkathiri motors / ${theproduct.value.title}`
 });
 }
 productNews();

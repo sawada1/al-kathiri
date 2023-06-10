@@ -37,7 +37,7 @@
     </div>
     <div class="icons d-flex align-items-center gap-3">
         <img style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#shareViaModal" src="@/assets/images/share.svg" alt="">
-        <img style="cursor: pointer;" @click="addToFav()" src="@/assets/images/heart.svg" alt="">
+          <i style="cursor:pointer;" @click="addToFav()" class="fa-regular fa-heart fav"  :class="{'fa-solid':favIcon}"  ></i>
     </div>
  </div>
 
@@ -328,6 +328,8 @@
 import { Autoplay, Pagination, Navigation } from 'swiper';
 import { ref } from 'vue';
 import axios from 'axios';
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css';
 export default {
 
   async setup() {
@@ -374,19 +376,26 @@ const scrollNameCar = () => {
     let imagesWithColors = ref([]);
           let valuesOfSpecifications = ref([]);
     let valuesWithFeatures = ref([]);
-           const  car  = await axios.get(`${url}/cars/${id}`,{
+    let favIcon = ref(false);
+
+           
+   
+  
+   const carLatestFunc = async () => {
+ let  car  = await axios.get(`${url}/cars/${id}`,{
       headers: {
     'Content-Language':`${currentLang.value}`
   }
-           }); 
-            mainCar.value = car.data.data;
+ });
+
+  
+         mainCar.value = car.data.data;
     similar_vehicles.value = car.data.data.similar_vehicles;
     console.log(mainCar.value);
        specifications_and_features.value = mainCar.value.specifications_and_features;
        apiColors.value = mainCar.value.colors; 
-      imagesWithColors.value = mainCar.value.colors;
-    const carFunc = async () => {
-      if (car.status == 200) {
+     imagesWithColors.value = mainCar.value.colors;
+         if (car.status == 200) {
      pending.value = false
    }
     for (let i = 0; i < specifications_and_features.value[0].length; i++) {
@@ -394,99 +403,87 @@ const scrollNameCar = () => {
     }
     for (let i = 0; i < specifications_and_features.value[1].length; i++) {
       valuesWithFeatures.value.push(specifications_and_features.value[1][i].features)
-      }
-     
+     }
+         if (process.client) {
+   let favGet = JSON.parse(sessionStorage.getItem('thefav'))? JSON.parse(sessionStorage.getItem('thefav')) : [];
+      console.log(favGet);
+       if (favGet.length >= 1) {
+         for (let i = 0; i < favGet.length; i++){
+           if (favGet[i].id == mainCar.value.id) {
+            favIcon.value = favGet[i].is_in_favorite;
+          }
+         
+         }
+        }
+      } 
     }
-    carFunc();
-      
-   
-      
-    
+    carLatestFunc();
 
-    
-    
-        
-    const chooseColorId = (id) => {
-      theColorId.value = id;
-       if (process.client) {
-               sessionStorage.setItem('colorId', JSON.stringify(theColorId.value))
-            }
+
+
+     let addedList = ref('added to wishlist');
+    let success = ref('success');
+    let removedList = ref('removed from wishlist')
+    if (currentLang.value == 'ar') {
+      addedList.value = 'تم الاضافة الي قائمة المفضلات'
+      success.value = 'نجاح';
+      removedList.value = 'تم الحذف من قائمة المفضلات'
+    } else if (currentLang.value == 'en') {
+       addedList.value = 'added to wishlist'
+      success.value = 'success';
+      removedList.value = 'removed from wishlist';
     }
-       
 
-          let fav = ref([]);
-    let favState = ref([]);
-
-   let sweetGoodJob = '';
-    let sweetAdded = '';
-    let sweetsuccess = '';
-    let sweetdeleted = '';
-    let sweetfiledel =  '';
-    let sweetWarning1 = '';
-    let sweetWarning2 = '';
-    if (currentLang.value == 'en') {
-     sweetGoodJob = 'Good job!';
-     sweetAdded = 'You added to the favourite list';
-     sweetsuccess = 'success';
-     sweetdeleted = 'Deleted!';
-     sweetfiledel =  'Your file has been deleted';
-     sweetWarning1 = 'this is already in your favourite list Are you sure to delete it?';
-     sweetWarning2 = 'Yes, delete it!';
-    } else if (currentLang.value == 'ar') {
-     sweetGoodJob = 'أحسنت!';
-     sweetAdded = 'أضفت إلى قائمة المفضلة';
-     sweetsuccess = 'نجاح';
-     sweetdeleted = 'تم الحذف!';
-     sweetfiledel =  'تم الحذف';
-     sweetWarning1 = 'هذا موجود بالفعل في قائمة المفضلة لديك هل أنت متأكد من حذفه؟';
-     sweetWarning2 = 'نعم ، احذفها!';
-    }
-    const addToFav = () => {
-      let box = {
+     const addToFav = () => {
+        let box = {
         id: mainCar.value.id,
         name: mainCar.value.name,
         main_image: mainCar.value.cover_image,
         selling_price:mainCar.value.selling_price,
         selling_price_after_vat: mainCar.value.selling_price_after_vat,
-        is_in_favorite: false,
+        is_in_favorite: true,
       }
       if (process.client) {
    let favGet = JSON.parse(sessionStorage.getItem('thefav'))? JSON.parse(sessionStorage.getItem('thefav')) : [];
-      // let favChoose = favGet.find((boxi) => boxi.name == box.name);
-        let favChoose = favGet ? favGet.filter((ele) => {
-          return ele.id == box.id;
-      }) : [];
-      console.log(favChoose);
+      let favChoose = favGet.find((boxi) => boxi.name == box.name);
+   
       // console.log(favGet);
         
-         
-        if (favChoose.length < 1) {
-        box.is_in_favorite = !box.is_in_favorite;
-      fav.value.push(box)       
-        sessionStorage.setItem('thefav', JSON.stringify(fav.value));
-          // console.log(box);
-          Swal.fire(
-              sweetGoodJob,
-            sweetAdded,
-             'success'
-              
-              
-            )          
-        } else  {
-                Swal.fire({
-                  title:sweetWarning1,
-                  icon:'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText:sweetWarning2
-                }).then((result) => {
-                  // dismiss != 'overlay'
-                  console.log(result);
-                  if (result.value == true) {
-                     let final =   favGet.filter((ele) => {
+        favIcon.value = !favIcon.value;
+      if (!favChoose) {
+        //fav.value.push(box)
+        favGet.push(box);
+        if (favIcon.value == true) {
+                    createToast({
+            title: addedList.value,
+            description: success.value,
+            },
+            {
+            timeout: 5000,
+            toastBackgroundColor: 'green',
+            showIcon: 'true',
+            type: 'success',
+            transition: 'bounce',
+            })
+          sessionStorage.setItem('thefav', JSON.stringify(favGet));       
+        }
+               
+        }else {
+           let final =   favGet.filter((ele) => {
                     return ele.id != box.id;
-                     });
+           });
+
+            createToast({
+            title: removedList.value,
+            description: success.value,
+            },
+            {
+              timeout: 5000,
+            toastBackgroundColor: 'green',
+            showIcon: 'true',
+            type: 'success',
+            transition: 'bounce',
+            })       
                   fav.value = [];
                    
                  sessionStorage.setItem('thefav', JSON.stringify(final));
@@ -496,22 +493,23 @@ const scrollNameCar = () => {
                       // fav.value = [];
 
                     }
-                  console.log(final);
-                    Swal.fire(
-                      sweetdeleted,
-                      sweetfiledel,
-                      'success'
-                    )
-                  }
-                })
-              }
+      }  
+       
            
         
       }
   
 
       
-    }
+    } 
+
+    
+
+
+          let fav = ref([]);
+    let favState = ref([]);
+
+  
 
      const goToPurchasePage = (id,color) => {
       const queryParams = {
@@ -562,7 +560,6 @@ clipBoard.writeText(input).then(() => {
    imagesWithColors,
    theColorId,
    addToFav,
-   chooseColorId,
    localePath,
    goToPurchasePage,
    pending,
@@ -571,6 +568,7 @@ clipBoard.writeText(input).then(() => {
    pending,
    name,
    copyToClipboard,
+   favIcon
       };
         
     }

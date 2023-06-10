@@ -98,10 +98,7 @@ let  generalAbout  = await axios.get(`${url}/general`, {
 general();
 
 useHead({
-  title: lang.value == 'ar' ? 'من نحن/الكثيري للسيارات' : 'alkathiri motors / about us',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
+  title: lang.value == 'ar' ? 'من نحن/الكثيري للسيارات' : 'alkathiri motors / about us'
 });
 
 </script>

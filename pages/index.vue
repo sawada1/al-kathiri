@@ -143,7 +143,7 @@
         <h3 class="fw-bolder" :data-why="$t('AL KATHIRI MOTORS')">{{ $t('why choose us') }}</h3>
       </div>
       <div class="main mb-5 position-relative">
-        <div class="boxes row d-flex align-items-center justify-content-center gap-5">
+        <div class="boxes row d-flex  justify-content-center gap-5">
             <div class="box col-xl-3 col-lg-3 col-md-5 col-sm-12 ">
                 <img src="~/assets/images/box1.svg" loading="lazy" alt="why-choose">
                 <div class="text">
@@ -240,10 +240,9 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide v-for="car in latestArray" @click="goToCarPage(car.id , car.name)" style="cursor: pointer;" class="mainlatestbox latestboxes">
-          
-            <div class="image">
-              <img :src="car.main_image" loading="lazy" :alt="car.name" />
+        <swiper-slide v-for="car in latestArray"  style="cursor: pointer;"  class="mainlatestbox latestboxes">
+            <div class="image"  >
+              <img @click="goToCarPage(car.id , car.name)" :src="car.main_image" loading="lazy" :alt="car.name" />
             </div>
          
 
@@ -262,7 +261,7 @@
                 {{ $t('details') }}
                     <i class="fa-solid fa-chevron-right"></i> 
           </span>
-          <div class="overlay"></div>
+          <div class="overlay" @click="goToCarPage(car.id , car.name)"></div>
           <i @click="addToFav(car)" class="fa-regular fa-heart fav"  :class="{'fa-solid':car.is_in_favorite}"  ></i>
      
         </swiper-slide>
@@ -370,10 +369,10 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-
-import 'sweetalert2/src/sweetalert2.scss';
 import axios from 'axios';
+
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css'
 
 export default {
   components: {
@@ -469,15 +468,7 @@ export default {
     }
    
     generalFunc();
-  const carLatestFunc = async () => {
- let  latest  = await axios.get(`${BaseUrl}/cars/latest`,{
-      headers: {
-    'Content-Language':`${lang.value}`
-  }
-});
-  latestArray.value = latest.data.data;  
-    }
-    carLatestFunc();   
+ 
 
 
 const brandsFunc = async () => {
@@ -506,68 +497,62 @@ const brandsFunc = async () => {
   
     let fav = ref([]);
     let favState = ref([]);
-    let sweetGoodJob = '';
-    let sweetAdded = '';
-    let sweetsuccess = '';
-    let sweetdeleted = '';
-    let sweetfiledel =  '';
-    let sweetWarning1 = '';
-    let sweetWarning2 = '';
-    if (lang.value == 'en') {
-     sweetGoodJob = 'Good job!';
-     sweetAdded = 'You added to the favourite list';
-     sweetsuccess = 'success';
-     sweetdeleted = 'Deleted!';
-     sweetfiledel =  'Your file has been deleted';
-     sweetWarning1 = 'this is already in your favourite list Are you sure to delete it?';
-     sweetWarning2 = 'Yes, delete it!';
-    } else if (lang.value == 'ar') {
-     sweetGoodJob = 'أحسنت!';
-     sweetAdded = 'أضفت إلى قائمة المفضلة';
-     sweetsuccess = 'نجاح';
-     sweetdeleted = 'تم الحذف!';
-     sweetfiledel =  'تم الحذف';
-     sweetWarning1 = 'هذا موجود بالفعل في قائمة المفضلة لديك هل أنت متأكد من حذفه؟';
-     sweetWarning2 = 'نعم ، احذفها!';
+ 
+    let addedList = ref('added to wishlist');
+    let success = ref('success');
+    let removedList = ref('removed from wishlist')
+    if (lang.value == 'ar') {
+      addedList.value = 'تم الاضافة الي قائمة المفضلات'
+      success.value = 'نجاح';
+      removedList.value = 'تم الحذف من قائمة المفضلات'
+    } else if (lang.value == 'en') {
+       addedList.value = 'added to wishlist'
+      success.value = 'success';
+      removedList.value = 'removed from wishlist';
     }
-    const addToFav = (box) => {
+
+  const addToFav = (box) => {
       if (process.client) {
    let favGet = JSON.parse(sessionStorage.getItem('thefav'))? JSON.parse(sessionStorage.getItem('thefav')) : [];
       // let favChoose = favGet.find((boxi) => boxi.name == box.name);
-        let favChoose = favGet ? favGet.filter((ele) => {
+        let favChoose =  favGet.filter((ele) => {
           return ele.id == box.id;
-      }) : [];
+      });
       console.log(favChoose);
       // console.log(favGet);
         
-         
-        if (favChoose.length < 1) {
-        box.is_in_favorite = !box.is_in_favorite;
-      fav.value.push(box)       
-        sessionStorage.setItem('thefav', JSON.stringify(fav.value));
-          // console.log(box);
-          Swal.fire(
-              sweetGoodJob,
-            sweetAdded,
-             'success'
-              
-              
-            )          
-        } else  {
-                Swal.fire({
-                  title:sweetWarning1,
-                  icon:'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText:sweetWarning2
-                }).then((result) => {
-                  // dismiss != 'overlay'
-                  console.log(result);
-                  if (result.value == true) {
-                     let final =   favGet.filter((ele) => {
+          box.is_in_favorite = !box.is_in_favorite;
+      if (favChoose.length <= 1) {
+        //fav.value.push(box)
+        favGet.push(box);
+        if (box.is_in_favorite == true) {
+          sessionStorage.setItem('thefav', JSON.stringify(favGet));
+                    createToast({
+            title: addedList.value,
+            description: success.value,
+            },
+            {
+            timeout: 5000,
+            toastBackgroundColor: 'green',
+            showIcon: 'true',
+            type: 'success',
+            transition: 'bounce',
+            })
+        } else {
+           let final =   favGet.filter((ele) => {
                     return ele.id != box.id;
-                     });
+           });
+                           createToast({
+            title: removedList.value,
+            description: success.value,
+            },
+            {
+              timeout: 5000,
+            toastBackgroundColor: 'green',
+            showIcon: 'true',
+            type: 'success',
+            transition: 'bounce',
+            })    
                   fav.value = [];
                    
                  sessionStorage.setItem('thefav', JSON.stringify(final));
@@ -577,15 +562,10 @@ const brandsFunc = async () => {
                       // fav.value = [];
 
                     }
-                  console.log(final);
-                    Swal.fire(
-                      sweetdeleted,
-                      sweetfiledel,
-                      'success'
-                    )
-                  }
-                })
-              }
+      }       
+               
+        } 
+       
            
         
       }
@@ -593,9 +573,29 @@ const brandsFunc = async () => {
 
       
     }
+  
+       const carLatestFunc = async () => {
+ let  latest  = await axios.get(`${BaseUrl}/cars/latest`,{
+      headers: {
+    'Content-Language':`${lang.value}`
+  }
+ });
 
-  
-  
+     if (process.client) {
+   let favGet = JSON.parse(sessionStorage.getItem('thefav'))? JSON.parse(sessionStorage.getItem('thefav')) : [];
+      console.log(favGet);
+       if (favGet.length >= 1) {
+        //  latest.data.data = favGet;
+         for (let i = 0; i < favGet.length; i++){
+           
+             latest.data.data[favGet[i].id - 1].is_in_favorite = favGet[i].is_in_favorite;
+          
+         }
+        }
+      }
+  latestArray.value = latest.data.data;  
+    }
+    carLatestFunc();  
    
     
 

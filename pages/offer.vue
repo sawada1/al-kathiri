@@ -73,10 +73,7 @@ const offerFanc = async () => {
   offersCar.value = box.data.offer_cars
 
   useHead({
-  title: lang.value == 'ar' ? `${theOffer.value.title}/الكثيري للسيارات` : `alkathiri motors / ${theOffer.value.title}`,
-  meta: [
-    { name: 'description', content: theOffer.value.description }
-  ]
+  title: lang.value == 'ar' ? `${theOffer.value.title}/الكثيري للسيارات` : `alkathiri motors / ${theOffer.value.title}`
 });
 }
 offerFanc();

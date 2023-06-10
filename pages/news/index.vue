@@ -157,10 +157,7 @@ productNews();
     }
 
 useHead({
-  title: lang.value == 'ar' ? 'اخبار / الكثيري للسيارات' : 'alkathiri motors / news',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
+  title: lang.value == 'ar' ? 'اخبار / الكثيري للسيارات' : 'alkathiri motors / news'
 });
   
 // console.log(products.value.data);

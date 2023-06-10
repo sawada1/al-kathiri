@@ -136,7 +136,7 @@
         <span>&copy; {{$t('AL KATHIRI MOTORS')}}, {{$t('All Rights Reserved')}}</span>
         <p>
             <span>{{$t('Developed By')}}</span>
-            <a href="https://www.webstdy.com/ar" target="_blank" rel="noopener noreferrer">
+            <a target="_blank" href="https://www.webstdy.com">
              <img src="~/assets/images/logo-footer.svg" alt="webstdy">
             </a>
            
@@ -180,7 +180,10 @@ let checkfav = ref(false);
 const scrollNav = () => {
    if (process.client){
        window.addEventListener("scroll", () => {
-           checkNav.value = true;
+          
+           if (window.scrollY >= 100) {
+             checkNav.value = true;
+           }
            if (window.scrollY == 0) {
                checkNav.value = false
            }

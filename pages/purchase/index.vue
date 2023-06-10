@@ -358,6 +358,8 @@
 </template>
 
 <script setup>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import axios from 'axios';
 const {locale } = useI18n();
 let lang = ref(locale);

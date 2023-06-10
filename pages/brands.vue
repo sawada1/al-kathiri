@@ -63,10 +63,7 @@ brandsFunc();
 
 
       useHead({
-  title: lang.value == 'ar' ? 'السيارات/الكثيري للسيارات': 'alkathiri motors / cars',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
+  title: lang.value == 'ar' ? 'السيارات/الكثيري للسيارات': 'alkathiri motors / cars'
 })
 
 </script>

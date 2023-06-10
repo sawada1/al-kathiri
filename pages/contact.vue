@@ -180,10 +180,7 @@ const sendContact = async () => {
 let checkBranch = ref(1);
 
 useHead({
-  title: lang.value == 'ar' ? 'اتصل بنا / الكثيري للسيارات' : 'alkathiri motors / contact us',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
+  title: lang.value == 'ar' ? 'اتصل بنا / الكثيري للسيارات' : 'alkathiri motors / contact us'
 });
 
  

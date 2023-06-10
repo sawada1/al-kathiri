@@ -84,10 +84,7 @@ jobFunc();
 
     
 useHead({
-  title: lang.value == 'ar' ? ' وظائف/الكثيري للسيارات' : 'alkathiri motors / careers',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
+  title: lang.value == 'ar' ? ' وظائف/الكثيري للسيارات' : 'alkathiri motors / careers'
 });
 </script>
 

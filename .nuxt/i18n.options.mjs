@@ -50,4 +50,4 @@ export const NUXT_I18N_PRECOMPILE_ENDPOINT = "/__i18n__/precompile"
 export const NUXT_I18N_PRECOMPILED_LOCALE_KEY = "i18n-locales"
 export const NUXT_I18N_PRERENDERED_PATH = "/__i18n__/prerender"
 export const NULL_HASH = "00000000"
-export const isSSG = false
+export const isSSG = true

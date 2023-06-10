@@ -66,10 +66,7 @@ offersFunc();
 }
 
 useHead({
-  title: lang.value == 'ar' ? 'العروض/الكثيري للسيارات' : 'alkathiri motors / offers',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ]
+  title: lang.value == 'ar' ? 'العروض/الكثيري للسيارات' : 'alkathiri motors / offers'
 });
   
 
