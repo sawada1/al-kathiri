@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     '@nuxtjs/i18n',
   ],
+   
    i18n: {
      lazy: true,
      langDir: "locales",
@@ -28,6 +29,8 @@ export default defineNuxtConfig({
      ],
      defaultLocale:"ar"
   },
+   
+
   ssr: true, //server side rendered enabled //When true
   nitro: {
     prerender: {
@@ -39,9 +42,10 @@ export default defineNuxtConfig({
       // baseURL: "/al-kathiri/",
       head: {
           htmlAttrs:{
-            lang: 'en',
-            dir: 'ltr'
+            lang: 'ar ',
+            dir: 'rtl'
           },
+          
             meta: [
               {
                 name: "theme-color",
@@ -57,27 +61,21 @@ export default defineNuxtConfig({
                         crossorigin: 'anonymous',
                         referrerpolicy:'no-referrer'
                 },
-                {
-                        rel: 'stylesheet',
-                        href: 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css',
-                },
+             
             ],
                       script:[
                         {
                             src:'/bootstrap.bundle.min.js',
                           },
-                          {
-                            src:'https://cdn.jsdelivr.net/npm/sweetalert2@11'
-                        },
                            {
-                              src:'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js'
+                              src:'/moment.min.js'
                           },
                           {
-                            src:'https://cdnjs.cloudflare.com/ajax/libs/rome/3.0.2/rome.standalone.min.js',
+                            src:'/rome.standalone.min.js',
                           },
                           
                           {
-                              src:'https://cdnjs.cloudflare.com/ajax/libs/rome/3.0.2/rome.js'
+                              src:'/rome.js'
                           },
                          
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container bookPart d-flex flex-column gap-3 align-items-center justify-content-center">
+        <div class="container bookPart d-flex flex-column gap-3 align-items-center justify-content-center" style="margin-top: 150px;">
          <img src="@/assets/images/point.svg" alt="">
          <h3>{{ $t('YOU BOOKED YOUR APPOINTMENT SUCCESSFULLY') }}</h3>
          <p>visit id:   <span v-if="id">{{ id }}</span></p>
@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+
 const localePath = useLocalePath();
 const route = useRoute();
 let id = route.query.id ? route.query.id : null;

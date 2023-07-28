@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="container bookPart d-flex flex-column gap-3 align-items-center justify-content-center">
-         <img src="@/assets/images/point.svg" alt="">
+        <div style="margin-top: 150px;" class="container bookPart d-flex flex-column gap-3 align-items-center justify-content-center">
+         <img src="~/assets/images/point.svg" alt="">
          <h3>{{ $t('YOUR APPLICATION SUBMITTED SUCCESSFULLY') }}</h3>
          <p>{{ $t('We will contact you as soon as possible') }}</p>
           <div class="btns d-flex align-items-center gap-3">
@@ -17,6 +17,7 @@
 </template>
 
 <script setup>
+
 const localePath = useLocalePath();
 
 </script>

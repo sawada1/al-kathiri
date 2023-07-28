@@ -1,7 +1,7 @@
 <template>
     <div>
 
-         <div class="carName my-5">
+         <div class="carName" style="margin-top: 100px;">
    <h3 class="fw-bolder text-center py-3">{{ mainCar.name }}</h3>
     <div class="row gap-3  justify-content-between align-items-center">
         <div class="col-3">
@@ -85,9 +85,9 @@
     </div>
 
        <swiper
-     
+     :looped-slides="true"
    :autoplay="{
-      delay: 1500,
+      delay: 3500,
       disableOnInteraction: false,
     }"
     :loop="true"
@@ -126,92 +126,58 @@
     </swiper-slide>
 
   </swiper>
-
-   <div class="settings my-5">
-    <div class="container">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-12 col-xl-7 col-lg-7 col-md-6 theSetting">
-                <div class="row gap-2 text-center  align-items-center justify-content-center p-3">
-                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" style="white-space: nowrap;">
+  <div class="container mainCarDetails my-4">
+  <div class="row justify-content-center gap">
+  <div class="col-12 col-xl-7 col-lg-7 col-md-8">
+  <div class="settings my-5">
+    <div class="container settings-container">
+      <div class="row gap-2 text-cente  align-items-center justify-content-cente p-3">
+                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center setting-box p-2" style="white-space: nowrap;">
                         <img src="@/assets/images/icon1.svg" alt="">
                         <span>{{ $t('Model Year') }}</span>
                          <p class="fw-bold">{{ mainCar.year }}</p>
                     </div>
-                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" style="white-space: nowrap;">
+                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center setting-box p-2" style="white-space: nowrap;">
                         <img src="@/assets/images/icon5.svg" alt="">
                         <span>{{ $t('Engine') }}</span>
                          <p class="fw-bold">{{ mainCar.fuel_consumption }} liter</p>
                     </div>
-                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" >
+                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center setting-box p-2" >
                         <img src="@/assets/images/noun-speed-3341122.svg" alt="">
                         <span>{{ $t('Kilometers') }}</span>
                          <p class="fw-bold">{{ mainCar.maximum_force }}</p>
                     </div>
-                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" >
+                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center setting-box p-2" >
                         <img src="@/assets/images/noun-transmission-1325127.svg" alt="">
                         <span>{{ $t('Transmission') }}</span>
                          <p class="fw-bold">{{ mainCar.motion_vector }}</p>
                     </div>
-                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" >
+                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center setting-box p-2" >
                         <img src="@/assets/images/icon3.svg" alt="">
                         <span>{{ $t('Number Of Doors') }}</span>
                          <p class="fw-bold">{{ mainCar.seats_number }}</p>
                     </div>
-                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" >
+                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center setting-box p-2" >
                         <img src="@/assets/images/icon6.svg" alt="">
                         <span>{{ $t('Seats') }}</span>
                          <p class="fw-bold">{{ mainCar.upholstered_seats }}</p>
                     </div>
-                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" >
+                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center setting-box p-2" >
                         <img src="@/assets/images/icon7.svg" alt="">
                         <span>{{ $t('Transmission') }}</span>
                          <p class="fw-bold">{{ mainCar.traction_type }}</p>
                     </div>
-                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center  p-2" >
+                    <div class="col-5 col-xl-2 col-lg-2 col-md-3  d-flex flex-column align-items-center setting-box p-2" >
                         <img src="@/assets/images/icon8.svg" alt="">
-                        <span>{{ $t('Fuel Type ') }}</span>
+                        <span>{{ $t('Fuel Type') }}</span>
                          <p class="fw-bold">{{ mainCar.engine_type }}</p>
                     </div>
                 </div>
-            </div>
-            <div id="nameOfcar" class="col-12 nameOfcar  col-xl-5 col-lg-5 col-md-6 d-flex flex-column gap-3" :class="{'active':checkNameCarScroll}">
-                <div class="carName">
-                    <div class="block">
-                                <h3 class="fw-bolder">{{ mainCar.name }}</h3>
-               <div class="colors d-flex align-items-center  justify-content-between">
-                <p class="available">colors available</p>
-                 <div class="theColors">
-                    <span v-for="color,index in apiColors" :style="{'background-color':color.hex_code}"  @click="colorCar = index+1" :class="{'active':colorCar==index+1}"></span>
-                 </div>
-                   <div v-for="color,index in apiColors">
-                     <div v-if="colorCar==index+1" class="mainColor" :style="{'background-color':color.hex_code}">
-                        <p class="" :class="{'white':color.name=='ابيض'||color.name=='white'}">{{ color.name }}</p>
-                     </div>
-                    
-                 </div>
-            </div>
-                    </div>
-                      <div class="price d-flex align-items-center gap-5 w-100">
-                <div class="thePrice text-center py-2 px-4">
-                  <p>price</p>
-                  <span>{{ mainCar.selling_price }} sar</span>
-                </div>
-                <div class="after text-center ">
-                    <p>after vat</p>
-                    <span class="fw-bold">{{ mainCar.selling_price_after_vat }} sar</span>
-                </div>
-            </div>
-                </div>
-                 
-               <button @click="goToPurchasePage(mainCar.id,colorCar)" class="purchaseBtn">{{ $t('purchase') }}</button>
-              
-            </div>
-        </div>
     </div>
    </div>
 
-   <div class="Alldescription container">
-     <div class="containe">
+   <div class="Alldescription containe ">
+     <div class="container">
         <div class="header">
             <a class="fw-bold" @click="carDetails = 1" :class="{'active':carDetails==1}">{{ $t('Car Description') }}</a>
             <a class="fw-bold" href="#specification" @click="carDetails = 2" :class="{'active':carDetails==2}">{{ $t('Specifications') }}</a>
@@ -275,8 +241,52 @@
 
      </div>
    </div>
-   
+  </div>
+
+  <div class="col-12 col-xl-5 col-lg-5   mainCarNameContainer">
+  <div class="sticky-carDetails d-flex flex-column gap-3">
+   <div class="carNameSlide  ">
+                <h3 class="fw-bolder">{{ mainCar.name }}</h3>
+               <div class="colors d-flex align-items-center  justify-content-between">
+                <p class="available">colors available</p>
+                 <div class="theColors">
+                    <span v-for="color,index in apiColors" :style="{'background-color':color.hex_code}"  @click="colorCar = index+1" :class="{'active':colorCar==index+1}"></span>
+                 </div>
+                   <div v-for="color,index in apiColors">
+                     <div v-if="colorCar==index+1" class="mainColor" :style="{'background-color':color.hex_code}">
+                        <p class="" :class="{'white':color.name=='ابيض'||color.name=='white'}">{{ color.name }}</p>
+                     </div>
+                    
+                 </div>
+            </div>
+                      <div class="price d-flex align-items-center gap-5 w-100">
+                <div class="thePrice text-center py-2 px-4 w-50">
+                  <p>price</p>
+                  <span>{{ mainCar.selling_price }} sar</span>
+                </div>
+                <div class="after text-center ">
+                    <p>after vat</p>
+                    <span class="fw-bold">{{ mainCar.selling_price_after_vat }} sar</span>
+                </div>
+            </div>
+            <div class="icons d-flex align-items-center gap-3">
+        <img style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#shareViaModal" src="@/assets/images/share.svg" alt="">
+          <i style="cursor:pointer;" @click="addToFav()" class="fa-regular fa-heart fav"  :class="{'fa-solid':favIcon}"  ></i>
+    </div>
+            </div>
+      <button @click="goToPurchasePage(mainCar.id,colorCar)" class="w-100 ">{{ $t('purchase') }}</button>
+  </div>
  
+
+  </div>
+  
+ </div>
+  
+  </div>
+ 
+   
+   
+    
      <div v-if="similar_vehicles.length >= 1" class="similarr">
         <div class="container">
                <h3 class="px-5 fw-bolder thehead">{{$t('similar cars')}}</h3>
@@ -333,6 +343,7 @@ import 'mosha-vue-toastify/dist/style.css';
 export default {
 
   async setup() {
+
   let theColorId = ref(1);
     let checkNameCarScroll = ref(false);
     const localePath = useLocalePath();
@@ -352,15 +363,21 @@ console.log(route.value);
 const scrollNameCar = () => {
     if (process.client) {
       let nameOfcar = document.querySelector(".nameOfcar");
+      let footer = document.querySelector(".similarr");
+      let posCar = nameOfcar.offsetTop == null ? 0 : nameOfcar.offsetTop;
+      //let posfooter = footer.offsetTop == null ? 0 : footer.offsetTop;
         window.addEventListener("scroll", () => {
-            if (window.scrollY >= nameOfcar.offsetTop) {
+            if (window.scrollY >= posCar) {
                 checkNameCarScroll.value = true; 
-            } else {
-             checkNameCarScroll.value = false;
-            }
+          }
+            else {
+            checkNameCarScroll.value = false; 
+           }
         })
     }
-}
+    }
+
+
         
    
         let checkTabsWithSpecifications = ref(1);
@@ -381,7 +398,8 @@ const scrollNameCar = () => {
            
    
   
-   const carLatestFunc = async () => {
+    const carLatestFunc = async () => {
+      pending.value = true;
  let  car  = await axios.get(`${url}/cars/${id}`,{
       headers: {
     'Content-Language':`${currentLang.value}`

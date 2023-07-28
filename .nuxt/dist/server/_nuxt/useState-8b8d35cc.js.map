@@ -1,0 +1,1 @@
+{"version":3,"file":"useState-8b8d35cc.js","sources":["../../../../composables/useState.js"],"sourcesContent":["export const getUrl = () => {\r\n    return 'https://alkethiri-backend.webstdy.net/api';\r\n}\r\n\r\n\r\n\r\n"],"names":[],"mappings":"AAAY,MAAC,SAAS,MAAM;AACxB,SAAO;AACX;"}

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="container favCars ">
+        <div class="container favCars " style="margin-top: 150px; min-height: 75vh;">
            <h3 class="head" :data-fav="$t('REACH YOUR CAR')">{{ $t('YOUR FAVORITE') }}</h3>
             
             <div  class="row  justify-content-center gap-2 p-2 ">
@@ -35,13 +35,14 @@
                </div>
 
                <div class="d-flex my-4 align-items-center justify-content-center" v-if="favState == null" >
-             <p class="text-danger fw-bold fs-2 my-5">{{ $t('This Cart Is Empty') }}</p>
+             <p class="text-primar fw-bold fs-2 my-5">{{ $t('No products on your favorites list!') }}</p>
             </div> 
         </div>
     </div>
 </template>
 
 <script setup>
+
  const favState = process.client ? JSON.parse(sessionStorage.getItem('thefav')) : null;
 console.log(favState);
 const { locale } = useI18n();

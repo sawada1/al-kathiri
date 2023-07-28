@@ -6,12 +6,12 @@
         <div class="row d-flex align-items-center justify-content-center">
           <div class="col-lg-7 col-xl-7 col-md-12 col-sm-12">
             <div class="text">
-              <span>{{ $t('with al kathiri motors') }}</span>
-              <h2>
+              <span class="headFont">{{ $t('with al kathiri motors') }}</span>
+              <h2 class="headFont">
                 {{ $t('FIND YOUR DREAM CAR') }}
               </h2>
               
-                <p>
+                <p class="">
                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Rerum placeat fugiat sit quo ipsum error maxime voluptates
                    porro commodi quisquam eligendi perferendis 
@@ -25,15 +25,17 @@
             </div>
           </div>
           <div class="col col-lg-5 col-xl-5 col-md-12 col-sm-12">
-            <div class="image">
+            <div class="image first">
               <img class="img2" loading="lazy" src="~/assets/images/landing2.png" alt="landing" />
               <div class="img3" loading="lazy" ></div>
               <img class="img1" loading="lazy" src="~/assets/images/landing1.svg" alt="landing" />
             </div>
+        
           </div>
         </div>
       </div>
     </div>
+    
 
     <div class="searchBar">
       <div class="main">
@@ -53,13 +55,14 @@
           <option :value="null" disabled>{{ $t('choose a model') }}</option>
           <option v-if="mainObj.id" v-for="model in brandsWithModles[mainObj.id - 1].parent_models" :value="model.id">{{ model.name }}</option>
         </select>
-        <button @click="goToBrandPageSearch()">{{ $t('search') }}</button>
+        <button type="button" :disabled="mainObj.id==null" @click="goToBrandPageSearch()" >{{ $t('search') }}</button>
       </div>
     </div>
     <div class="containe groups">
+     
       <swiper
         :spaceBetween="50"
-        :loop="true"
+         :loop="true"
         :autoplay="{
           delay: 2500,
           disableOnInteraction: false,
@@ -82,25 +85,25 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide @click="goToBrandPageByType('sedan')" style="cursor: pointer;">
-          <img  src="~/assets/images/group1.png" loading="lazy" alt="sedan" />
-          <span>sedan</span>
+        <swiper-slide @click="goToBrandPageByType('hatchback')" style="cursor: pointer;">
+          <img  src="~/assets/images/hatch.png" loading="lazy" alt="sedan" />
+          <span class="mt-3">hatchback</span>
         </swiper-slide>
         <swiper-slide @click="goToBrandPageByType('family')" style="cursor: pointer;">
-          <img src="~/assets/images/group2.png" loading="lazy" alt="family" />
-          <span>family</span>
+          <img src="~/assets/images/family.png" loading="lazy" alt="family" />
+          <span class="mt-3">family</span>
+        </swiper-slide>
+        <swiper-slide @click="goToBrandPageByType('4_by_4')" style="cursor: pointer;">
+          <img src="~/assets/images/4x4.png" loading="lazy" alt="sedan" />
+          <span class="mt-3">4x4</span>
         </swiper-slide>
         <swiper-slide @click="goToBrandPageByType('sedan')" style="cursor: pointer;">
-          <img src="~/assets/images/group1.png" loading="lazy" alt="sedan" />
-          <span>sedan</span>
+          <img src="~/assets/images/sedan.png" loading="lazy" alt="4x4" />
+          <span class="mt-3">sedan</span>
         </swiper-slide>
-        <swiper-slide style="cursor: pointer;">
-          <img src="~/assets/images/group1.png" loading="lazy" alt="4x4" />
-          <span>4x4</span>
-        </swiper-slide>
-        <swiper-slide style="cursor: pointer;">
-          <img src="~/assets/images/group4.png" loading="lazy" alt="commercial" />
-          <span>commercial</span>
+        <swiper-slide style="cursor: pointer;" @click="goToBrandPageByType('suv')">
+          <img src="~/assets/images/suv.png" loading="lazy" alt="commercial" />
+          <span class="mt-3">suv</span>
         </swiper-slide>
      
       </swiper>
@@ -110,18 +113,18 @@
       <div class="container">
         <div class="row gap-5 align-items-center justify-content-around">
           <div class="col-12 col-xl-4 col-lg-4">
-            <div class="image">
-              <img src="@/assets/images/about.png" loading="lazy" alt="about-section" />
+            <div class="image first">
+              <img src="~/assets/images/about.png" loading="lazy" alt="about-section" />
             </div>
           </div>
           <div class="col-12 col-xl-6 col-lg-6">
             <div class="text">
-              <span class="span">{{ $t('AL KATHIRI MOTORS') }}</span>
-              <h2 class="fw-bolder"  :data-about="$t('about us')">
+              <span class="span headFont">{{ $t('AL KATHIRI MOTORS') }}</span>
+              <h2 class="fw-bolder headFont"  :data-about="$t('about us')">
                 {{ $t('how we are') }}
               </h2>
-                 <ClientOnly>
-                  <p class="" v-html="generalData.about_us">
+                 <ClientOnly style="background-color: transparent;">
+                  <p class="mt-4"  v-html="generalData.why_alkathiri_cars">
               </p>
             </ClientOnly>
               <div class="btn">
@@ -140,7 +143,7 @@
 
     <div class="why-choose">
       <div class="head">
-        <h3 class="fw-bolder" :data-why="$t('AL KATHIRI MOTORS')">{{ $t('why choose us') }}</h3>
+        <h3 class="fw-bolder my-5 headFont" :data-why="$t('AL KATHIRI MOTORS')">{{ $t('why choose us') }}</h3>
       </div>
       <div class="main mb-5 position-relative">
         <div class="boxes row d-flex  justify-content-center gap-5">
@@ -186,7 +189,7 @@
 
     <div class="brands">
       <div class="head">
-        <h3 class="fw-bolder" :data-brands="$t('AUTHORIZED DISTRIBUTOR')">{{ $t('car brands') }}</h3>
+        <h3 class="fw-bolder headFont" :data-brands="$t('AUTHORIZED DISTRIBUTOR')">{{ $t('car brands') }}</h3>
       </div>
       <div class="container">
         <div class="boxes row d-flex justify-content-center gap-3 align-items-center">
@@ -204,8 +207,8 @@
     </div>
     <div class="container latest">
       <div class="head">
-        <h3 class="fw-bolder" :data-latest="$t('JUST PUBLISHED')">{{ $t('latest vehicles') }}</h3>
-        <div class="see">
+        <h3 class="fw-bolder headFont" :data-latest="$t('JUST PUBLISHED')">{{ $t('latest vehicles') }}</h3>
+        <div class="see d-flex  align-items-center gap-1">
          <nuxt-link :to="localePath('/brandcar')">
            <span style="color:#1B395F;">{{ $t('see all') }} </span>
             </nuxt-link>
@@ -240,9 +243,9 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide v-for="car in latestArray"  style="cursor: pointer;"  class="mainlatestbox latestboxes">
+        <swiper-slide v-for="car in latestArray" @click="goToCarPage(car.id , car.name)" style="cursor: pointer;"  class="mainlatestbox latestboxes">
             <div class="image"  >
-              <img @click="goToCarPage(car.id , car.name)" :src="car.main_image" loading="lazy" :alt="car.name" />
+              <img  :src="car.main_image" loading="lazy" :alt="car.name" />
             </div>
          
 
@@ -270,18 +273,19 @@
 
     <div class="news">
       <div class="head">
-        <h3 class="fw-bolder" :data-news="$t('BE AWARE OF OUR')">{{ $t('latest news') }}</h3>
+        <h3 class="fw-bolder headFont" :data-news="$t('BE AWARE OF OUR')">{{ $t('latest news') }}</h3>
       </div>
 
       <swiper
         :spaceBetween="50"
         
-        :loop="true"
+        
         :centeredSlides="true"
            :autoplay="{
           delay: 2500,
           disableOnInteraction: false,
         }"
+        :loop="true"
         :breakpoints="{
           '640': {
             slidesPerView: 1,
@@ -326,7 +330,7 @@
                   <span>{{ box.created_at }}</span>
                 </div>
               </div>
-              <div class="read">
+              <div class="read d-flex align-items-center gap-1">
                  <span class="fw-bold">{{ $t('now more') }}</span>              
                 <i class="fa-solid fa-chevron-right"></i>
               </div>
@@ -342,7 +346,7 @@
     <div class="subscribe">
       <div class="text">
         <div class="d-flex flex-column align-items-center gap-2">
-          <h2>
+          <h2 class="headFont">
            {{ $t(`Book Your`) }} <br> {{ $t('Maintenance Appointment') }} <br> {{ $t('now') }}
           </h2>
           <div class="btn">
@@ -380,6 +384,7 @@ export default {
     SwiperSlide,
   },
   async setup() {
+
     const {locale } = useI18n();
     let BaseUrl = getUrl();
     let brandArray = ref([]);
@@ -398,7 +403,7 @@ export default {
         id: id,
         name: name,
       }
-         const url = currentLang.value + '/brandcar'
+      const url = currentLang.value + '/brandcar'
 
       router.push({ path: url , query: queryParams })
     }
@@ -471,7 +476,7 @@ export default {
  
 
 
-const brandsFunc = async () => {
+  const brandsFunc = async () => {
   let  brands  = await axios.get(`${BaseUrl}/brands`,{
       headers: {
     'Content-Language':`${lang.value}`
@@ -505,11 +510,7 @@ const brandsFunc = async () => {
       addedList.value = 'تم الاضافة الي قائمة المفضلات'
       success.value = 'نجاح';
       removedList.value = 'تم الحذف من قائمة المفضلات'
-    } else if (lang.value == 'en') {
-       addedList.value = 'added to wishlist'
-      success.value = 'success';
-      removedList.value = 'removed from wishlist';
-    }
+    } 
 
   const addToFav = (box) => {
       if (process.client) {
@@ -527,7 +528,7 @@ const brandsFunc = async () => {
         favGet.push(box);
         if (box.is_in_favorite == true) {
           sessionStorage.setItem('thefav', JSON.stringify(favGet));
-                    createToast({
+              createToast({
             title: addedList.value,
             description: success.value,
             },
@@ -542,7 +543,7 @@ const brandsFunc = async () => {
            let final =   favGet.filter((ele) => {
                     return ele.id != box.id;
            });
-                           createToast({
+            createToast({
             title: removedList.value,
             description: success.value,
             },

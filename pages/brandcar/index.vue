@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="brandCars">
+        <div class="brandCars" style="margin-top: 100px;">
    <div class="container p-2">
      <div class="row p-2 gap-4">
         <div class="col-12 col-xl-3 col-lg-3 col-md-12 d-flex flex-column align-items-center">
@@ -129,7 +129,7 @@
            <div class="col-12 col-xl-8 col-lg-8 col-md-12 ">
            <div v-if="checkMain.length >= 1">
             <h2 v-if="checkMain.length >= 1" v-for="item,index in checkMain" class="fw-bolder py-1">
-             <span  v-for="mainTitle in filterData.brands[item - 1].name">{{ mainTitle }}</span>,
+             <span  v-for="mainTitle in filterData.brands[item - 1].name">{{ mainTitle }}</span>
             </h2>
            </div>
            
@@ -137,8 +137,8 @@
               {{ $t('all cars') }}
             </h2>
                   <div class="row justify-content-center ">
-              <div v-for="car in brandCars" style="cursor: pointer;"  class="mainlatestbox col-xl-3 col-lg-3 col-md-5 ">
-                <div @click="goToCarPage(car.id , car.name)"  class="image">
+              <div v-for="car in brandCars" style="cursor: pointer;" @click="goToCarPage(car.id , car.name)"  class="mainlatestbox col-xl-3 col-lg-3 col-md-5 ">
+                <div  class="image">
                     <img :src="car.main_image" alt="">
                 </div>
                
@@ -162,7 +162,7 @@
               <i @click="addToFav(car)" class="fa-regular fa-heart fav" :class="{'fa-solid':car.is_in_favorite}"></i>
              </div>
             
-
+                 
       
                </div>  
               <div v-if="spinner" class="d-flex align-items-center justify-content-center">
@@ -170,6 +170,12 @@
   <span class="visually-hidden">Loading...</span>
 </div>
                    </div>
+                   <div class="d-flex align-items-center mb-5 flex-column justify-content-center h-100" v-if="checkData">
+                 <h3 >{{ $t('there is no data') }}</h3>
+                 <nuxt-link :to="localePath('/notFound')">
+                <span  style="color:#1B395F;">{{$t('Click to request a car that is not available') }}</span>
+                 </nuxt-link>
+                 </div>
           
 
             </div>
@@ -177,7 +183,9 @@
      </div>
   </div>
 </div>
-
+      <div v-if="pending"  class="mainLoader">
+     <span class="loader"></span>
+    </div>
     </div>
 </template>
 
@@ -209,6 +217,7 @@ let subModels = ref([]);
 let filterData = ref(filterCar.data);
 console.log(filterData.data);
 const checkMain = ref(mainId ? [mainId] : []);
+let checkData = ref(false);
 
 let minNum = ref(filterData.value.minPrice);
 let maxNum = ref(filterData.value.maxPrice);
@@ -345,6 +354,7 @@ const showCars = async () => {
       min_price:minNum.value,
       max_price: maxNum.value,
       models: models.value,
+      name:mainName,
       sub_models: subModels.value,
       type: checkType.value ? checkType.value : ''
     },
@@ -354,22 +364,33 @@ const showCars = async () => {
   });
     if (process.client) {
    let favGet = JSON.parse(sessionStorage.getItem('thefav'))? JSON.parse(sessionStorage.getItem('thefav')) : [];
-      console.log(favGet);
-       if (favGet.length >= 1) {
+      //console.log(favGet);
+       if (favGet.length <= 1) {
         //  latest.data.data = favGet;
-         for (let i = 0; i < favGet.length; i++){ 
-          
-          result.data.data[favGet[i].id - 1].is_in_favorite = favGet[i].is_in_favorite;
-          
+            result.data.data.map((ele) => {
+             return ele.id == favGet.map((e) => {
+               return e.id;
+             }) ? ele.is_in_favorite = true : false;
+           }); 
+        
+       } else {
+           for (let i = 0; i < result.data.data.length; i++){
+            if (result.data.data[i].id == favGet[i].id) {
+              result.data.data[i].is_in_favorite = favGet[i].is_in_favorite;
+           }
          }
-         //result.data.data[1].is_in_favorite = true;
-        }
+       }
       }
   brandCars.value = result.data.data;
   if (result.status == 200) {
     spinner.value = false;
+    if (result.data.data.length < 1) {
+       checkData.value = true
+    } else {
+        checkData.value = false
+    }
   }
-  console.log(result.data.data); 
+ // console.log(result.data.data); 
 }
 
 const reset = () => {

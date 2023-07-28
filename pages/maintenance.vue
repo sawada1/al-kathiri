@@ -1,6 +1,6 @@
 <template>
     <div>
-         <div class="container textBooked">
+         <div class="container textBooked" style="margin-top: 150px;">
           <h3 :data-app="$t('HAPPY TO HELP YOU')">{{ $t('BOOK YOUR MAINTENANCE APPOINTMENT') }}</h3>
           <p>
           Lorem ipsum dolor sit amet
@@ -20,26 +20,26 @@
               <div class="inp">
                <label for=""> {{ $t('full name') }}</label>
                <input type="text" v-model="mainObj.name" :placeholder="$t('write your name..')">
-          <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="nameError">{{ nameError }}</span>
+          <span class="errorMessage text-danger fw-bold "  v-if="nameError">{{ nameError }}</span>
 
               </div>
               <div class="inp">
                <label for="">{{ $t('email') }}</label>
                <input type="email" v-model="mainObj.email" placeholder="example@mail.com..">
-           <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="emailError">{{ emailError }}</span>
+           <span class="errorMessage text-danger fw-bold "  v-if="emailError">{{ emailError }}</span>
 
               </div>
               <div class="inp">
                <label for="">{{ $t('phone number') }}</label>
                <input type="text" v-model="mainObj.phone" placeholder="05xxxxxxxx.....">
-           <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="phoneError">{{ phoneError }}</span>
+           <span class="errorMessage text-danger fw-bold "  v-if="phoneError">{{ phoneError }}</span>
          
               </div>
            
               <div class="inp">
                <label for="">{{ $t('What is your car’s model year?') }}</label>
                <input type="number" v-model="mainObj.model_year" min="1900" max="2100" step="1" >
-           <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="modelYearError">{{ modelYearError }}</span>
+           <span class="errorMessage text-danger fw-bold "  v-if="modelYearError">{{ modelYearError }}</span>
        
               </div>
               <div class="inp">
@@ -48,7 +48,7 @@
                  <option :value="null" disabled>{{ $t('Select Brand...') }}</option>
                  <option v-for="brand in mainBrands" :value="brand.id">{{ brand.name }}</option>
                </select>
-             <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="brandError">{{ brandError }}</span>
+             <span class="errorMessage text-danger fw-bold"  v-if="brandError">{{ brandError }}</span>
  
               </div>
               <div class="inp">
@@ -57,7 +57,7 @@
                <option :value="null" disabled>{{ $t('Select Model...') }}</option>
                  <option v-if="mainObj.brand_id" v-for="model,index in mainBrands[mainObj.brand_id - 1].models" :value="model.id">{{ model.name }}</option>
                </select>
-          <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="modelError">{{ modelError }}</span>
+          <span class="errorMessage text-danger fw-bold"  v-if="modelError">{{ modelError }}</span>
  
               </div>
               <div class="inp">
@@ -68,14 +68,14 @@
                  <option :value="null" disabled>{{ $t('Select city...') }}</option>
                  <option v-for="city in maincities" :value="city.id">{{ city.name }}</option>
                </select>
-            <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="cityError">{{ cityError }}</span>   
+            <span class="errorMessage text-danger fw-bold "  v-if="cityError">{{ cityError }}</span>   
                </div>
                <div class="d-flex flex-column w-50">
                  <select name="" id="" class="w-100" v-model="mainObj.branch_id">
                   <option :value="null" disabled>{{ $t('Select branch...') }}</option>
                  <option v-if="mainObj.city_id" v-for="branch in  maincities[mainObj.city_id - 1].branches" :value="branch.id">{{ branch.name }}</option>
                </select>
-              <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="branchError">{{ branchError }}</span>
+              <span class="errorMessage text-danger fw-bold "  v-if="branchError">{{ branchError }}</span>
    
                </div>
                 
@@ -86,7 +86,7 @@
               <div class="inp">
                <label for="">{{ $t('Please add any extra information about your appointment request') }}</label>
               <textarea style="resize:none;" v-model="mainObj.description" rows="" cols="" :placeholder="$t('write your message here')"></textarea>
-              <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="descError">{{descError }}</span>
+              <span class="errorMessage text-danger fw-bold "  v-if="descError">{{descError }}</span>
 
               </div>
              
@@ -108,12 +108,12 @@
                 </div>
                 
              </div>
-                         <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="timeError">{{ timeError }}</span>
+                         <span class="errorMessage text-danger fw-bold "  v-if="timeError">{{ timeError }}</span>
              <div class="check d-flex align-items-center gap-3">
             <input id="checkTerms" type="checkbox" value="1" v-model="mainObj.terms_and_privacy">
              <label for="checkTerms"> {{ $t('I have read and unconditionally agree to the') }} <span type="button" data-bs-toggle="modal" data-bs-target="#termsModal">{{ $t('Term And Conditions') }}</span>  {{ $t('and') }} <span type="button" data-bs-toggle="modal" data-bs-target="#privacyModal">{{ $t('Privacy Policy') }}</span> </label>                
              </div>
-            <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if=" terms_and_privacyError">{{ terms_and_privacyError }}</span>
+            <span class="errorMessage text-danger fw-bold "  v-if=" terms_and_privacyError">{{ terms_and_privacyError }}</span>
              <button :disabled="spinnerBtn" @click="sendAppointment()" class="w-100 d-flex align-items-center justify-content-center gap-4">
             <span>{{ $t('submit') }}</span> 
                <div v-if="spinnerBtn"  class="spinner-border text-light" role="status">
@@ -123,60 +123,84 @@
            </div> 
           </div>
          </div>
-      
+              <div v-if="pending"  class="mainLoader">
+              <span class="loader"></span>
+              </div>
           <TermsModal/>
          <privacyModal/>
     </div>
 </template>
 
 <script setup>
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+
 import axios from 'axios';
     const {locale} = useI18n();
 let mainDate = ref(null);
 let activeTime = ref(1);
 let spinner = ref(true);
-    let currentLang = ref(locale);
-     const router = useRouter()
-const url = getUrl();
-let  appointmentData = await axios.get(`${url}/make-appointment-form-data`);
-
-console.log(appointmentData.data);
-let mainBrands = ref(appointmentData.data.brands);
-let maincities = ref(appointmentData.data.cities);
-let daysOf = ref(appointmentData.data.days_of);
+let pending = ref(true);
+let currentLang = ref(locale);
 const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 let finalDaysOf = ref([]);
-const functionDaysOf = () => {
+const router = useRouter()
+const url = getUrl();
+let mainBrands = ref([]);
+let maincities = ref([]);
+let daysOf = ref([]);
+let times = ref([]);
+const appointmentFunc = async () => {
+  pending.value = true;
+let appointmentData = await axios.get(`${url}/make-appointment-form-data`, {
+  headers: {
+     'Content-Language':`${currentLang.value}`
+  }
+});
+
+if (appointmentData.status == 200) {
+  pending.value = false;
+} 
+     console.log(appointmentData.data);
+ mainBrands.value = appointmentData.data.brands;
+ maincities.value = appointmentData.data.cities;
+  daysOf.value = appointmentData.data.days_of;
+
+   const functionDaysOf = () => {
   for (let i = 0; i < daysOf.value.length; i++){
     finalDaysOf.value.push(daysOfWeek.indexOf(daysOf.value[i]));
   }
 }
 functionDaysOf();
-console.log(finalDaysOf.value);
-let times = ref([]);
-const calender = () => {
-  if (process.client) {
+
+
+function disableDaysOfWeek(date) {
+  return !finalDaysOf.value.includes(date.getDay()); 
+}
+ if (process.client) {
     rome(inline_cal,{
       time: false,
-         dateValidator: function (d) {
-    return !finalDaysOf.value.includes(moment(d).day());
-  }, 
+      min:appointmentData.data.start_date,
+      max:appointmentData.data.end_date,
+      dateValidator: disableDaysOfWeek
         
     });
     let lastSelectedDate = null;
 
     let days = document.querySelectorAll('.rd-day-body');
+
     days.forEach((ele) => {
       ele.addEventListener('click', () => {
           setTimeout(async () => {
             mainDate.value = rome(inline_cal).getDateString();
+            console.log(mainDate.value);
             if (lastSelectedDate != mainDate.value)
             {
               lastSelectedDate = mainDate.value;
-              let { data: allDates } = await useFetch(`${url}/time-slots?date=${mainDate.value}`);
-              times.value = allDates.value;
+              let  allDates  = await axios.get(`${url}/time-slots?date=${mainDate.value}`, {
+                headers: {
+                  'Content-Language':`${currentLang.value}`
+                }
+              });
+              times.value = allDates.data;
               console.log(times.value);
               mainObj.value.date = mainDate.value;
               spinner.value = false;
@@ -185,11 +209,20 @@ const calender = () => {
         })
     })
 
-     document.querySelector('.rd-day-body.rd-day-selected').click();
+        document.querySelector('.rd-day-body.rd-day-selected').click();
     
-  }
+  } 
+  
 
 }
+appointmentFunc();
+
+
+
+
+
+let branchNameAndId = ref([]);
+let cityName = ref(null);
 let mainObj = ref({
   name: null,
   phone: null,
@@ -252,29 +285,19 @@ const sendAppointment = async () => {
          modelYearError.value = json.errors.model_year == undefined ? null : json.errors.model_year[0]; 
 
       } else {
-        //mainObj.value = '';
-          Swal.fire(
-          'success',
-          `${json}`,
-          'success'
-        );
-           let city = maincities.value[mainObj.value.city_id - 1].name;
-         let branch = maincities.value[mainObj.value.city_id - 1].branches[mainObj.value.city_id - 1].name;
             const queryParams = {
-        id: mainObj.value.brand_id,
-        date: mainObj.value.date,
-        time: mainObj.value.time,
-        branch: branch,
-        city: city,
+        id: json.id,
+        date: json.date,
+        time: json.time,
+        branch: json.branch,
+        city: json.city,
          }
     
       const url = currentLang.value + '/booked'
       router.push({ path:`/${url}` , query: queryParams })
+         
          spinnerBtn.value = false;
-        console.log(mainObj.value);
-       
-         spinnerBtn.value = false;
-        console.log(mainObj.value);
+        //console.log(mainObj.value);
       
       }
     
@@ -290,7 +313,7 @@ const sendAppointment = async () => {
 });
 
 onMounted(async () => {
-  calender();
+ 
 })
 
 

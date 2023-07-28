@@ -2,13 +2,13 @@
     <div>
    
     
- <div v-if="!pending"  class="offersCars my-5">
+ <div v-if="!pending"  class="offersCars" style="margin-top: 150px;">
   
-   <div class="container">
+   <div class="container" style="min-height: 100vh;">
       <div class="head">
         <h3 :data-offers="$t('GET our')">{{ $t('SPATIAL OFFERS') }}</h3>
     </div>
-    <div class="row offers px-2 justify-content-around gap-2">
+    <div class="row offers px-2 justify-content-around gap-2" >
 
 <div v-for="box in offersArr" @click="goToOfferPage(box.title,box.id)" style="cursor: pointer;" class="offer col-xl-3 col-lg-3 col-sm-5 col-md-4 d-flex gap-3 flex-column justify-content-between">
     
@@ -25,10 +25,13 @@
       <div v-if="pending"  class="mainLoader">
      <span class="loader"></span>
     </div>
+
+
     </div>
 </template>
 
 <script setup>
+
 import axios from 'axios';
     const {locale } = useI18n();
 let lang = ref(locale);

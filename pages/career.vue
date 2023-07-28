@@ -1,49 +1,51 @@
 <template>
     <div>
-       <div class="container career">
+       <div class="container career" style="margin-top: 150px;">
           <h3 :data-find="$t('JOIN OUR TEAM')">{{ $t('find your career') }}</h3>
           <div class="row gap-2 justify-content-center">
            <div class="col-12 col-xl-4 col-lg-4 col-md-4    d-flex flex-column gap-3">
              <div class="inpsearch d-flex align-items-center justify-content-between">
-              <input type="search" placeholder="Job title or key...">
+              <input type="search" v-model="searchJob" placeholder="Job title or key...">
               <i class="fa-solid fa-magnifying-glass"></i>
              </div>
               <p class="numjobs"><span>{{ allJobs.length }}</span> {{ $t('open opportunities') }} </p>
               <div class="jobs d-flex flex-column gap-3">
-                  <div v-for="job in allJobs" @click="mainid = job.id" class="job d-flex align-items-center justify-content-between" :class="{'active': job.id == id}">
-                  <div class="det">
+                  <div style="cursor: pointer;" v-for="job,index in allJobs" class="job d-flex align-items-center justify-content-between" @click="checkJob = index+1" :class="{'active':checkJob==index+1}">
+                  <div  class="det">
                    <h6>{{ job.title }}</h6>
-                 
-                   <span>{{ job.address }} |  {{ job.created_at }}</span>
+                   <span>{{ job.address }} | {{ job.created_at }}</span>
                   </div>
-                    <i class="fa-solid fa-chevron-right"></i>
+                   <i class="fa-solid fa-chevron-right"></i>
                  </div>
-                 
+               
               </div>
            </div>
            <div class="col-12 col-xl-7 col-lg-7 col-md-7 my-5">
            <div v-for="job in allJobs">
-                <form v-if="id == job.id" action="" @submit.prevent>
-                <h5><i class="fa-solid fa-chevron-left"></i> {{ job.title }}</h5>
+              <div v-if="checkJob == job.id">
+                <form  action="" @submit.prevent>
+                <nuxt-link to="/careers">
+                <h5><i class="fa-solid fa-chevron-left"></i> {{ job.title }}</h5>      
+                </nuxt-link>
                 <div class="inp">
                  <label for="">{{ $t('full name') }}</label>
                  <input  v-model="namee" type="text" :placeholder="$t('write your name..')">
-               <span class="errorMessage text-danger fw-bold fs-5 my-2" v-if="nameError">{{ nameError }}</span>
+               <span class="errorMessage text-danger fw-bold " v-if="nameError">{{ nameError }}</span>
                 </div>
                 <div class="inp">
                  <label for="">{{ $t('email') }}</label>
                  <input  v-model="email" type="email" placeholder="example@mail.com...">
-               <span class="errorMessage text-danger fw-bold fs-5 my-2" v-if="emailError">{{ emailError }}</span>
+               <span class="errorMessage text-danger fw-bold " v-if="emailError">{{ emailError }}</span>
                 </div>
                 <div class="inp">
                  <label for="">{{ $t('phone number') }}</label>
                  <input  v-model="phone" type="text" placeholder="05xxxxxxxx...">
-               <span class="errorMessage text-danger fw-bold fs-5 my-2" v-if="phoneError">{{ phoneError }}</span>
+               <span class="errorMessage text-danger fw-bold " v-if="phoneError">{{ phoneError }}</span>
                 </div>
                 <div class="inp">
                  <label for="">{{ $t('resume') }}</label>
                  <input @change="onFileChange" type="file" name="">
-            <span class="errorMessage text-danger fw-bold fs-5 my-2" v-if="cvError">{{ cvError }}</span>
+            <span class="errorMessage text-danger fw-bold " v-if="cvError">{{ cvError }}</span>
                 </div>
                 <div class="inp">
                  <label for="">{{ $t('Do you have any comments ?') }}</label>
@@ -59,7 +61,9 @@
                  </nuxt-link>
               
                 </div>
-             </form>
+             </form>        
+              </div>
+           
            </div>
           
            </div>
@@ -74,6 +78,7 @@
 </template>
 
 <script setup>
+
 import axios from 'axios';
 const {locale } = useI18n();
 const router = useRouter();
@@ -81,8 +86,10 @@ const route = useRoute();
 let url = getUrl();
 let lang = ref(locale);
 let pending = ref(false);
-const id = route.query.id ? route.query.id : null;
 
+let searchJob = ref(null);
+const id = route.query.id ? route.query.id : null;
+let checkJob = ref(id);
 let allJobs = ref([]);
 const jobFunc = async () => {
   pending.value = true;
@@ -98,6 +105,13 @@ const  jobs  = await axios.get(`${url}/careers`,{
 console.log(allJobs.value);  
 }
 jobFunc();
+
+
+const filterJobs = computed(() => {
+  return allJobs.value.filter((ele) => {
+    return ele.title == searchJob.value;
+  })
+})
 
 const cv = ref(null);  
 const phone = ref(null);  

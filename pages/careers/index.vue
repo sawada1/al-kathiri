@@ -1,16 +1,16 @@
 <template>
     <div>
-        <div class="container career">
+        <div class="container career" style="margin-top: 150px;">
           <h3 :data-find="$t('JOIN OUR TEAM')">{{ $t('find your career') }}</h3>
           <div class="row gap-2 justify-content-center">
            <div class="col-12 col-xl-4 col-lg-4 col-md-4    d-flex flex-column gap-3">
              <div class="inpsearch d-flex align-items-center justify-content-between">
-              <input type="search" placeholder="Job title or key...">
+              <input type="search" v-model="searchJob" placeholder="Job title or key...">
               <i class="fa-solid fa-magnifying-glass"></i>
              </div>
               <p class="numjobs"><span>{{allJobs.length }}</span>{{ $t('open Opportunities') }}</p>
               <div class="jobs d-flex flex-column gap-3">
-                  <div v-for="job,index in allJobs" class="job d-flex align-items-center justify-content-between" @click="checkJob = index+1" :class="{'active':checkJob==index+1}">
+                  <div style="cursor: pointer;" v-for="job,index in allJobs" class="job d-flex align-items-center justify-content-between" @click="checkJob = index+1" :class="{'active':checkJob==index+1}">
                   <div  class="det">
                    <h6>{{ job.title }}</h6>
                    <span>{{ job.address }} | {{ job.created_at }}</span>
@@ -21,7 +21,7 @@
               </div>
            </div>
            <div  class="col-12 col-xl-7 col-lg-7 col-md-7 mt-5 ">
-              <div v-for="job,index in allJobs" class="jobdetail">
+              <div  v-for="job,index in allJobs" class="jobdetail">
               <div v-if="checkJob == job.id" >
                  <div class="title d-flex align-items-center justify-content-between">
                 <h4>{{ job.title }}</h4>
@@ -48,6 +48,7 @@
 </template>
 
 <script setup>
+
 import axios from 'axios';
 const {locale } = useI18n();
 const localePath = useLocalePath();
@@ -57,6 +58,7 @@ let checkJob = ref(1);
 let lang = ref(locale);
 let pending = ref(false);
 let allJobs = ref([]);
+let searchJob = ref(null);
 const jobFunc = async () => {
   pending.value = true;
 const  jobs  = await axios.get(`${url}/careers`,{
@@ -71,6 +73,12 @@ const  jobs  = await axios.get(`${url}/careers`,{
 console.log(allJobs.value);  
 }
 jobFunc();
+
+const filterJobs = computed(() => {
+  return allJobs.value.filter((ele) => {
+    return ele.title == searchJob.value;
+  })
+})
 
  const goToCareerPage = (title , id) => {
       const queryParams = {

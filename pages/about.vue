@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="about-us">
+        <div class="about-us" style="margin-top: 150px;">
           <div class="row ">
            <div class="col-12 col-xl-5 col-lg-5 col-md-5">
-            <img src="@/assets/images/aboutUs.png" alt="">
+            <img class="first" src="~/assets/images/aboutUs.png" alt="about us image">
            </div>
            <div class="col-12  col-xl-7 col-lg-7 col-md-7 px-5">
            <div class=" d-flex flex-column align-items-center gap-3">
@@ -36,40 +36,50 @@
         
         </div>
 
-         <div class="why-choose">
-        <div class="head">
-        <h3 class="fw-bolder" :data-why="$t('AL KATHIRI MOTORS')">{{ $t('why choose us') }}</h3>
-        </div>    
-        <div class="main mb-5 position-relative">
- <div class="boxes row d-flex align-items-center justify-content-center gap-5">
+    <div class="why-choose">
+      <div class="head">
+        <h3 class="fw-bolder my-5" :data-why="$t('AL KATHIRI MOTORS')">{{ $t('why choose us') }}</h3>
+      </div>
+      <div class="main mb-5 position-relative">
+        <div class="boxes row d-flex  justify-content-center gap-5">
             <div class="box col-xl-3 col-lg-3 col-md-5 col-sm-12 ">
-                <img src="@/assets/images/box1.svg" alt="">
+                <img src="~/assets/images/box1.svg" loading="lazy" alt="why-choose">
                 <div class="text">
                     <ClientOnly>
                     <p v-html="aboutData.why_alkathiri_cars_card_1"></p>
                     </ClientOnly>
-                
                 </div>
+              <div v-if="generalSpinner" class="text-center">
+          <div class="spinner-border" role="status">
+          </div>
+        </div>
             </div>
             <div class="box col-xl-3 col-lg-3 col-md-5 col-sm-12">
-                <img src="@/assets/images/box2.svg" alt="">
+                <img src="~/assets/images/box2.svg" loading="lazy" alt="why-choose">
                 <div class="text">
                   <ClientOnly>
                     <p v-html="aboutData.why_alkathiri_cars_card_2"></p>
                     </ClientOnly>
                 </div>
+                     <div v-if="generalSpinner" class="text-center">
+          <div class="spinner-border" role="status">
+          </div>
+        </div>  
             </div>
             <div class="box col-xl-3 col-lg-3 col-md-5 col-sm-12">
-                <img src="@/assets/images/box3.svg" alt="">
+                <img src="~/assets/images/box3.svg" loading="lazy" alt="why-choose">
                 <div class="text">
                     <ClientOnly>
                     <p v-html="aboutData.why_alkathiri_cars_card_3"></p>
                     </ClientOnly>
                 </div>
+                      <div v-if="generalSpinner" class="text-center">
+          <div class="spinner-border" role="status">
+          </div>
+        </div>
             </div>
         </div>
-        </div>
-       
+      </div>
     </div>
         <div v-if="pending"  class="mainLoader">
      <span class="loader"></span>
@@ -78,6 +88,7 @@
 </template>
 
 <script setup>
+
 import axios from 'axios';
 let url = getUrl();
 const {locale } = useI18n();

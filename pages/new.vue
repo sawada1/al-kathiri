@@ -1,6 +1,6 @@
 <template>
     <div>
-         <div class="container thelatestcar">
+         <div class="container thelatestcar" style="margin-top: 150px;">
            <div class="thebox">
             <img class="bigpic " :src="theproduct.cover_image" :alt="theproduct.title">
             <div class="title  w-100">

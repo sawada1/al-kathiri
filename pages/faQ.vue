@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div style="width: 90%; margin: 20px auto">
+    <div style="width: 90%; margin: 20px auto; margin-top: 150px;">
       <div class="row theFaq gap-4">
         <div class="col-12 col-xl-3 col-lg-3 col-md-4">
           <h3 :data-faq="$t('FIND YOUR ANSWER')">
             {{ $t('FREQUENTLY ASK QUESTION') }}
           </h3>
         </div>
-        <div class="col-12 col-xl-8 col-lg-8 col-md-7 d-flex flex-column gap-4">
+        <div class="col-12 col-xl-8 col-lg-8 col-md-7 d-flex flex-column gap-4" style="min-height: 65vh;">
           <div class="accordion d-flex flex-column gap-3" id="accordionExample">
             <div v-for="item,index in theFaqs" class="accordion-item">
               <h2 class="accordion-header">
@@ -45,6 +45,7 @@
 </template>
 
 <script setup>
+
 import axios from 'axios';
     const {locale } = useI18n();
 let lang = ref(locale);

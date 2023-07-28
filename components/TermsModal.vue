@@ -15,7 +15,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ $t('close') }}</button>
-        <button type="button" class="btn btn-primary">{{ $t('Send message') }}</button>
       </div>
     </div>
   </div>

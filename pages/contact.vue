@@ -1,24 +1,25 @@
 <template>
     <div>
-        <div class="container contactus">
+        <div class="container contactus" style="margin-top: 150px;">
          <div class="row justify-content-center gap-4">
           <div class="col-12 col-xl-6 col-lg-6">
            <h3 class="theHead" :data-contact="$t('KEEP IN TOUCH')">{{ $t('CONTACT US NOW') }}</h3>
      <div class="accordion d-flex  flex-column gap-3" id="accordionExample">
   <div v-for="item,index in cites" class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button " type="button" data-bs-toggle="collapse" :data-bs-target="`#collapse${index}`" aria-expanded="false" aria-controls="collapseTwo">
+      <button class="accordion-button " :class="{'collapsed':index==0}" type="button" data-bs-toggle="collapse" :data-bs-target="`#collapse${index}`" aria-expanded="false" aria-controls="collapseTwo">
     <img src="@/assets/images/map.svg" alt="">
         <span>{{item.name }}</span>
      </button>
     </h2>
-    <div :id="`collapse${index}`" class="accordion-collapse collapse " :class="{'show':index == 1}" data-bs-parent="#accordionExample">
+    <div :id="`collapse${index}`" class="accordion-collapse collapse " :class="{'show':index}" data-bs-parent="#accordionExample">
       <div class="accordion-body">
            <div class="branches">
-            <span v-for="branch,index in item.branches" @click="checkBranch = index+1" :class="{'active':checkBranch==index+1}">{{`${$t('branch')} ${index+1}`}}</span>
+            <span style="cursor: pointer;" v-for="branch,index in item.branches" @click="checkBranch = index+1" :class="{'active':checkBranch==index+1}">{{`${$t('branch')} ${index+1}`}}</span>
            </div> 
-            <div v-for="branch,index in item.branches"  class="thebranch  row align-items-center justify-content-between gap-3">
-             <div class="col-12 col-xl-5 col-lg-5 col-md-5">
+            <div  v-for="branch,index in item.branches"  class="">
+            <div v-if="checkBranch == index+1" class="thebranch  row align-items-center justify-content-between gap-3">
+                   <div class="col-12 col-xl-5 col-lg-5 col-md-5">
               <h4>{{ branch.name }}</h4>
               <div class="image">
                <ClientOnly>
@@ -56,7 +57,9 @@
                  <p>{{ branch.start_time }} - {{ branch.end_time }}</p>  
                  </div>
                
-             </div>
+             </div>  
+            </div>
+          
             </div>  
          </div>
     </div>
@@ -64,31 +67,35 @@
 
 </div>
           </div>
-          <div class="col-12 col-xl-5 col-lg-5">
+          <div class="col-12 col-xl-5 col-lg-5 mt-4">
            <form action="" @click.prevent>
              <div class="inp">
               <label for="">{{ $t('full name') }}</label>
-              <input v-model="objContact.name" type="text" placeholder="write your name..">
-               <span class="errorMessage text-danger fw-bold fs-5 my-2"  v-if="nameError">{{ nameError }}</span>
+              <input v-model="objContact.name" type="text" :placeholder="$t('write your name..')">
+               <span class="errorMessage text-danger fw-bold "  v-if="nameError">{{ nameError }}</span>
              </div>
              <div class="inp">
               <label for="">{{ $t('email') }}</label>
               <input v-model="objContact.email" type="email" placeholder="example@mail.com..">
-              <span class="errorMessage text-danger fw-bold fs-5 my-2" v-if="emailError">{{ emailError }}</span>
+              <span class="errorMessage text-danger fw-bold " v-if="emailError">{{ emailError }}</span>
              </div>
              <div class="inp">
               <label for="">{{$t('message title')}}</label>
-              <input v-model="objContact.title" type="text" placeholder="write your message title...">
-               <span class="errorMessage text-danger fw-bold fs-5 my-2" v-if="titleError">{{ titleError }}</span>
+              <input v-model="objContact.title" type="text" :placeholder="$t('write your message title...')">
+               <span class="errorMessage text-danger fw-bold " v-if="titleError">{{ titleError }}</span>
              </div>
              <div class="inp">
               <label for="">{{$t('your message')}}</label>
-              <textarea v-model="objContact.message" style="resize: none;" name="" id="" cols="30" rows="10" placeholder="write your message"></textarea>
-               <span class="errorMessage text-danger fw-bold fs-5 my-2" v-if="messageError">{{ messageError }}</span>
+              <textarea v-model="objContact.message" style="resize: none;" name="" id="" cols="30" rows="10" :placeholder="$t('write your message here')"></textarea>
+               <span class="errorMessage text-danger fw-bold " v-if="messageError">{{ messageError }}</span>
              </div>
              <div class="thebtn text-center">
               <button @click="sendContact" style="padding: 10px 60px;">
-               <span v-if="!checkForm">{{ $t('send') }}</span>
+               <div v-if="!checkForm" class="d-flex align-items-center gap-3">
+               {{ $t('send') }}
+                  <div v-if="spinner"  class="spinner-border text-light" role="status">
+               </div>
+               </div>
                <span v-else>success</span>
                </button>
              </div>
@@ -103,8 +110,9 @@
 </template>
 
 <script setup>
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import 'sweetalert2/src/sweetalert2.scss';
+
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css';
 import axios from 'axios';
 
 const {locale } = useI18n();
@@ -112,6 +120,7 @@ let lang = ref(locale);
 let url = getUrl();
 let cites = ref([]); 
 let pending = ref(true);
+let spinner = ref(false);
 const contactFunc = async () => {
 let  allCites  = await axios.get(`${url}/branches`,{
       headers: {
@@ -137,7 +146,20 @@ let nameError = ref(null);
 let titleError = ref(null);
 let checkForm = ref(null);
 
+
+
+     let completed = ref('Connected successfully');
+    let success = ref('success');
+    if (lang.value == 'ar') {
+      completed.value = 'تم الاتصال بنجاح';
+      success.value = 'نجاح';
+    } else if (lang.value == 'en') {
+      completed.value = 'Connected successfully'
+      success.value = 'success';
+    }
+
 const sendContact = async () => {
+  spinner.value = true;
   const result = await fetch(`${url}/contact-us`, {
     method: 'POST',
     headers: {
@@ -149,6 +171,7 @@ const sendContact = async () => {
   }).then((response) => response.json())
     .then((json) => {
       console.log(json);
+         spinner.value = false;
       if (json.message) {
       emailError.value = json.errors.email == undefined ? null : json.errors.email[0]; 
       nameError.value = json.errors.name  == undefined ? null : json.errors.name[0]; 
@@ -160,11 +183,19 @@ const sendContact = async () => {
       nameError.value = null; 
         titleError.value = null; 
         messageError.value = null;
-        Swal.fire(
-          'success',
-          'Your form has been saved',
-          'success'
-          )
+
+            createToast({
+            title:  completed.value,
+            description: success.value,
+            },
+            {
+            timeout: 5000,
+            toastBackgroundColor: 'green',
+            showIcon: 'true',
+            type: 'success',
+            transition: 'bounce',
+            })     
+       
       
       }
     

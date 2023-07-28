@@ -2,7 +2,7 @@
     <div>
   
 
-        <div class="news">
+        <div class="news" style="margin-top: 150px;">
   <div class="newSection mt-5">
         <h3 class="fw-bolder" :data-news="$t('BE AWARE OF OUR')">{{ $t('latest news') }}</h3>
       </div>
@@ -60,7 +60,7 @@
                   <span>{{ box.created_at }}</span>
                 </div>
               </div>
-              <div class="read">
+              <div class="read d-flex align-items-center gap-1">
                  <span class="fw-bold">{{ $t('now more') }}</span>              
                 <i class="fa-solid fa-chevron-right"></i>
               </div>
@@ -99,7 +99,7 @@
                   </div>
                  </div>
                 
-                  <span class="read fw-bold">
+                  <span class="read fw-bold d-flex align-items-center gap-1">
                   {{ $t('read more') }}
                     <i class="fa-solid fa-chevron-right"></i>
                   </span>
@@ -124,6 +124,7 @@
 </template>
 
 <script setup>
+
 let url = getUrl();
 const localePath = useLocalePath();
 import axios from 'axios';

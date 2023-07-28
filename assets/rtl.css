@@ -1,0 +1,211 @@
+html[dir=rtl] body .settings .setting-box {
+  white-space: normal;
+  width: 145px;
+  height: 112px;
+  text-align: center;
+  border-radius:10px;
+  background-color: #F2F2F2;
+}
+html[dir=rtl] body .settings .setting-box span {
+  color: #6F6F6E;
+  margin-top: 5px;
+  font-size: 13px;
+}
+html[dir=rtl] body .settings .setting-box p {
+  font-size: 13px;
+}
+html[dir=rtl] body .Alldescription .tabs-container {
+  position: relative;
+  margin:20px 0px;
+}
+html[dir=rtl] body .Alldescription .tabs-container h3 {
+  color: #1B395F;
+  position: relative;
+  padding:20px 0px;
+  border-top: 1px solid rgba(0, 0, 0, 0.447);
+}
+html[dir=rtl] body .Alldescription .tabs-container .theTabs {
+  height: 100%;
+  margin:30px auto;
+  display: flex;
+}
+html[dir=rtl] body .Alldescription .tabs-container .tabs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-transform: uppercase;
+  gap: 35px;
+  text-align: center;
+}
+html[dir=rtl] body .Alldescription .tabs-container .tabs .tab {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+html[dir=rtl] body .Alldescription .tabs-container .tabs .tab span {
+  font-size: 13px;
+  color: #6F6F6E;
+}
+html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
+  background: white;
+  box-shadow: -20px 5px 50px -25px rgba(0, 0, 0, 0.2);
+  border-start-start-radius: 20px;
+  border-end-start-radius: 20px;
+  flex-direction: row;
+  padding:25px 10px;
+  z-index: 1;
+  gap: 30px;
+  color: #222;
+}
+html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active img {
+  filter: invert(14%) sepia(40%) saturate(600%) hue-rotate(180deg) brightness(60%) contrast(109%);
+  background-color: rgba(204, 204, 204, 0.1960784314);
+  padding:20px;
+  border-radius:40%;
+}
+html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
+  color: #1B395F;
+  font-weight: bold;
+  font-size: 14px;
+}
+html[dir=rtl] body .Alldescription .tabs-container .content-container {
+  background: #f6fdff;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 44px rgba(0, 0, 0, 0.1019607843);
+  width: 100%;
+  border-end-end-radius: 20px;
+  border-start-end-radius: 20px;
+}
+html[dir=rtl] body .Alldescription .tabs-container .content-container .content {
+  display: none;
+  margin-top: 130px;
+  padding:20px;
+  width: 100%;
+}
+html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  padding:30px 50px;
+}
+html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active .item {
+  display: flex;
+  align-items: center;
+  padding:5px 0px;
+  color: #6F6F6E;
+  justify-content: space-between;
+}
+html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active .item:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.321);
+}
+html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active .item.features {
+  margin:8px 0px;
+}
+html[dir=rtl] body .Alldescription .header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+html[dir=rtl] body .Alldescription .header::before {
+  content: "";
+  position: absolute;
+  background-color: #333;
+  width: 100%;
+  height: 1px;
+  top: 100%;
+}
+html[dir=rtl] body .Alldescription .header a {
+  color: #767676;
+  cursor: pointer;
+}
+html[dir=rtl] body .Alldescription .header a.active {
+  background-color: rgba(61, 85, 116, 0.2431372549);
+  padding:10px;
+  border-top-right-radius: 7px; border-top-left-radius: 7px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;
+  color: #1B395F;
+}
+html[dir=rtl] body .Alldescription .content-header {
+  width: 60%;
+  margin-top: 35px;
+  display: none;
+}
+html[dir=rtl] body .Alldescription .content-header h4 {
+  color: #1B395F;
+  font-size: 23px;
+}
+html[dir=rtl] body .Alldescription .content-header p {
+  color: #6F6F6E;
+}
+html[dir=rtl] body .Alldescription .content-header.active {
+  display: block;
+}
+
+html[dir=rtl] body .similarr {
+  margin-bottom: 30px;
+}
+html[dir=rtl] body .similarr .thehead {
+  color: #1B395F;
+}
+html[dir=rtl] body .similarr .mainlatestbox {
+  width: 270px;
+}
+
+
+
+@media (max-width: 850px) {
+  html[dir=rtl] body .Alldescription {
+    margin:0px;
+  }
+  html[dir=rtl] body .Alldescription .header {
+    width: 100%;
+  }
+  html[dir=rtl] body .Alldescription .header span {
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  html[dir=rtl] body .Alldescription .content-header {
+    width: 100%;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container {
+    margin:0;
+    width: 100%;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active {
+    width: 100%;
+    padding:20px 15px;
+    margin-left: 15px;
+    gap: 5px;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container .tabs .tab.active span {
+    font-size: 11px;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active {
+    width: 100%;
+    padding:12px;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active .item {
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active p, html[dir=rtl] body .Alldescription .tabs-container .content-container .content.active span {
+    font-size: 12px;
+  }
+}
+@media (max-width: 768px) {
+  html[dir=rtl] body .thecarSwiper {
+    padding:5px;
+    overflow: hidden;
+  }
+  html[dir=rtl] body .thecarSwiper .swiper-button-next,
+  html[dir=rtl] body .thecarSwiper .swiper-button-prev {
+    display: none;
+  }
+  .Alldescription .header a {
+    font-size: 13px;
+  }
+}
