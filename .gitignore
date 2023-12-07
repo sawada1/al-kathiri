@@ -2,8 +2,11 @@ node_modules
 
 *.log*
 
-
+ .nuxt
+ 
 .vscode
+
+dist
 
 .nitro
 

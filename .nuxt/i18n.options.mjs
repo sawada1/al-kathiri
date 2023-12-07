@@ -1,53 +1,204 @@
-export const localeCodes = ["en","ar"]
+// @ts-nocheck
 
-export const localeMessages = {
-  "en": [{ key: "../locales/en.json", load: () => import("../locales/en.json" /* webpackChunkName: "lang_en_json_en_json" */) }],
-  "ar": [{ key: "../locales/ar.json", load: () => import("../locales/ar.json" /* webpackChunkName: "lang_ar_json_ar_json" */) }],
+
+export const localeCodes = [
+  "en",
+  "ar"
+]
+
+export const localeMessages = { 
+  "en": [
+      { key: "../locales/en.json", load: () => import("../locales/en.json" /* webpackChunkName: "locale_F_58_F_58_github_AlKathiri_Frontend_locales_en_json" */), cache: true },
+  ],
+  "ar": [
+      { key: "../locales/ar.json", load: () => import("../locales/ar.json" /* webpackChunkName: "locale_F_58_F_58_github_AlKathiri_Frontend_locales_ar_json" */), cache: true },
+  ],
 }
 
-export const additionalMessages = Object({"en":[],"ar":[],})
-
 export const resolveNuxtI18nOptions = async (context) => {
-  const nuxtI18nOptions = Object({})
-  nuxtI18nOptions.experimental = Object({"jsTsFormatResource":false})
-  nuxtI18nOptions.precompile = Object({"strictMessage":true,"escapeHtml":false})
- const vueI18nConfigLoader = async (loader) => {
-            const config = await loader().then(r => r.default || r)
-            return typeof config === 'object'
-              ? config
-              : typeof config === 'function'
-                ? await config()
-                : {}
+  const nuxtI18nOptions = {
+  "experimental": {
+    "jsTsFormatResource": false
+  },
+  "bundle": {
+    "compositionOnly": true,
+    "runtimeOnly": false,
+    "fullInstall": true,
+    "dropMessageCompiler": false
+  },
+  "compilation": {
+    "jit": true,
+    "strictMessage": true,
+    "escapeHtml": false
+  },
+  "customBlocks": {
+    "defaultSFCLang": "json",
+    "globalSFCScope": false
+  },
+  "vueI18n": "",
+  "locales": [
+    {
+      "code": "en",
+      "iso": "en",
+      "dir": "ltr",
+      "name": "english",
+      "files": [
+        "locales/en.json"
+      ]
+    },
+    {
+      "code": "ar",
+      "iso": "ar",
+      "dir": "rtl",
+      "name": "عربي",
+      "files": [
+        "locales/ar.json"
+      ]
+    }
+  ],
+  "defaultLocale": "ar",
+  "defaultDirection": "ltr",
+  "routesNameSeparator": "___",
+  "trailingSlash": false,
+  "defaultLocaleRouteNameSuffix": "default",
+  "strategy": "prefix_and_default",
+  "lazy": true,
+  "langDir": "locales",
+  "rootRedirect": null,
+  "detectBrowserLanguage": false,
+  "differentDomains": false,
+  "baseUrl": "",
+  "dynamicRouteParams": false,
+  "customRoutes": "page",
+  "pages": {},
+  "skipSettingLocaleOnNavigate": false,
+  "types": "composition",
+  "debug": false,
+  "parallelPlugin": false,
+  "i18nModules": []
+}
+  
+  const vueI18nConfigLoader = async loader => {
+    const config = await loader().then(r => r.default || r)
+    if (typeof config === 'object') return config
+    if (typeof config === 'function') return await config()
+    return {}
+  }
+
+  const deepCopy = (src, des, predicate) => {
+    for (const key in src) {
+      if (typeof src[key] === 'object') {
+        if (!(typeof des[key] === 'object')) des[key] = {}
+        deepCopy(src[key], des[key], predicate)
+      } else {
+        if (predicate) {
+          if (predicate(src[key], des[key])) {
+            des[key] = src[key]
           }
-  nuxtI18nOptions.vueI18n = Object({})
-  nuxtI18nOptions.locales = [Object({"code":"en","iso":"en","dir":"ltr","name":"english","file":"en.json","hash":"b9fcf575","type":"static"}),Object({"code":"ar","iso":"ar","dir":"rtl","name":"عربي","file":"ar.json","hash":"4a1ec83a","type":"static"})]
-  nuxtI18nOptions.defaultLocale = "ar"
-  nuxtI18nOptions.defaultDirection = "ltr"
-  nuxtI18nOptions.routesNameSeparator = "___"
-  nuxtI18nOptions.trailingSlash = false
-  nuxtI18nOptions.defaultLocaleRouteNameSuffix = "default"
-  nuxtI18nOptions.strategy = "prefix_and_default"
-  nuxtI18nOptions.lazy = true
-  nuxtI18nOptions.langDir = "locales"
-  nuxtI18nOptions.rootRedirect = null
-  nuxtI18nOptions.detectBrowserLanguage = Object({"alwaysRedirect":false,"cookieCrossOrigin":false,"cookieDomain":null,"cookieKey":"i18n_redirected","cookieSecure":false,"fallbackLocale":"","redirectOn":"root","useCookie":true})
-  nuxtI18nOptions.differentDomains = false
-  nuxtI18nOptions.baseUrl = ""
-  nuxtI18nOptions.dynamicRouteParams = false
-  nuxtI18nOptions.customRoutes = "page"
-  nuxtI18nOptions.pages = Object({})
-  nuxtI18nOptions.skipSettingLocaleOnNavigate = false
-  nuxtI18nOptions.types = "composition"
-  nuxtI18nOptions.debug = false
+        } else {
+          des[key] = src[key]
+        }
+      }
+    }
+  }
+  
+  const mergeVueI18nConfigs = async (loader) => {
+    const layerConfig = await vueI18nConfigLoader(loader)
+    const cfg = layerConfig || {}
+    
+    for (const [k, v] of Object.entries(cfg)) {
+      if(nuxtI18nOptions.vueI18n?.[k] === undefined || typeof nuxtI18nOptions.vueI18n?.[k] !== 'object') {
+        nuxtI18nOptions.vueI18n[k] = v
+      } else {
+        deepCopy(v, nuxtI18nOptions.vueI18n[k])
+      }
+    }
+  }
+
+  nuxtI18nOptions.vueI18n = { messages: {} }
+  
+    
   return nuxtI18nOptions
 }
 
-export const nuxtI18nOptionsDefault = Object({experimental: Object({"jsTsFormatResource":false}),precompile: Object({"strictMessage":true,"escapeHtml":false}),vueI18n: "",locales: [],defaultLocale: "",defaultDirection: "ltr",routesNameSeparator: "___",trailingSlash: false,defaultLocaleRouteNameSuffix: "default",strategy: "prefix_except_default",lazy: false,langDir: null,rootRedirect: null,detectBrowserLanguage: Object({"alwaysRedirect":false,"cookieCrossOrigin":false,"cookieDomain":null,"cookieKey":"i18n_redirected","cookieSecure":false,"fallbackLocale":"","redirectOn":"root","useCookie":true}),differentDomains: false,baseUrl: "",dynamicRouteParams: false,customRoutes: "page",pages: Object({}),skipSettingLocaleOnNavigate: false,types: "composition",debug: false})
+export const nuxtI18nOptionsDefault = {
+  "experimental": {
+    "jsTsFormatResource": false
+  },
+  "bundle": {
+    "compositionOnly": true,
+    "runtimeOnly": false,
+    "fullInstall": true,
+    "dropMessageCompiler": false
+  },
+  "compilation": {
+    "jit": true,
+    "strictMessage": true,
+    "escapeHtml": false
+  },
+  "customBlocks": {
+    "defaultSFCLang": "json",
+    "globalSFCScope": false
+  },
+  "vueI18n": "",
+  "locales": [],
+  "defaultLocale": "",
+  "defaultDirection": "ltr",
+  "routesNameSeparator": "___",
+  "trailingSlash": false,
+  "defaultLocaleRouteNameSuffix": "default",
+  "strategy": "prefix_except_default",
+  "lazy": false,
+  "langDir": null,
+  "rootRedirect": null,
+  "detectBrowserLanguage": {
+    "alwaysRedirect": false,
+    "cookieCrossOrigin": false,
+    "cookieDomain": null,
+    "cookieKey": "i18n_redirected",
+    "cookieSecure": false,
+    "fallbackLocale": "",
+    "redirectOn": "root",
+    "useCookie": true
+  },
+  "differentDomains": false,
+  "baseUrl": "",
+  "dynamicRouteParams": false,
+  "customRoutes": "page",
+  "pages": {},
+  "skipSettingLocaleOnNavigate": false,
+  "types": "composition",
+  "debug": false,
+  "parallelPlugin": false
+}
 
-export const nuxtI18nInternalOptions = Object({__normalizedLocales: [Object({"code":"en","iso":"en","dir":"ltr","name":"english","file":"en.json","hash":"b9fcf575","type":"static"}),Object({"code":"ar","iso":"ar","dir":"rtl","name":"عربي","file":"ar.json","hash":"4a1ec83a","type":"static"})]})
+export const nuxtI18nInternalOptions = {
+  "__normalizedLocales": [
+    {
+      "code": "en",
+      "iso": "en",
+      "dir": "ltr",
+      "name": "english",
+      "files": [
+        {
+          "path": "locales/en.json"
+        }
+      ]
+    },
+    {
+      "code": "ar",
+      "iso": "ar",
+      "dir": "rtl",
+      "name": "عربي",
+      "files": [
+        {
+          "path": "locales/ar.json"
+        }
+      ]
+    }
+  ]
+}
+ 
 export const NUXT_I18N_MODULE_ID = "@nuxtjs/i18n"
-export const NUXT_I18N_PRECOMPILE_ENDPOINT = "/__i18n__/precompile"
-export const NUXT_I18N_PRECOMPILED_LOCALE_KEY = "i18n-locales"
-export const NUXT_I18N_PRERENDERED_PATH = "/__i18n__/prerender"
-export const NULL_HASH = "00000000"
-export const isSSG = true
+export const parallelPlugin = false
+export const isSSG = false

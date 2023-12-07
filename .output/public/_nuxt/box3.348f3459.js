@@ -1,0 +1,1 @@
+import"./entry.94a7074b.js";const r=""+new URL("box1.1948a344.svg",import.meta.url).href,t=""+new URL("box2.e26237cc.svg",import.meta.url).href,e=""+new URL("box3.33e5d994.svg",import.meta.url).href;export{r as _,t as a,e as b};

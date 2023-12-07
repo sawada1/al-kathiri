@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div style="margin-top: 150px;" class="container bookPart d-flex flex-column gap-3 align-items-center justify-content-center">
+        <div style="margin-top: 150px; min-height:75vh;" class="container bookPart d-flex flex-column gap-3 align-items-center justify-content-center">
          <img src="~/assets/images/point.svg" alt="">
          <h3>{{ $t('YOUR APPLICATION SUBMITTED SUCCESSFULLY') }}</h3>
          <p>{{ $t('We will contact you as soon as possible') }}</p>
@@ -8,7 +8,7 @@
           <nuxt-link :to="localePath('/')">
            <button>{{ $t('back to home') }}</button>
           </nuxt-link>
-           <nuxt-link :to="localePath('/career')">
+           <nuxt-link :to="localePath('/careers')">
             <button class="back">{{ $t('Explore more opportunities') }}</button>
            </nuxt-link>
           </div>

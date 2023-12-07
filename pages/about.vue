@@ -2,12 +2,9 @@
     <div>
         <div class="about-us" style="margin-top: 150px;">
           <div class="row ">
-           <div class="col-12 col-xl-5 col-lg-5 col-md-5">
-            <img class="first" src="~/assets/images/aboutUs.png" alt="about us image">
-           </div>
            <div class="col-12  col-xl-7 col-lg-7 col-md-7 px-5">
-           <div class=" d-flex flex-column align-items-center gap-3">
-            <h3 class="" :data-about-us="$t('NOW MORE ABOUT US')">{{ $t('WELCOME TO AL KATIRI MOTORS') }}</h3>
+           <div class=" d-flex flex-column align-items-cente gap-3">
+            <h3 class="" style="white-space:normal;" :data-about-us="$t('NOW MORE ABOUT US')">{{ $t('WELCOME TO AL KATIRI MOTORS') }}</h3>
             <ClientOnly>
                   <p class="" v-html="aboutData.about_us">
               </p>
@@ -15,6 +12,9 @@
           
            </div>
              
+           </div>
+           <div class="col-12 col-xl-5 col-lg-5 col-md-5">
+            <img class="first" src="~/assets/images/about-img.png" alt="about us image">
            </div>
           </div>
         </div>
@@ -81,9 +81,9 @@
         </div>
       </div>
     </div>
-        <div v-if="pending"  class="mainLoader">
-     <span class="loader"></span>
-    </div>
+     <div v-if="pending" class="mainLoader">
+          <video  autoplay loop muted playsinline src="~/assets/images/main-loader.webm" alt="" />
+        </div>
     </div>
 </template>
 

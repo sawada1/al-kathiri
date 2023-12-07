@@ -1,49 +1,34 @@
 <template>
-    <div>
-  <div v-if="!pending" class="theOffer" style="margin-top: 150px;">
+    <div style="min-height: 100vh;">
+  <div v-if="!pending" class="theOffer" style="margin-top: 150px; min-height: 100vh;" >
     <div class="container ">
     <div class="containe px-3">
-     <img :src="theOffer.image"  class="w-100" :alt="theOffer.title">
-        <h3 class="my-3 fw-bolder thehead">{{ theOffer.title }}</h3>
-        <ClientOnly>
+     <img :src="theOffer.image"  class="img-fluid w-100" :alt="theOffer.title">
+        <h3 class="mt-4 mb-2 fw-bolder thehead">{{ theOffer.title }}</h3>
+        <ClientOnly class="mb-3">
            <p v-html="theOffer.description"></p>
         </ClientOnly>
      
     </div>
-            <div class="includedOffers  ">
+            <div v-if="offersCar.length > 0" class="includedOffers">
                 <h3 class="fw-bolder pt-3 thehead">{{ $t('Vehicles Included In The Offer') }}</h3>
-               <div class="row  justify-content-center gap-1   ">
-             <div v-for="offer in offersCar" @click="goToCarPage(offer.id , offer.name)" style="cursor: pointer;"  class="mainlatestbox col-xl-2 col-lg-2 col-md-4">
-               <div class="image">
-                    <img :src="offer.main_image" :alt="offer.name">
-                </div>
-                <h3>{{ offer.name }}</h3>
-                <div class="text1">
-                    <div class="price">
-                        <span>{{ $t('price') }}</span>
-                        <h4>{{ offer.selling_price }} SAR</h4>
-                    </div>
-                    <div class="after">
-                        <span>{{ $t('after vat') }}</span>
-                        <h4>{{ offer.selling_price_after_vat }} SAR</h4>
-                    </div>
-                </div>
-                 <span class="detail">
-                     {{ $t('details') }}
-                    <i class="fa-solid fa-chevron-right"></i> 
-                 </span>
-                 <div @click="goToCarPage(offer.id , offer.name)" class="overlay"></div>
-               
-          <i @click="addToFav(offer)" class="fa-regular fa-heart fav"  :class="{'fa-solid':offer.is_in_favorite}"  ></i>
+               <div class="row  justify-content-center justify-content-xl-start justify-content-lg-start gap-1   ">
+             <div v-for="car in offersCar"  style="cursor: pointer;"  class="col-xl-2 col-lg-2 col-md-4">
+              <div class="new-car-card"  @click="goToCarPage(car.id, car.model_id, car.name)">
+            <div class="image w-100" :style="{backgroundImage: 'url(' +( car.main_image  ?  car.main_image :'https://placehold.co/600'   ) + ')' }">
+            </div>
+            <span>{{ car.name }}</span>
+          </div>
+
              </div>
             
                </div>  
            </div>
     </div>
 </div>
-  <div v-if="pending"  class="mainLoader">
-     <span class="loader"></span>
-    </div>
+  <div v-if="pending" class="mainLoader">
+          <video  autoplay loop muted playsinline src="~/assets/images/main-loader.webm" alt="" />
+        </div>
     </div>
 </template>
 
@@ -63,15 +48,12 @@ let theOffer = ref([]);
 let offersCar = ref([]);
 
    let addedList = ref('added to wishlist');
-    let success = ref('success');
     let removedList = ref('removed from wishlist')
     if (lang.value == 'ar') {
       addedList.value = 'تم الاضافة الي قائمة المفضلات'
-      success.value = 'نجاح';
       removedList.value = 'تم الحذف من قائمة المفضلات'
     } else if (lang.value == 'en') {
        addedList.value = 'added to wishlist'
-      success.value = 'success';
       removedList.value = 'removed from wishlist';
     }
 
@@ -92,12 +74,11 @@ let offersCar = ref([]);
         if (box.is_in_favorite == true) {
                        createToast({
             title: addedList.value,
-            description: success.value,
             },
             {
-            timeout: 5000,
-            toastBackgroundColor: 'green',
-            showIcon: 'true',
+            timeout: 3000,
+            toastBackgroundColor: '#1B395F',
+            showIcon: true,
             type: 'success',
             transition: 'bounce',
             })
@@ -109,13 +90,12 @@ let offersCar = ref([]);
 
             createToast({
             title: removedList.value,
-            description: success.value,
             },
             {
-              timeout: 5000,
-            toastBackgroundColor: 'green',
-            showIcon: 'true',
-            type: 'success',
+              timeout: 3000,
+            toastBackgroundColor: '#1B395F',
+            showIcon: true,
+            type: 'danger',
             transition: 'bounce',
             })   
                   //fav.value = [];
@@ -153,22 +133,9 @@ const offerFanc = async () => {
 
      if (process.client) {
    let favGet = JSON.parse(sessionStorage.getItem('thefav'))? JSON.parse(sessionStorage.getItem('thefav')) : [];
-      console.log(favGet);
-          if (favGet.length <= 1) {
-        //  latest.data.data = favGet;
-            box.data.offer_cars.map((ele) => {
-             return ele.id == favGet.map((e) => {
-               return e.id;
-             }) ? ele.is_in_favorite = true : false;
-           }); 
-        
-       } else {
-           for (let i = 0; i < box.data.offer_cars.length; i++){
-            if (box.offer_cars.data[i].id == favGet[i].id) {
-              box.data.offer_cars[i].is_in_favorite = favGet[i].is_in_favorite;
-           }
-         }
-       }
+     for (let i = 0; i < box.data.offer_cars.length; i++) {
+      box.data.offer_cars[i].is_in_favorite = favGet.find((element) => element.id == box.data.offer_cars[i].id) != undefined;
+    }
       }
   offersCar.value = box.data.offer_cars
 
@@ -178,9 +145,10 @@ const offerFanc = async () => {
 }
 offerFanc();
 
-  const goToCarPage = (id , name) => {
+  const goToCarPage = (id , model_id, name) => {
       const queryParams = {
         id: id,
+        model_id:model_id,
         name: name,
       }
          const url = lang.value + '/car'
