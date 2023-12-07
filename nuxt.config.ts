@@ -1,9 +1,5 @@
 export default defineNuxtConfig({
   modules: ["nuxt-swiper", "@nuxtjs/i18n"],
-  server: {
-    host: "0.0.0.0",
-    port: 3000,
-  },
 
   i18n: {
     lazy: true,

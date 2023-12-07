@@ -7,12 +7,12 @@
     "module": true,
     "resourceType": "script"
   },
-  "F:/github/AlKathiri-Frontend/node_modules/nuxt/dist/app/entry.js": {
+  "F:/al-kathiri-nuxt/node_modules/nuxt/dist/app/entry.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
     "isEntry": true,
-    "file": "F:/github/AlKathiri-Frontend/node_modules/nuxt/dist/app/entry.js"
+    "file": "F:/al-kathiri-nuxt/node_modules/nuxt/dist/app/entry.js"
   }
 }

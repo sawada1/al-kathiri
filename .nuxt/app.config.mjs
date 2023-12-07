@@ -1,6 +1,6 @@
 
 import { updateAppConfig } from '#app'
-import { defuFn } from 'F:/github/AlKathiri-Frontend/node_modules/defu/dist/defu.mjs'
+import { defuFn } from 'F:/al-kathiri-nuxt/node_modules/defu/dist/defu.mjs'
 
 const inlineConfig = {
   "nuxt": {

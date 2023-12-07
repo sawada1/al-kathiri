@@ -8,10 +8,10 @@ export const localeCodes = [
 
 export const localeMessages = { 
   "en": [
-      { key: "../locales/en.json", load: () => import("../locales/en.json" /* webpackChunkName: "locale_F_58_F_58_github_AlKathiri_Frontend_locales_en_json" */), cache: true },
+      { key: "../locales/en.json", load: () => import("../locales/en.json" /* webpackChunkName: "locale_F_58_F_58_al_kathiri_nuxt_locales_en_json" */), cache: true },
   ],
   "ar": [
-      { key: "../locales/ar.json", load: () => import("../locales/ar.json" /* webpackChunkName: "locale_F_58_F_58_github_AlKathiri_Frontend_locales_ar_json" */), cache: true },
+      { key: "../locales/ar.json", load: () => import("../locales/ar.json" /* webpackChunkName: "locale_F_58_F_58_al_kathiri_nuxt_locales_ar_json" */), cache: true },
   ],
 }
 
