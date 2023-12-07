@@ -336,7 +336,8 @@
 </template>
 
 <script>
-
+// import { Autoplay, Pagination, Navigation } from 'swiper';
+import { ref } from 'vue';
 import axios from 'axios';
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
@@ -555,6 +556,7 @@ export default {
       }
     }
     return {
+      // modules: [Autoplay, Pagination, Navigation],
       mainCar,
       getSwiperDirection,
       localePath,
